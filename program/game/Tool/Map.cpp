@@ -191,6 +191,7 @@ void Map::createWall(int w, int h)
 
 std::shared_ptr<Cell> Map::GetStartCell()
 {
+
 	//StartCells内のチェック
 	if (StartCells.size() == 0) return nullptr;
 
