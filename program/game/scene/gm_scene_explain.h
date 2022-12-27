@@ -25,6 +25,6 @@ public:
 	int chang_col_red_ = 0;
 	//ƒtƒ‰ƒO
 	bool frag_draw_enter_ = true;
-	bool frag_change_title_ = true;
+	bool frag_move_title_ = true;
 	bool frag_cnt_timer_ = true;
 };

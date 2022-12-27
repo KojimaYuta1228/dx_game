@@ -28,14 +28,14 @@ public:
 	int col_arrow_ = -1.0;
 	//ƒJƒEƒ“ƒg
 	int cnt_pos_ = 0;
-	int cnt_timer_ = 8;
+	int cnt_timer_move_scene_ = 8;
 	//arrow‚Ìpos
 	int pos_arrow_ = DXE_WINDOW_HEIGHT / 2 +20;
 	//frag
 	bool frag_draw_enter_ = true;
 	bool frag_draw_space_ = true;
-	bool frag_timer_ = true;
-	bool frag_change_title_ = true;
+	bool frag_cnt_timer_ = true;
+	bool frag_move_title_ = true;
 	bool frag_change_explain_ = true;
 };
 

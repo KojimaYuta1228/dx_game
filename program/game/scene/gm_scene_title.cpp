@@ -31,7 +31,7 @@ void SceneTitle::update(float delta_time)
 
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)&& pos_arrow_ == screenMidleY + 20) {
 		frag_cnt_timer_ = false;
-		frag_change_title_ = false;
+		frag_move_title_ = false;
 	}
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)&& pos_arrow_ == screenMidleY +70) {
 		frag_cnt_timer_ = false;
@@ -56,20 +56,20 @@ void SceneTitle::update(float delta_time)
 	
 
 	if (frag_cnt_timer_ == false) {
-		cnt_timer_player_ -= delta_time;
-		if (cnt_timer_player_ % 7 == 1 || cnt_timer_player_ % 5 == 1 || cnt_timer_player_ % 3 == 1 || cnt_timer_player_ % 1 == 1) {
-			if(frag_change_title_ == false)frag_draw_enter_ = false;
+		cnt_timer_move_scene_ -= delta_time;
+		if (cnt_timer_move_scene_ % 7 == 1 || cnt_timer_move_scene_ % 5 == 1 || cnt_timer_move_scene_ % 3 == 1 || cnt_timer_move_scene_ % 1 == 1) {
+			if(frag_move_title_ == false)frag_draw_enter_ = false;
 			if(frag_change_explain_ == false)frag_draw_space_ = false;
 		}else {
 			frag_draw_enter_ = true;
 			frag_draw_space_ = true;
 		}
 	}
-	if (cnt_timer_player_ <= 0 && frag_change_title_ == false) {
-		frag_change_title_ = true;
+	if (cnt_timer_move_scene_ <= 0 && frag_move_title_ == false) {
+		frag_move_title_ = true;
 		mgr->chengeScene(new ScenePlay());
 	}
-	if (cnt_timer_player_ <= 0 && frag_change_explain_ == false) {
+	if (cnt_timer_move_scene_ <= 0 && frag_change_explain_ == false) {
 		frag_change_explain_ == true;
 		mgr->chengeScene(new SceneExplain());
 	}
@@ -89,7 +89,7 @@ void SceneTitle::render()
 	SetFontSize(100);
 	DrawRotaGraph(screenMidleX, screenMidleY-100, 1.7, 0, img_title_, true);
 	DrawStringEx(screenMidleX-300, screenMidleY-200, -1.0, "Maze In Abys");
-	DrawStringEx(screenMidleX + 310, screenMidleY-200, GetColor(127+ 127*sin(tnl::ToRadian(col_txt_)),127+ 127 * sin(tnl::ToRadian(col_txt_)),127+ 127 * sin(tnl::ToRadian(cnt_timer_player_))), "s");
+	DrawStringEx(screenMidleX + 310, screenMidleY-200, GetColor(127+ 127*sin(tnl::ToRadian(col_txt_)),127+ 127 * sin(tnl::ToRadian(col_txt_)),127+ 127 * sin(tnl::ToRadian(col_txt_))), "s");
 
 	SetFontSize(30);
 	if (frag_draw_enter_ == true) {
