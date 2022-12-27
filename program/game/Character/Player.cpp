@@ -86,7 +86,7 @@ void Player::Update(float delta_time)
 		pos_ += move_v * 10;
 	}
 	
-
+	//マップの座標の補正
 	maze_pos_x_ = (pos_.x - (-12.5f * 50.0f)) / 50;
 	maze_pos_z_ = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
 
