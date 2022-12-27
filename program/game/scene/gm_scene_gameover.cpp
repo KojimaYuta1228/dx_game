@@ -16,8 +16,8 @@ GameOver::~GameOver()
 
 void GameOver::initialzie()
 {
-	img_gameover = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/gameover.jpg");
-	img_shadow = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/enemy_shadow.png");
+	img_gameover_ = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/gameover.jpg");
+	img_shadow_ = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/enemy_shadow.png");
 	playsound();
 }
 
@@ -30,8 +30,8 @@ void GameOver::update(float delta_time)
 		frag_move_title_ = false;
 	}
 	if (frag_cnt_timer_ == false) {
-		cnt_timer_player_ -= delta_time;
-		if (cnt_timer_player_ % 7 == 1 || cnt_timer_player_ % 5 == 1 || cnt_timer_player_ % 3 == 1 || cnt_timer_player_ % 1 == 1) {
+		cnt_move_title_ -= delta_time;
+		if (cnt_move_title_ % 7 == 1 || cnt_move_title_ % 5 == 1 || cnt_move_title_ % 3 == 1 || cnt_move_title_ % 1 == 1) {
 			if (frag_move_title_ == false)frag_draw_enter_ = false;
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_GHOST);
 		}
@@ -39,21 +39,21 @@ void GameOver::update(float delta_time)
 			frag_draw_enter_ = true;
 		}
 	}
-	if (cnt_timer_player_ <= 0 && frag_move_title_ == false) {
+	if (cnt_move_title_ <= 0 && frag_move_title_ == false) {
 		frag_move_title_ = true;
 		mgr->chengeScene(new SceneTitle());
 	}
 	
 
-	timer += delta_time;
-	t = 20.0 * sin(timer);
+	cnt_exrate_ += delta_time;
+	move_pos_ = 20.0 * sin(cnt_exrate_);
 
 }
 
 void GameOver::render()
 {
-	DrawRotaGraph(screenMidleX, screenMidleY, 1.0, 0, img_gameover, true);
-	DrawRotaGraph(img_posX - t, screenMidleY + t, img_exrate * sin(timer), 0, img_shadow, true);
+	DrawRotaGraph(screenMidleX, screenMidleY, 1.0, 0, img_gameover_, true);
+	DrawRotaGraph(img_posX - move_pos_, screenMidleY + move_pos_, exrate_img_ * sin(cnt_exrate_), 0, img_shadow_, true);
 	
 	SetFontSize(100);
 	DrawStringEx(screenMidleX - 200, screenMidleY - 300, -1, "GAME OVER");
