@@ -18,7 +18,7 @@ public:
 	const int screenMidleY = DXE_WINDOW_HEIGHT / 2;
 
 	//カウント
-	int cnt_timer = 8;
+	int cnt_timer_player_ = 8;
 	//画像ハンドル
 	int img_explain_ = 0;
 	//変更
@@ -26,5 +26,5 @@ public:
 	//フラグ
 	bool frag_draw_enter_ = true;
 	bool frag_change_title_ = true;
-	bool frag_timer_ = true;
+	bool frag_cnt_timer_ = true;
 };

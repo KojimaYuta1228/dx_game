@@ -23,19 +23,19 @@ void SceneExplain::update(float delta_time)
 {
 	GameManager* mgr = GameManager::GetInstance();
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
-		frag_timer_ = false;
+		frag_cnt_timer_ = false;
 		frag_change_title_ = false;
 	}
-	if (frag_timer_ == false) {
-		cnt_timer -= delta_time;
-		if (cnt_timer % 7 == 1 || cnt_timer % 5 == 1 || cnt_timer % 3 == 1 || cnt_timer % 1 == 1) {
+	if (frag_cnt_timer_ == false) {
+		cnt_timer_player_ -= delta_time;
+		if (cnt_timer_player_ % 7 == 1 || cnt_timer_player_ % 5 == 1 || cnt_timer_player_ % 3 == 1 || cnt_timer_player_ % 1 == 1) {
 			if (frag_change_title_ == false)frag_draw_enter_ = false;
 		}
 		else {
 			frag_draw_enter_ = true;
 		}
 	}
-	if (cnt_timer <= 0 && frag_change_title_ == false) {
+	if (cnt_timer_player_ <= 0 && frag_change_title_ == false) {
 		frag_change_title_ = true;
 		mgr->chengeScene(new SceneTitle());
 	}

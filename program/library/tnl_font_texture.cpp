@@ -153,9 +153,9 @@ namespace tnl {
 				Alpha = (255 * pMono[x - iOfs_x + iBmp_w * (y - iOfs_y)]) / (Level - 1);
 				int R = int((color.x * float(Alpha)));
 				int G = int((color.y * float(Alpha)));
-				int B = int((color.z * float(Alpha)));
+				int calc_B_ = int((color.z * float(Alpha)));
 
-				Color = (Alpha << 24) | (R << 16) | (G << 8) | (B);
+				Color = (Alpha << 24) | (R << 16) | (G << 8) | (calc_B_);
 
 				int32_t ary = (str_width * y * 4) + (x * 4);
 				if (0 > ary || ary >= (str_width * str_height * 4)) {
@@ -165,8 +165,8 @@ namespace tnl {
 
 				R = int((thickness_color.x * float(Alpha)));
 				G = int((thickness_color.y * float(Alpha)));
-				B = int((thickness_color.z * float(Alpha)));
-				Color = (Alpha << 24) | (R << 16) | (G << 8) | (B);
+				calc_B_ = int((thickness_color.z * float(Alpha)));
+				Color = (Alpha << 24) | (R << 16) | (G << 8) | (calc_B_);
 
 				ary = (str_width * (y - thickness_y) * 4) + ((x - thickness_x) * 4);
 				if (0 < ary && ary < (str_width * str_height * 4)) {

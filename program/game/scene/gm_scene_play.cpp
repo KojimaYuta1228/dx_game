@@ -38,8 +38,8 @@ void ScenePlay::initialzie() {
 
 	player_ = std::make_shared<Player>(startPos);
 	//Listのhoge_にそれぞれのクラスの追加
-	hoge1_.emplace_back(enemy_);
-	hoge1_.emplace_back(player_);
+	draw_character_.emplace_back(enemy_);
+	draw_character_.emplace_back(player_);
 	//天井
 	dome_ = dxe::Mesh::CreateSphere(1000);
 	dome_->pos_ = { 0,0,0 };
@@ -51,7 +51,7 @@ void ScenePlay::initialzie() {
 	floor_->setTexture(dxe::Texture::CreateFromFile("graphics/Resouce/image/dangeon_floor01.jpg"));
 
 	img_note = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/old_later3.png");
-	img_smoke = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/smoke.png");
+	
 	SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_START);
 }
 
@@ -155,8 +155,8 @@ void ScenePlay::update(float delta_time)
 				tnl::Vector3 goal_pos = map_->map_chips_[i][k]->pos_;
 				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, goal_pos, { boxSize, boxSize, boxSize })) {
 					//tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, goal_pos, { 10, boxSize, 10 }, player_->pos_);
-					frag_timer_ = false;
-					sphare_frag = false;
+					frag_cnt_timer_ = false;
+					
 					player_->input_frag = false;
 					player_->move_posY_frag = false;
 					SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_GOAL);
@@ -172,27 +172,29 @@ void ScenePlay::update(float delta_time)
 
 
 	RenderSort();
-	 A = player_->pos_.x - enemy_->pos_.x;
-	 B = player_->pos_.z - enemy_->pos_.z;
-	 C = sqrt(A * A + B * B);
-	enemy_->pos_.x += (A / C) * 0.5f;
-	enemy_->pos_.z += (B / C) * 0.5f;
 
+	/*-----PlayerとEnemyの直線距離の計算-----*/
+	 calc_A_ = player_->pos_.x - enemy_->pos_.x;
+	 calc_B_ = player_->pos_.z - enemy_->pos_.z;
+	 calc_C_ = sqrt(calc_A_ * calc_A_ + calc_B_ * calc_B_);
+	enemy_->pos_.x += (calc_A_ / calc_C_) * 0.5f;
+	enemy_->pos_.z += (calc_B_ / calc_C_) * 0.5f;
+	/*---------------------------------------*/
 	
 
-	if (frag_timer_ == false) {
+	if (frag_cnt_timer_ == false) {
 		if (player_->pos_.y < 80) {
 			player_->pos_.y += 1;
 		}
 		if (player_->pos_.y >= 80 && player_->move_posY_frag == false) {
 			player_->pos_.y += 0;
 			player_->move_posY_frag = true;
-			cnt_frag = false;
+			frag_cnt_timer_player_ = false;
 		}
-		if (cnt_frag == false) {
-			cnt_timer -= delta_time;
+		if (frag_cnt_timer_player_ == false) {
+			cnt_timer_player_ -= delta_time;
 		}
-		if (player_->pos_.y >= 80 && player_->move_posY_frag == true && cnt_timer <= 0) {
+		if (player_->pos_.y >= 80 && player_->move_posY_frag == true && cnt_timer_player_ <= 0) {
 			player_->pos_.y += 10;
 		}
 	}
@@ -202,18 +204,17 @@ void ScenePlay::update(float delta_time)
 	if (tnl::Input::IsKeyDown(eKeys::KB_Q) ) {
 		img_note = false;
 	}
-	play_se_ghost_cnt += delta_time;
-	play_se_laugh_cnt += delta_time;
-	if (play_se_ghost_cnt >= 3) {
+	cnt_play_se_ghost_ += delta_time;
+	cnt_play_se_laugh_ += delta_time;
+	if (cnt_play_se_ghost_ >= 3) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_GHOST);
-		play_se_ghost_cnt = 0;
+		cnt_play_se_ghost_ = 0;
 	}
-	if (play_se_laugh_cnt >= 5) {
+	if (cnt_play_se_laugh_ >= 5) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_LAUGH);
-		play_se_laugh_cnt = 0;
+		cnt_play_se_laugh_ = 0;
 	}
-	cnt_smoke ++;
-
+	
 }
 
 void ScenePlay::render()
@@ -224,20 +225,8 @@ void ScenePlay::render()
 	floor_->render(camera_);
 	dome_->render(camera_);
 
-	//プレイヤーの描画
-	/*if (CalcDistance(enemy_->enPos_, camera_->pos_) > CalcDistance(player_->pos_, camera_->pos_)) {
 
-			enemy_->Render(); player_->Render();
-	}
-	else if (CalcDistance(enemy_->enPos_, camera_->pos_) < CalcDistance(player_->pos_, camera_->pos_)) {\
-			player_->Render(); enemy_->Render();
-	}*/
-	//for文でitr
-	/*for (auto itr = hoge1_.begin(); itr != hoge1_.end();itr++) {
-		(*itr)->Render();
-	}*/
-
-	for (auto& hoge : hoge1_) {
+	for (auto& hoge : draw_character_) {
 		hoge->Render();
 	}
 	
@@ -246,8 +235,8 @@ void ScenePlay::render()
 		DrawRotaGraph(120, 90, 0.4, 0, img_note, true);
 		DrawStringEx(60, 150, 0, "Q:CLOSE");
 	}
+
 	//DrawRotaGraph(500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 1.7 + 1.7 * sin(tnl::ToRadian(cnt_smoke)), 0, img_smoke,true);
-	
 	/*DrawStringEx(10, 20, 0, "MAXE_X :%d", static_cast<int>(player_->pos_.x));
 	DrawStringEx(10, 40, 0, "MAXE_Z :%d", static_cast<int>(player_->pos_.z));
 	DrawStringEx(10, 60, 0, "MASU STATUS :%d", map_->maze[player_->maze_pos_x_][player_->maze_pos_z_]);*/
@@ -264,7 +253,7 @@ void ScenePlay::playsound()
 inline void ScenePlay::RenderSort()
 {
 	//List内の全てを計算しソートする
-	hoge1_.sort([&](std::shared_ptr<CharacterBase> a, std::shared_ptr<CharacterBase> b) {
+	draw_character_.sort([&](std::shared_ptr<CharacterBase> a, std::shared_ptr<CharacterBase> b) {
 		return a->distance_ > b->distance_;
 		});
 
