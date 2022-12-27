@@ -307,7 +307,7 @@ Cell Map::Dig(int startX, int startY)
 	}*/
 	//どこにも掘り進められない場合、穴掘り開始候補座標から掘りなおし
 	//候補座標が存在しないとき、穴掘り完了
-	repeatCount++;
+	cnt_repeat_++;
 	auto cell = GetStartCell();
 	if (cell != nullptr)
 	{

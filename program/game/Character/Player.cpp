@@ -18,22 +18,19 @@ Player::Player(tnl::Vector3& startPos)
 	}
 
 	sprite_ = new AnimSprite3D(camera_);
+
 	sprite_->regist(32, 48, "walk_front", "graphics/c1_anim_up.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
-	sprite_->regist(32, 48, "walk_back", "graphics/c1_anim_down.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
-	
+	sprite_->regist(32, 48, "walk_back", "graphics/c1_anim_down.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);	
 	sprite_->regist(32, 48, "walk_left", "graphics/c1_anim_left.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
 	sprite_->regist(32, 48, "walk_right", "graphics/c1_anim_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
 
 	sprite_->setCurrentAnim("walk_front");
 
+	/*----Player‚Ì‰ŠúÀ•W----*/
 	auto x = startPos.x * 50;
 	auto z = startPos.z * 50;
-
 	pos_ = tnl::Vector3(x,0,z);
-	//pos_ = { (-(12 * 50)) + startPos.x,0,(12 * 50) - startPos.z };
-	//pos_ += {50, 0, 50};
-	//pos_ += {1250,0,1250};
-
+	
 }
 
 Player::~Player()
@@ -74,14 +71,14 @@ void Player::Update(float delta_time)
 
 	prev_pos_ = pos_;
 	//ˆÚ“®
-	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && input_frag == true) {
+	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
 		move_v.normalize();
 		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
-		play_se_frag = false;
+		frag_play_se_ = false;
 		pos_ += move_v * 2.0f;
 	}
 	if (tnl::Input::IsKeyReleaseTrigger(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
-		play_se_frag = true;
+		frag_play_se_ = true;
 	}
 
 	//‰Á‘¬

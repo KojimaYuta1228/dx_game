@@ -52,11 +52,8 @@ public:
 	void SetGoal(int goalX, int goalY);
 
 	tnl::Vector3 GetRandomRoot();
-
 	std::shared_ptr<Cell>GetStartCell();
-
 	dxe::Mesh* ctrl_box_ = nullptr;
-
 	std::list<dxe::Mesh*> field_boxs_;//クローンしたBoxを入れるlist
 
 	//unit32_t→データ型とbitの指定
@@ -65,9 +62,9 @@ public:
 		UP,
 		RIGHT,
 		DOWN,
-		LEFT
-	};
-	const int DIRECTIONMAX = 4;//DIRECTIONクラスのMAX
+		LEFT,
+		MAX
+	};	
 
 	//マップのステータス
 	enum class MAZESTATE :uint32_t {
@@ -77,18 +74,13 @@ public:
 		OPEN,
 		CLOSED,
 		START,
-		GOAL
+		GOAL,
+		MAX
 	};
-	const int MAZESTATEMAX = 6;//MAZESTATEクラスのMAX
-
-	//Direction型のdirectionsという名の長さの変えれる配列
+	
 	std::vector<DIRECTION>directions;
-	//vector→動的な配列
 	std::vector<std::shared_ptr<Cell>>StartCells;
 
-	int path = 0;
-	int wall = 0;
-	int goal = 0;
 	int dis_x = 0;//startX座標を保存
 	int dis_y = 0;//startY座標を保存
 	int goal_x = 0;//startX座標を保存
@@ -97,12 +89,10 @@ public:
 	tnl::Vector3 start_pos;
 	tnl::Vector3 goal_pos_;
 
-	int gh = 0;
-
 	//迷路の分岐回数
 	const int MAXREPEAT = 100;
 	//迷路の分岐のカウント
-	int repeatCount = 0;
+	int cnt_repeat_ = 0;
 
 };
 

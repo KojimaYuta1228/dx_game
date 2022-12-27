@@ -157,8 +157,8 @@ void ScenePlay::update(float delta_time)
 					//tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, goal_pos, { 10, boxSize, 10 }, player_->pos_);
 					frag_cnt_timer_ = false;
 					
-					player_->input_frag = false;
-					player_->move_posY_frag = false;
+					player_->frag_input_ = false;
+					player_->frag_move_posY_ = false;
 					SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_GOAL);
 				}
 			}
@@ -186,15 +186,15 @@ void ScenePlay::update(float delta_time)
 		if (player_->pos_.y < 80) {
 			player_->pos_.y += 1;
 		}
-		if (player_->pos_.y >= 80 && player_->move_posY_frag == false) {
+		if (player_->pos_.y >= 80 && player_->frag_move_posY_ == false) {
 			player_->pos_.y += 0;
-			player_->move_posY_frag = true;
+			player_->frag_move_posY_ = true;
 			frag_cnt_timer_player_ = false;
 		}
 		if (frag_cnt_timer_player_ == false) {
 			cnt_timer_player_ -= delta_time;
 		}
-		if (player_->pos_.y >= 80 && player_->move_posY_frag == true && cnt_timer_player_ <= 0) {
+		if (player_->pos_.y >= 80 && player_->frag_move_posY_ == true && cnt_timer_player_ <= 0) {
 			player_->pos_.y += 10;
 		}
 	}
