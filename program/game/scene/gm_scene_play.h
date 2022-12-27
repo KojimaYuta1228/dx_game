@@ -6,7 +6,7 @@
 #include<iostream>
 #include<list>
 
-
+/*------ƒNƒ‰ƒX------*/
 class GmCamera;
 class Player;
 class Enemy;
@@ -38,7 +38,7 @@ public:
 	void initialzie() override;
 	void update(float delta_time) override;
 	void render() override;
-	void playsound();
+	void playsound()override;
 	int floor_hndle = 0;
 	const int screenMidleX = DXE_WINDOW_WIDTH / 2;
 	const int screenMidleY = DXE_WINDOW_HEIGHT / 2;
@@ -50,7 +50,7 @@ public:
 	int img_smoke = 0;
 	int cnt_smoke = 0;
 	bool cnt_frag = true;
-	bool timer_frag = true;
+	bool frag_timer_ = true;
 	bool move_result_frag = true;
 	bool note_frag = true;
 	bool sphare_frag = true;

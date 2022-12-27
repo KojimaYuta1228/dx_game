@@ -155,7 +155,7 @@ void ScenePlay::update(float delta_time)
 				tnl::Vector3 goal_pos = map_->map_chips_[i][k]->pos_;
 				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, goal_pos, { boxSize, boxSize, boxSize })) {
 					//tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, goal_pos, { 10, boxSize, 10 }, player_->pos_);
-					timer_frag = false;
+					frag_timer_ = false;
 					sphare_frag = false;
 					player_->input_frag = false;
 					player_->move_posY_frag = false;
@@ -180,7 +180,7 @@ void ScenePlay::update(float delta_time)
 
 	
 
-	if (timer_frag == false) {
+	if (frag_timer_ == false) {
 		if (player_->pos_.y < 80) {
 			player_->pos_.y += 1;
 		}

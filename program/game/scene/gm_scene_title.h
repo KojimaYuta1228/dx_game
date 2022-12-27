@@ -14,26 +14,28 @@ public:
 	void initialzie() override;
 	void update(float delta_time) override;
 	void render() override;
-	void playsound();//本来ならばSOUNDもSceneBaseに書いておく
+	void playsound() override;//本来ならばSOUNDもSceneBaseに書いておく
 
 	std::shared_ptr<Player> player_sprite = nullptr;
+	//フォントのハンドル
 	LPCSTR font_path;
 	const int screenMidleX = DXE_WINDOW_WIDTH / 2;
 	const int screenMidleY = DXE_WINDOW_HEIGHT / 2;
-	int titleImage = 0;
-	int cnt = 0;
-	int textCol = -1.0;
-	int arrowCol = -1.0;
-	int cnt_pos = 0;
-	int cnt_timer = 8;
-	int cnt_timer_2 = 10;
-	int arrow_pos_ = 384+20;
-	float t = 0;
-	bool s_frag = true;
-	bool string_enter_frag = true;
-	bool string_space_frag = true;
-	bool timer_frag = true;
-	bool change_title_frag = true;
-	bool change_explain_frag = true;
+	//画像ハンドル
+	int img_title_ = 0;
+	//文字カラー
+	int col_txt_ = -1.0;
+	int col_arrow_ = -1.0;
+	//カウント
+	int cnt_pos_ = 0;
+	int cnt_timer_ = 8;
+	//arrowのpos
+	int pos_arrow_ = DXE_WINDOW_HEIGHT / 2 +20;
+	//frag
+	bool frag_draw_enter_ = true;
+	bool frag_draw_space_ = true;
+	bool frag_timer_ = true;
+	bool frag_change_title_ = true;
+	bool frag_change_explain_ = true;
 };
 

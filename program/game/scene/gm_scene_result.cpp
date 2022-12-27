@@ -32,20 +32,20 @@ void SceneResult::update(float delta_time)
 
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_INSECT);
-		timer_frag = false;
-		change_title_frag = false;
+		frag_timer_ = false;
+		frag_change_title_ = false;
 	}
-	if (timer_frag == false) {
+	if (frag_timer_ == false) {
 		cnt_timer -= delta_time;
 		if (cnt_timer % 7 == 1 || cnt_timer % 5 == 1 || cnt_timer % 3 == 1 || cnt_timer % 1 == 1) {
-			if (change_title_frag == false)string_enter_frag = false;
+			if (frag_change_title_ == false)frag_draw_enter_ = false;
 		}
 		else {
-			string_enter_frag = true;
+			frag_draw_enter_ = true;
 		}
 	}
-	if (cnt_timer <= 0 && change_title_frag == false) {
-		change_title_frag = true;
+	if (cnt_timer <= 0 && frag_change_title_ == false) {
+		frag_change_title_ = true;
 		mgr->chengeScene(new SceneTitle());
 	}
 	img_cnt++;
@@ -64,7 +64,7 @@ void SceneResult::render()
 	DrawStringEx(screenMidleX-300, screenMidleY-300, -1, "Stage Clear");
 	SetFontSize(40);
 	DrawStringEx(screenMidleX-400, screenMidleY, -1, "Ç†Ç»ÇΩÇÕñ¿ã{Çå„Ç…ÇµÇΩÅc");
-	if (string_enter_frag == true) {
+	if (frag_draw_enter_ == true) {
 		DrawStringEx(screenMidleX - 350, screenMidleY + 50, -1, "ÅETITLE:Press to Enter");
 	}
 }

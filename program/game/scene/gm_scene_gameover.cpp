@@ -26,21 +26,21 @@ void GameOver::update(float delta_time)
 	GameManager* mgr = GameManager::GetInstance();
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_INSECT);
-		timer_frag = false;
-		change_title_frag = false;
+		frag_timer_ = false;
+		frag_change_title_ = false;
 	}
-	if (timer_frag == false) {
+	if (frag_timer_ == false) {
 		cnt_timer -= delta_time;
 		if (cnt_timer % 7 == 1 || cnt_timer % 5 == 1 || cnt_timer % 3 == 1 || cnt_timer % 1 == 1) {
-			if (change_title_frag == false)string_enter_frag = false;
+			if (frag_change_title_ == false)frag_draw_enter_ = false;
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_GHOST);
 		}
 		else {
-			string_enter_frag = true;
+			frag_draw_enter_ = true;
 		}
 	}
-	if (cnt_timer <= 0 && change_title_frag == false) {
-		change_title_frag = true;
+	if (cnt_timer <= 0 && frag_change_title_ == false) {
+		frag_change_title_ = true;
 		mgr->chengeScene(new SceneTitle());
 	}
 	
@@ -59,7 +59,7 @@ void GameOver::render()
 	DrawStringEx(screenMidleX - 200, screenMidleY - 300, -1, "GAME OVER");
 	SetFontSize(40);
 	DrawStringEx(screenMidleX - 500, screenMidleY - 100, -1, "–À‹{‚ÉŽæ‚èŽc‚³‚ê‚Ä‚µ‚Ü‚Á‚½...");
-	if (string_enter_frag == true) {
+	if (frag_draw_enter_ == true) {
 		DrawStringEx(screenMidleX, screenMidleY + 150, -1, "TITLE:Press to Enter");
 	}
 
