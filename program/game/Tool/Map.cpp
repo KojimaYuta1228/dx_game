@@ -136,7 +136,7 @@ void Map::createMaze()
 
 	//始点の生成
 
-	float startX, startY;
+	float startX, startY,startEnX,startEnY;
 
 	//スタート地点を乱数で取得する
 
@@ -147,6 +147,18 @@ void Map::createMaze()
 	dis_y = startY;
 
 	//Enemy用のスタート地点を取得する
+	startEnX = SelectStartPoint(MEIRO_WIDTH);
+	startEnY = SelectStartPoint(MEIRO_WIDTH);
+	while (startX == startEnX || startY == startEnY)
+	{
+		startEnX = SelectStartPoint(MEIRO_WIDTH);
+		startEnY = SelectStartPoint(MEIRO_WIDTH);
+		if (startX != startEnX && startY != startEnY)break;
+	}
+	start_en_pos = { startEnX ,0,startEnY };
+	dis_en_x = startEnX;
+	dis_en_y = startEnY;
+	
 
 
 	//Debug必須

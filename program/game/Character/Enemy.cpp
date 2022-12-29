@@ -4,7 +4,7 @@
 #include "../model/gm_anim_sprite3d.h"
 #include "../../dxlib_ext/dxlib_ext.h"
 
-Enemy::Enemy()
+Enemy::Enemy(tnl::Vector3& startPos)
 {
 	GameManager* mgr = GameManager::GetInstance();
 	SceneBase* scene_base = mgr->getCurrentScene();
@@ -19,7 +19,10 @@ Enemy::Enemy()
 	enSprite_->regist(30, 32, "en1_walk_right", "graphics/Resouce/image/enemy/obake_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
 
 	enSprite_->setCurrentAnim("en1_walk_front");
-	pos_ = {0,20,0};
+	/*----Enemy‚Ì‰ŠúÀ•W----*/
+	auto x = startPos.x * 50;
+	auto z = startPos.z * 50;
+	pos_ = tnl::Vector3(x, 0, z);
 }
 
 Enemy::~Enemy(){

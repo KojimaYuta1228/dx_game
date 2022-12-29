@@ -174,11 +174,11 @@ void ScenePlay::update(float delta_time)
 	RenderSort();
 
 	/*-----Player‚ÆEnemy‚Ì’¼ü‹——£‚ÌŒvŽZ-----*/
-	 calc_A_ = player_->pos_.x - enemy_->pos_.x;
+	 /*calc_A_ = player_->pos_.x - enemy_->pos_.x;
 	 calc_B_ = player_->pos_.z - enemy_->pos_.z;
 	 calc_C_ = sqrt(calc_A_ * calc_A_ + calc_B_ * calc_B_);
 	enemy_->pos_.x += (calc_A_ / calc_C_) * 0.5f;
-	enemy_->pos_.z += (calc_B_ / calc_C_) * 0.5f;
+	enemy_->pos_.z += (calc_B_ / calc_C_) * 0.5f;*/
 	/*---------------------------------------*/
 	
 
