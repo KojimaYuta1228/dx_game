@@ -31,11 +31,12 @@ void ScenePlay::initialzie() {
 	camera_->pos_ = { 0, 150, -300 };
 	map_ = std::make_shared<Map>();
 	map_->initialzie();
-	enemy_ = std::make_shared<Enemy>();
+	
 
 	//auto startPos = map_->start_pos;
 	auto startPos = map_->GetRandomRoot();
-
+	auto startEnPos = map_->GetRandomRoot();
+	enemy_ = std::make_shared<Enemy>(startEnPos);
 	player_ = std::make_shared<Player>(startPos);
 	//List‚Ìhoge_‚É‚»‚ê‚¼‚ê‚ÌƒNƒ‰ƒX‚Ì’Ç‰Á
 	draw_character_.emplace_back(enemy_);
@@ -144,9 +145,9 @@ void ScenePlay::update(float delta_time)
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
 
-				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
+				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize }, player_->pos_);
-				}
+				}*/
 				/*if (tnl::IsIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize }, enemy_->enPos_);
 				}*/

@@ -1,14 +1,17 @@
 #include "Enemy.h"
+#include"CharacterBase.h"
 #include "../gm_manager.h"
 #include "../scene/gm_scene_play.h"
 #include "../model/gm_anim_sprite3d.h"
 #include "../../dxlib_ext/dxlib_ext.h"
+#include"../Tool/gm_soundmanager.h"
 
-Enemy::Enemy(tnl::Vector3& startPos)
+Enemy::Enemy(tnl::Vector3& startEnPos)
 {
 	GameManager* mgr = GameManager::GetInstance();
 	SceneBase* scene_base = mgr->getCurrentScene();
 	ScenePlay* scene_play = dynamic_cast<ScenePlay*>(scene_base);
+	map_ = std::make_shared<Map>();
 	if (scene_play) {
 		camera_ = scene_play->GetCamera();
 	}
@@ -20,9 +23,10 @@ Enemy::Enemy(tnl::Vector3& startPos)
 
 	enSprite_->setCurrentAnim("en1_walk_front");
 	/*----Enemy‚Ì‰ŠúÀ•W----*/
-	auto x = startPos.x * 50;
-	auto z = startPos.z * 50;
-	pos_ = tnl::Vector3(x, 0, z);
+	auto x = startEnPos.x * 50;
+	auto z = startEnPos.z * 50;
+	pos_ = tnl::Vector3(x, 10, z);
+
 }
 
 Enemy::~Enemy(){
@@ -56,7 +60,7 @@ float Enemy::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
 void Enemy::EnemyMove()
 {
 	//ˆÚ“®§Œä
-	enemy_status_ = tnl::GetXzRegionPointAndOBB(
+	int enemy_status_ = tnl::GetXzRegionPointAndOBB(
 		camera_->pos_,
 		enSprite_->pos_,
 		{30,32,32},
