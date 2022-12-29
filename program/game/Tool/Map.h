@@ -85,9 +85,14 @@ public:
 	int dis_y = 0;//startY座標を保存
 	int goal_x = 0;//startX座標を保存
 	int goal_y = 0;//startY座標を保存
+
+	int dis_en_x = 0;//startEnX座標を保存
+	int dis_en_y = 0;//startEnY座標を保存
 	const float boxSize = 50;//boxの1辺の大きさ
 	tnl::Vector3 start_pos;
 	tnl::Vector3 goal_pos_;
+
+	tnl::Vector3 start_en_pos;
 
 	//迷路の分岐回数
 	const int MAXREPEAT = 100;

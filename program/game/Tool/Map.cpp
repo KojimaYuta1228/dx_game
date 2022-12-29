@@ -146,6 +146,9 @@ void Map::createMaze()
 	dis_x = startX;
 	dis_y = startY;
 
+	//Enemy用のスタート地点を取得する
+
+
 	//Debug必須
 	std::string hoge = "(startX=" + std::to_string(startX) + ",startY=" + std::to_string(startY) + ")";
 	tnl::DebugTrace(hoge.c_str());
