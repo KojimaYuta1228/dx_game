@@ -33,7 +33,7 @@ private:
 
 	// 現在のシーン
 	SceneBase* scene_now_ = nullptr;
-	// 予約シーン？？
+	// 予約シーン
 	SceneBase* scene_next_ = nullptr;
 
 public:
@@ -59,10 +59,10 @@ public:
 
 	//キャラごとの参照をとるための構造体
 	//これをもとにカメラからの距離を計算
-	struct CharaStatus {
+	/*struct CharaStatus {
 		float camera_distance;
 		CharacterBase* chara_base;
-	};
+	};*/
 	std::unordered_map<std::string, int> imghandle;
 	int ImgHandle(std::string img_pass);
 	int save_img = 0;//画像を保存する変数

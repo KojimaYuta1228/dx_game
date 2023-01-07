@@ -110,11 +110,14 @@ void ScenePlay::update(float delta_time)
 				/*{ tnl::ToRadian(1.0f), 0, 0 },
 				{ -tnl::ToRadian(1.0f), 0, 0 } */
 		};
-		tnl::Input::RunIndexKeyDownTrigger([&](uint32_t idx) {
-			//move_v += dir[idx];
-			camera_->free_look_angle_xy_ += rot[idx];
-			//camera_->free_look_angle_xy_ += rot[idx];//三人称
-			}, eKeys::KB_A, eKeys::KB_D);
+			tnl::Input::RunIndexKeyDownTrigger([&](uint32_t idx) {
+					camera_->free_look_angle_xy_ += rot[idx];//三人称
+			
+				
+				
+				}, eKeys::KB_A, eKeys::KB_D);
+		
+		
 	
 	/*if (tnl::Input::IsKeyDown(eKeys::KB_Z)) {
 		camera_->target_distance_ += 1.0f;
@@ -127,10 +130,7 @@ void ScenePlay::update(float delta_time)
 	// 移動制御
 	player_->Update(delta_time);
 	enemy_->Update(delta_time);
-	//Debug必須
-	//std::string hoge = "(target_distance=" + std::to_string(camera_->target_distance_)+")";
-	//tnl::DebugTrace(hoge.c_str());
-	//tnl::DebugTrace("\n");
+	
 
 
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
