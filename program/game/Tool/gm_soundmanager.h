@@ -58,4 +58,3 @@ public:
 	void SoundSe(SE num);
 	void StopBgm();
 };
-//SoundManager::BGM::TITLE

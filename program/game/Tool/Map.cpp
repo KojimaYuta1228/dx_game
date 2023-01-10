@@ -253,7 +253,7 @@ Cell Map::Dig(int startX, int startY)
 			}
 		//down
 		if (bufY < MEIRO_HEIGHT - 2) {
-			if (maze[bufY + 2][bufX] == WALL && maze[bufY + 2][bufX] == WALL) {
+			if (maze[bufY + 2][bufX] == WALL && maze[bufY + 1][bufX] == WALL) {
 				directions.emplace_back(DIRECTION::DOWN);
 			}
 		}

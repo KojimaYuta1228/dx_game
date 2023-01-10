@@ -42,6 +42,7 @@ public:
 	void render() override;
 	void playsound()override;
 	
+	
 
 	const int screenMidleX = DXE_WINDOW_WIDTH / 2;
 	const int screenMidleY = DXE_WINDOW_HEIGHT / 2;
@@ -54,6 +55,7 @@ public:
 	bool frag_cnt_timer_ = true;
 	bool frag_move_result_ = true;
 	bool frag_draw_note_ = true;
+	bool frag_camera_rotate_ = true;
 	//計算用
 	float calc_A_ = 0;
 	float calc_B_ = 0;
@@ -62,6 +64,9 @@ public:
 	int cnt_timer_player_ = 100;
 	float cnt_play_se_ghost_ = 0;
 	float cnt_play_se_laugh_ = 0;
+	float cnt_camera_rotate_ = 0;
+
+	float cam_rot_x = 1.0;
 	
 	
 	//EnemyとPlayerにCharacterを基底クラスとして継承

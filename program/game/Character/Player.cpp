@@ -28,9 +28,9 @@ Player::Player(tnl::Vector3& startPos)
 
 	/*----Player‚Ì‰ŠúÀ•W----*/
 	auto x = startPos.x * 50;
-	//auto x = map_->dis_x * 50;
 	auto z = startPos.z * 50;
-	//auto z = map_->dis_y * 50;
+	/*auto x = map_->dis_x * 50;
+	auto z = map_->dis_y * 50;*/
 	pos_ = tnl::Vector3(x,0,z);
 	
 }

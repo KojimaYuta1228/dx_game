@@ -103,19 +103,23 @@ void ScenePlay::update(float delta_time)
 	
 	//三人称
 	
+	
 		tnl::Vector3 rot[4] = {
-
-				{ 0, tnl::ToRadian(90), 0 },
-				{ 0, -tnl::ToRadian(90), 0 },
-				/*{ tnl::ToRadian(1.0f), 0, 0 },
-				{ -tnl::ToRadian(1.0f), 0, 0 } */
+			{ 0, tnl::ToRadian(cam_rot_x += delta_time), 0 },
+			{ 0, -tnl::ToRadian(cam_rot_x += delta_time), 0 },
 		};
-			tnl::Input::RunIndexKeyDownTrigger([&](uint32_t idx) {
-					camera_->free_look_angle_xy_ += rot[idx];//三人称
+		tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
+			frag_camera_rotate_ = false;
+			while (!frag_camera_rotate_) {
+				camera_->free_look_angle_xy_ += rot[idx];//三人称
+				if (rot[idx].x <= 90)break;
+			}
+					
+				cam_rot_x = 1.0;
 			
-				
-				
-				}, eKeys::KB_A, eKeys::KB_D);
+			
+			
+		}, eKeys::KB_A, eKeys::KB_D);
 		
 		
 	
@@ -145,9 +149,9 @@ void ScenePlay::update(float delta_time)
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
 
-				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
+				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize }, player_->pos_);
-				}*/
+				}
 				/*if (tnl::IsIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize }, enemy_->enPos_);
 				}*/
@@ -175,7 +179,7 @@ void ScenePlay::update(float delta_time)
 	RenderSort();
 
 	/*-----PlayerとEnemyの直線距離の計算-----*/
-	 /*calc_A_ = player_->pos_.x - enemy_->pos_.x;
+	/* calc_A_ = player_->pos_.x - enemy_->pos_.x;
 	 calc_B_ = player_->pos_.z - enemy_->pos_.z;
 	 calc_C_ = sqrt(calc_A_ * calc_A_ + calc_B_ * calc_B_);
 	enemy_->pos_.x += (calc_A_ / calc_C_) * 0.5f;
