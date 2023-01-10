@@ -61,3 +61,15 @@
 //				objects.emplace_back(new Bullet(player->pos_));
 //			}
 //	}
+
+Bullet::Bullet(const tnl::Vector3& pos)
+{
+}
+
+Bullet::~Bullet()
+{
+}
+
+void Bullet::update()
+{
+}
