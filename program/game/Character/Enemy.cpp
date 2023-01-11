@@ -23,8 +23,8 @@ Enemy::Enemy(tnl::Vector3& startEnPos)
 
 	enSprite_->setCurrentAnim("en1_walk_front");
 	/*----Enemy‚Ì‰ŠúÀ•W----*/
-	auto x = startEnPos.x * 50;
-	auto z = startEnPos.z * 50;
+	 x = startEnPos.x * 50;
+	 z = startEnPos.z * 50;
 	pos_ = tnl::Vector3(x, 10, z);
 
 }

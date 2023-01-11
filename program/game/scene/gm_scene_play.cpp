@@ -102,26 +102,29 @@ void ScenePlay::update(float delta_time)
 	//};
 	
 	//三人称
+
+	int a = 2;
+	float theat_all = tnl::ToRadian(90) * delta_time;
+	float w = tnl::ToRadian(90) / a;//各速度
 	
-	
-		tnl::Vector3 rot[4] = {
-			{ 0, tnl::ToRadian(cam_rot_x += delta_time), 0 },
-			{ 0, -tnl::ToRadian(cam_rot_x += delta_time), 0 },
+		tnl::Vector3 rot[2] = {
+			{ 0, tnl::ToRadian(90)*delta_time/a, 0 },//各速度
+			{ 0, -tnl::ToRadian(90) * delta_time / a, 0 },
 		};
 		tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 			frag_camera_rotate_ = false;
-			while (!frag_camera_rotate_) {
-				camera_->free_look_angle_xy_ += rot[idx];//三人称
-				if (rot[idx].x <= 90)break;
-			}
-					
-				cam_rot_x = 1.0;
-			
-			
-			
+			//camera_->free_look_angle_xy_ += rot[idx];//三人称
 		}, eKeys::KB_A, eKeys::KB_D);
-		
-		
+				
+		while (!frag_camera_rotate_) {
+		 	
+			camera_->free_look_angle_xy_ += rot[0];//三人称
+			if (cam_rot_x < 90) {
+				frag_camera_rotate_ = true;
+				//cam_rot_x = 1.0;
+				break;
+			}
+		}
 	
 	/*if (tnl::Input::IsKeyDown(eKeys::KB_Z)) {
 		camera_->target_distance_ += 1.0f;

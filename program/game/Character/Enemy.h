@@ -22,4 +22,6 @@ public:
 	//int enemy_status_ = 0;
 	std::shared_ptr<Map> map_ = nullptr;
 	//tnl::Vector3& startPos ;
+	float x;
+	float z;
 };

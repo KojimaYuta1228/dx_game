@@ -44,6 +44,8 @@
 //
 //	int _tmain(int argc, _TCHAR* argv[]);
 //
+//	float SX, SZ;
+//
 //	std::shared_ptr<Map> map_ = nullptr;
 //	std::shared_ptr<Enemy>enemy_ = nullptr;
 //

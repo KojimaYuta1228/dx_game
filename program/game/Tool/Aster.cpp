@@ -12,6 +12,8 @@
 //{
 //	map_ = make_shared<Map>();
 //	enemy_ = make_shared<Enemy>();
+//	SX = enemy_->x;
+//	SZ = enemy_->z;
 //}
 //
 //Aster::~Aster()
@@ -54,7 +56,7 @@
 //// 指定した地点からスタート地点までの距離を求める
 //int BackTrace(int x, int y)
 //{
-//	if (x == SX && y == SY) {
+//	if (x == SX && y == SZ) {
 //		return 1;
 //	}
 //
