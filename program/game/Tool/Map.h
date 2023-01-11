@@ -8,7 +8,7 @@ class ScenePlay;
 class GmCamera;
 class GameManager;
 
-
+//int Map::maze[MEIRO_HEIGHT][MEIRO_WIDTH];
 class Map {
 public:
 	Map();
@@ -75,6 +75,8 @@ public:
 		CLOSED,
 		START,
 		GOAL,
+		ASTART,
+		AGOAL,
 		MAX
 	};
 	
