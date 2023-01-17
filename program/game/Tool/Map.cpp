@@ -137,13 +137,13 @@ void Map::createMaze()
 
 	//始点の生成
 
-	
+	int startX, startY, startEnX, startEnY;
 
 	//スタート地点を乱数で取得する
 
 	startX = SelectStartPoint(MEIRO_WIDTH);
 	startY = SelectStartPoint(MEIRO_HEIGHT);
-	start_pos = { startX,0,startY };
+	start_pos = { static_cast<float>(startX),0,static_cast<float>(startY) };
 	dis_x = startX;
 	dis_y = startY;
 
@@ -156,7 +156,7 @@ void Map::createMaze()
 		startEnY = SelectStartPoint(MEIRO_WIDTH);
 		if (startX != startEnX && startY != startEnY)break;
 	}
-	start_en_pos = { startEnX ,0,startEnY };
+	start_en_pos = { static_cast<float>(startEnX) ,0,static_cast<float>(startEnY) };
 	dis_en_x = startEnX;
 	dis_en_y = startEnY;
 	maze[startEnX][startEnY] = ASTART;//enemyの初期位置をA*用のenumに
