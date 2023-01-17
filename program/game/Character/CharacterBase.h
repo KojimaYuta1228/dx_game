@@ -18,7 +18,8 @@ public:
 	AnimSprite3D* sprite_ = nullptr;
 	AnimSprite3D* enSprite_ = nullptr;
 	GmCamera* camera_ = nullptr;
-	
+	static std::list<std::shared_ptr<CharacterBase>> objects;//’e‚ğ•Û‘¶‚·‚é‚½‚ß‚Ì” 
+	bool is_alive_ = true;//¶‘¶ƒtƒ‰ƒO
 	float distance_;
 	
 	virtual float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2){

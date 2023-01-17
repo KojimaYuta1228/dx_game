@@ -11,6 +11,8 @@
 #include"../Tool/Map.h"
 #include"../gm_camera.h"
 #include"../Tool/Animation.h"
+#include"../Tool/Bullet.h"
+#include "../gm_main.h"
 #include<algorithm>
 
 
@@ -54,6 +56,7 @@ void ScenePlay::initialzie() {
 	img_note = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/old_later3.png");
 	
 	SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_START);
+	
 }
 
 GmCamera* ScenePlay::GetCamera()
@@ -191,7 +194,7 @@ void ScenePlay::update(float delta_time)
 	enemy_->pos_.z += (calc_B_ / calc_C_) * 0.5f;*/
 	/*---------------------------------------*/
 	
-
+	
 	if (frag_cnt_timer_ == false) {
 		if (player_->pos_.y < 80) {
 			player_->pos_.y += 1;
@@ -225,6 +228,24 @@ void ScenePlay::update(float delta_time)
 		cnt_play_se_laugh_ = 0;
 	}
 	
+	tnl::Vector3 up = { 0,0,1 };
+	float base_speed = 2.0f;
+	CharacterBase::objects.emplace_back(player_);
+	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_Z)) {
+		CharacterBase::objects.emplace_back(new Bullet(player_->pos_,up,base_speed));
+	}
+	for (auto obj : CharacterBase::objects) {
+		obj->Update(delta_time);
+	}
+	auto it = CharacterBase::objects.begin();
+	while (it != CharacterBase::objects.end()) {
+		if (!(*it)->is_alive_) {
+			delete (*it);
+			it = CharacterBase::objects.erase(it);
+			continue;
+		}
+		it++;
+	}
 }
 
 void ScenePlay::render()
