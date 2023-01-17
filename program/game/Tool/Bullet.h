@@ -9,7 +9,7 @@ public:
 	Bullet(const tnl::Vector3& pos,tnl::Vector3 dir,float speed);
 	virtual ~Bullet();
 	dxe::Mesh* bullet_ = nullptr;
-	std::shared_ptr<dxe::Mesh>mesh = nullptr;
+	dxe::Mesh* mesh = nullptr;
 	
 	
 	void initialzie()override;

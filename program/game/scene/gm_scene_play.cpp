@@ -240,7 +240,9 @@ void ScenePlay::update(float delta_time)
 	auto it = CharacterBase::objects.begin();
 	while (it != CharacterBase::objects.end()) {
 		if (!(*it)->is_alive_) {
-			delete (*it);
+			auto cb = *it;
+			cb.reset();
+			//delete (*it);
 			it = CharacterBase::objects.erase(it);
 			continue;
 		}

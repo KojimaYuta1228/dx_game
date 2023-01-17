@@ -9,7 +9,7 @@
 
 Bullet::Bullet(const tnl::Vector3& pos,tnl::Vector3 dir, float speed)
 {
-	mesh = std::make_shared<dxe::Mesh>();
+	
 	bullet_ = dxe::Mesh::CreateSphere(5);	
 	bullet_->setTexture(dxe::Texture::CreateFromFile("graphics/blue1.bmp"));
 	pos_ = pos;
@@ -18,6 +18,10 @@ Bullet::Bullet(const tnl::Vector3& pos,tnl::Vector3 dir, float speed)
 Bullet::~Bullet()
 {
 	DrawStringEx(0, 0, -1, "Delete");
+}
+
+void Bullet::initialzie()
+{
 }
 
 void Bullet::Update(float delta_time)
