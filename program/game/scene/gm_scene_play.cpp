@@ -106,6 +106,8 @@ void ScenePlay::update(float delta_time)
 	int a = 2;
 	float theat_all = tnl::ToRadian(90) * delta_time;
 	float w = tnl::ToRadian(90) / a;//各速度
+
+	tnl::Vector3 cam_delta_pos = { camera_->target_distance_ * cos(90),0,camera_->target_distance_ * sin(90) };
 	
 		tnl::Vector3 rot[2] = {
 			{ 0, tnl::ToRadian(90)*delta_time/a, 0 },//各速度

@@ -24,4 +24,5 @@ public:
 	//tnl::Vector3& startPos ;
 	float x;
 	float z;
+	
 };

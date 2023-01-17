@@ -101,6 +101,11 @@ public:
 	//迷路の分岐のカウント
 	int cnt_repeat_ = 0;
 
+	int startX, startY, startEnX, startEnY;
+
+	//enemyの座標保存用の箱
+	
+
 };
 
 class Cell

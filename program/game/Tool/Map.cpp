@@ -8,6 +8,7 @@
 #define WALL static_cast<int>(MAZESTATE::WALL)
 #define ROOT static_cast<int>(MAZESTATE::ROOT)
 #define GOAL static_cast<int>(MAZESTATE::GOAL)
+#define ASTART static_cast<int>(MAZESTATE::ASTART)
 
 
 int Map::maze[MEIRO_HEIGHT][MEIRO_WIDTH];
@@ -136,7 +137,7 @@ void Map::createMaze()
 
 	//始点の生成
 
-	float startX, startY,startEnX,startEnY;
+	
 
 	//スタート地点を乱数で取得する
 
@@ -158,6 +159,7 @@ void Map::createMaze()
 	start_en_pos = { startEnX ,0,startEnY };
 	dis_en_x = startEnX;
 	dis_en_y = startEnY;
+	maze[startEnX][startEnY] = ASTART;//enemyの初期位置をA*用のenumに
 	
 
 

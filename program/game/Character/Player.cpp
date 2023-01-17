@@ -5,6 +5,7 @@
 #include "../model/gm_anim_sprite3d.h"
 #include "../../dxlib_ext/dxlib_ext.h"
 #include"../Tool/gm_soundmanager.h"
+#include "../Tool/Map.h"
 
 
 Player::Player(tnl::Vector3& startPos)
@@ -94,8 +95,8 @@ void Player::Update(float delta_time)
 
 	distance_ = CameraDis(pos_, camera_->pos_);
 	sprite_->update(delta_time);
-
-
+	//player‚Ìpos‚ðA*—p‚ÌƒS[ƒ‹AGOAL‚É
+	map_->maze[static_cast<int>(pos_.x)][static_cast<int>(pos_.z)] = static_cast<int>(Map::MAZESTATE::AGOAL);
 }
 
 void Player::Render()
