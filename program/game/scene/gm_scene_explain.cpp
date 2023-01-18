@@ -22,6 +22,10 @@ void SceneExplain::initialzie()
 void SceneExplain::update(float delta_time)
 {
 	GameManager* mgr = GameManager::GetInstance();
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_1)) {
+		frag_cnt_timer_ = false;
+		frag_move_title_ = false;
+	}
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
 		frag_cnt_timer_ = false;
 		frag_move_title_ = false;

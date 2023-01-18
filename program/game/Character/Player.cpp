@@ -97,6 +97,9 @@ void Player::Update(float delta_time)
 	}
 
 	//‰Á‘¬
+	if (tnl::Input::IsPadDown(ePad::KEY_5)) {
+		pos_ += move_v * 10;
+	}
 	if (tnl::Input::IsKeyDown(eKeys::KB_1)) {
 		pos_ += move_v * 10;
 	}
