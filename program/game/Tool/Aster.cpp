@@ -3,6 +3,7 @@
 #include "Aster.h"
 #include"Map.h"
 
+
 bool isEnableMapPosition(Point pos, Node** _nodes)
 {
 	//ãŒÀ‰ºŒÀ”»’è
@@ -90,6 +91,7 @@ bool aster(Node** _nodes, Node* _now, std::vector<Node*>* _route)
 
 int update()
 {
+#if 0
 	Point g;
 	Point s;
 
@@ -130,4 +132,6 @@ int update()
 		printf("“’B•s”\\n");
 		return 0;
 	}
+#endif
+	return 0;
 }

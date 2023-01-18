@@ -91,8 +91,11 @@ public:
 	int dis_en_x = 0;//startEnXÀ•W‚ğ•Û‘¶
 	int dis_en_y = 0;//startEnYÀ•W‚ğ•Û‘¶
 	const float boxSize = 50;//box‚Ì1•Ó‚Ì‘å‚«‚³
-	tnl::Vector3 start_pos;
-	tnl::Vector3 goal_pos_;
+
+	int start_maze_pos_x = 0;
+	int start_maze_pos_y = 0;
+	int goal_maze_pos_x = 0;
+	int goal_maze_pos_y = 0;
 
 	tnl::Vector3 start_en_pos;
 

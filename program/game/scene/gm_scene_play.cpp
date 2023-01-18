@@ -38,8 +38,12 @@ void ScenePlay::initialzie() {
 	//auto startPos = map_->start_pos;
 	auto startPos = map_->GetRandomRoot();
 	auto startEnPos = map_->GetRandomRoot();
+
 	enemy_ = std::make_shared<Enemy>(startEnPos);
+	enemy_->map_ = map_;
 	player_ = std::make_shared<Player>(startPos);
+	player_->map_ = map_;
+
 	//Listのhoge_にそれぞれのクラスの追加
 	draw_character_.emplace_back(enemy_);
 	draw_character_.emplace_back(player_);
@@ -118,12 +122,12 @@ void ScenePlay::update(float delta_time)
 		};
 		tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 			frag_camera_rotate_ = false;
-			//camera_->free_look_angle_xy_ += rot[idx];//三人称
+			camera_->free_look_angle_xy_ += rot[idx];//三人称
 		}, eKeys::KB_A, eKeys::KB_D);
 				
 		while (!frag_camera_rotate_) {
 		 	
-			camera_->free_look_angle_xy_ += rot[0];//三人称
+			//camera_->free_look_angle_xy_ += rot[0];//三人称
 			if (cam_rot_x < 90) {
 				frag_camera_rotate_ = true;
 				//cam_rot_x = 1.0;
@@ -228,26 +232,26 @@ void ScenePlay::update(float delta_time)
 		cnt_play_se_laugh_ = 0;
 	}
 	
-	tnl::Vector3 up = { 0,0,1 };
-	float base_speed = 2.0f;
-	CharacterBase::objects.emplace_back(player_);
-	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_Z)) {
-		CharacterBase::objects.emplace_back(new Bullet(player_->pos_,up,base_speed));
-	}
-	for (auto obj : CharacterBase::objects) {
-		obj->Update(delta_time);
-	}
-	auto it = CharacterBase::objects.begin();
-	while (it != CharacterBase::objects.end()) {
-		if (!(*it)->is_alive_) {
-			auto cb = *it;
-			cb.reset();
-			//delete (*it);
-			it = CharacterBase::objects.erase(it);
-			continue;
-		}
-		it++;
-	}
+	//tnl::Vector3 up = { 0,0,1 };
+	//float base_speed = 2.0f;
+	//CharacterBase::objects.emplace_back(player_);
+	//if (tnl::Input::IsKeyDownTrigger(eKeys::KB_Z)) {
+	//	CharacterBase::objects.emplace_back(new Bullet(player_->pos_,up,base_speed));
+	//}
+	//for (auto obj : CharacterBase::objects) {
+	//	obj->Update(delta_time);
+	//}
+	//auto it = CharacterBase::objects.begin();
+	//while (it != CharacterBase::objects.end()) {
+	//	if (!(*it)->is_alive_) {
+	//		auto cb = *it;
+	//		cb.reset();
+	//		//delete (*it);
+	//		it = CharacterBase::objects.erase(it);
+	//		continue;
+	//	}
+	//	it++;
+	//}
 }
 
 void ScenePlay::render()

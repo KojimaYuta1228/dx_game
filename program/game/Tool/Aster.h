@@ -54,11 +54,6 @@ public:
 
 };
 
-// マップのノードデータ
-// 上の2次元配列からこの
-// ノード情報を作成して経路探索に渡す
-Node nodes[Map::MEIRO_HEIGHT][Map::MEIRO_WIDTH];
-
 
 // 指定座標が有効な( OPEN 可能な )マップ位置かどうか判定
 bool isEnableMapPosition(Point pos, Node** _nodes);

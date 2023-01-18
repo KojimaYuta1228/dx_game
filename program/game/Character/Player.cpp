@@ -13,7 +13,6 @@ Player::Player(tnl::Vector3& startPos)
 	GameManager* mgr = GameManager::GetInstance();
 	SceneBase* scene_base = mgr->getCurrentScene();
 	ScenePlay* scene_play = dynamic_cast<ScenePlay*>(scene_base);
-	map_ = std::make_shared<Map>();
 	if (scene_play) {
 		camera_ = scene_play->GetCamera();
 	}
@@ -90,13 +89,16 @@ void Player::Update(float delta_time)
 	}
 	
 	//マップの座標の補正
-	maze_pos_x_ = (pos_.x - (-12.5f * 50.0f)) / 50;
-	maze_pos_z_ = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
+	//maze_pos_x_ = (pos_.x - (-12.5f * 50.0f)) / 50;
+	//maze_pos_z_ = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
+
+	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
+	map_->goal_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
 
 	distance_ = CameraDis(pos_, camera_->pos_);
 	sprite_->update(delta_time);
 	//playerのposをA*用のゴールAGOALに
-	map_->maze[static_cast<int>(pos_.x)][static_cast<int>(pos_.z)] = static_cast<int>(Map::MAZESTATE::AGOAL);
+	//map_->maze[static_cast<int>(pos_.x)][static_cast<int>(pos_.z)] = static_cast<int>(Map::MAZESTATE::AGOAL);
 }
 
 void Player::Render()

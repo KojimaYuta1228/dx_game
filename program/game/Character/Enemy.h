@@ -8,6 +8,7 @@
 class CharacterBase;
 class ScenePlay;
 class Map;
+class Node;
 
 class Enemy : public CharacterBase{
 public:
@@ -21,6 +22,11 @@ public:
 	void EnemyMove();
 	//int enemy_status_ = 0;
 	std::shared_ptr<Map> map_ = nullptr;
+
+	float search_time_count_ = 0;
+	tnl::Vector3 move_target_pos_;
+
+	std::vector<Node*> route_player_;
 	//tnl::Vector3& startPos ;
 	float x;
 	float z;

@@ -143,7 +143,7 @@ void Map::createMaze()
 
 	startX = SelectStartPoint(MEIRO_WIDTH);
 	startY = SelectStartPoint(MEIRO_HEIGHT);
-	start_pos = { static_cast<float>(startX),0,static_cast<float>(startY) };
+	//start_pos = { static_cast<float>(startX),0,static_cast<float>(startY) };
 	dis_x = startX;
 	dis_y = startY;
 

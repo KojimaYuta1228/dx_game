@@ -19,6 +19,7 @@ public :
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 
 	std::shared_ptr<Map> map_ = nullptr;
+
 	//mapÇÃç¿ïW
 	int maze_pos_x_ = 0 ;
 	int maze_pos_z_ = 0;
