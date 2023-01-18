@@ -53,6 +53,7 @@
     <ClCompile Include="program\game\Tool\Bullet.cpp" />
     <ClCompile Include="program\game\Tool\GameObj.cpp" />
     <ClCompile Include="program\game\Tool\gm_soundmanager.cpp" />
+    <ClCompile Include="program\game\Tool\ItemManager.cpp" />
     <ClCompile Include="program\game\Tool\Map.cpp" />
     <ClCompile Include="program\library\tnl_font_texture.cpp" />
     <ClCompile Include="program\library\tnl_input.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="program\game\Tool\Bullet.h" />
     <ClInclude Include="program\game\Tool\GameObj.h" />
     <ClInclude Include="program\game\Tool\gm_soundmanager.h" />
+    <ClInclude Include="program\game\Tool\ItemManager.h" />
     <ClInclude Include="program\game\Tool\Map.h" />
     <ClInclude Include="program\library\picojson.h" />
     <ClInclude Include="program\library\stb_image.h" />
