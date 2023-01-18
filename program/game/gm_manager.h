@@ -8,6 +8,8 @@ private:
 	GameManager();
 	~GameManager();
 
+
+
 	int img_black_ = 0;
 	//‰Šú‰»ƒtƒ‰ƒO
 	bool init = false;

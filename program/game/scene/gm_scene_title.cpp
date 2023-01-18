@@ -27,8 +27,33 @@ void SceneTitle::initialzie()
 void SceneTitle::update(float delta_time)
 {
 	GameManager* mgr = GameManager::GetInstance();
-	
-
+	/*-------------------------------------------PAD--------------------------------------------*/
+	//‚±‚±‚ÅŒ¾‚¤‚Æ‚±‚ë‚ÌB=KEY_1,X=KEY_2
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_1) && pos_arrow_ == screenMidleY + 20) {
+		frag_cnt_timer_ = false;
+		frag_move_title_ = false;
+	}
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_1) && pos_arrow_ == screenMidleY + 70) {
+		frag_cnt_timer_ = false;
+		frag_change_explain_ = false;
+	}
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_DOWN) && cnt_pos_ == 0) {
+		pos_arrow_ += 50;
+		cnt_pos_++;
+	}
+	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_DOWN) && cnt_pos_ == 1) {
+		pos_arrow_ -= 50;
+		cnt_pos_--;
+	}
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_UP) && cnt_pos_ == 1) {
+		pos_arrow_ -= 50;
+		cnt_pos_--;
+	}
+	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_UP) && cnt_pos_ == 0) {
+		pos_arrow_ += 50;
+		cnt_pos_++;
+	}
+	/*********************************************************************************************/
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)&& pos_arrow_ == screenMidleY + 20) {
 		frag_cnt_timer_ = false;
 		frag_move_title_ = false;

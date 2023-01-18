@@ -2,6 +2,7 @@
 #include"../Character/CharacterBase.h"
 
 class CharacterBase;
+class Player;
 
 class Item : public CharacterBase
 {

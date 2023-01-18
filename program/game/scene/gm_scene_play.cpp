@@ -13,6 +13,7 @@
 #include"../Tool/Animation.h"
 #include"../Tool/Bullet.h"
 #include "../gm_main.h"
+#include"../gm_manager.h"
 #include<algorithm>
 
 

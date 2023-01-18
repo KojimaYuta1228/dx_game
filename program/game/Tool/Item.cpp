@@ -1,4 +1,7 @@
 #include "Item.h"
+#include"../scene/gm_scene_play.h"
+
+extern ScenePlay* scene_play_;
 
 Item::Item(int id, int type)
 {
@@ -32,6 +35,7 @@ void Item::initialzie()
 
 void Item::Update(float delta_time)
 {
+
 }
 
 void Item::Render()

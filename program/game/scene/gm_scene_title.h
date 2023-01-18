@@ -16,7 +16,7 @@ public:
 	void render() override;
 	void playsound() override;//本来ならばSOUNDもSceneBaseに書いておく
 
-	std::shared_ptr<Player> player_sprite = nullptr;
+	//std::shared_ptr<Player> player_sprite = nullptr;
 	//フォントのハンドル
 	LPCSTR font_path;
 	const int screenMidleX = DXE_WINDOW_WIDTH / 2;
