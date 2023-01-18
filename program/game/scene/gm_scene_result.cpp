@@ -29,7 +29,11 @@ void SceneResult::update(float delta_time)
 {
 	GameManager* mgr = GameManager::GetInstance();
 	
-
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_1)) {
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_INSECT);
+		frag_cnt_timer_ = false;
+		frag_move_title_ = false;
+	}
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_INSECT);
 		frag_cnt_timer_ = false;
