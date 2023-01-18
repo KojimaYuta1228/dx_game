@@ -111,37 +111,22 @@ void ScenePlay::update(float delta_time)
 	
 	//三人称
 
-	int a = 2;
-	float theat_all = tnl::ToRadian(90) * delta_time;
-	float w = tnl::ToRadian(90) / a;//各速度
 
-//	tnl::Vector3 cam_delta_pos = { camera_->target_distance_ * cos(90),0,camera_->target_distance_ * sin(90) };
-	
 		tnl::Vector3 rot[2] = {
-			{ 0, tnl::ToRadian(90)*delta_time/a, 0 },//各速度
-			{ 0, -tnl::ToRadian(90) * delta_time / a, 0 },
+			{ 0, tnl::ToRadian(1.0), 0 },//各速度
+			{ 0, -tnl::ToRadian(1.0), 0 },
 		};
+		//tnl::Input::RunIndexPadDown([&](uint32_t idx) {
+		//	frag_camera_rotate_ = false;
+		//	camera_->free_look_angle_xy_ += rot[idx];//三人称
+		//	}, ePad::KEY_6, ePad::KEY_7);
 		tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 			frag_camera_rotate_ = false;
 			camera_->free_look_angle_xy_ += rot[idx];//三人称
 		}, eKeys::KB_D, eKeys::KB_A);
 				
-		while (!frag_camera_rotate_) {
-		 	
-			//camera_->free_look_angle_xy_ += rot[0];//三人称
-			if (cam_rot_x < 90) {
-				frag_camera_rotate_ = true;
-				//cam_rot_x = 1.0;
-				break;
-			}
-		}
+		
 	
-	/*if (tnl::Input::IsKeyDown(eKeys::KB_Z)) {
-		camera_->target_distance_ += 1.0f;
-	}
-	if (tnl::Input::IsKeyDown(eKeys::KB_X)) {
-		camera_->target_distance_ -= 1.0f;
-	}*/
 	camera_->target_ = player_->sprite_->pos_;
 
 	// 移動制御
