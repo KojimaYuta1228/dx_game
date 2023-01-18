@@ -178,6 +178,7 @@ void Map::createMaze()
 
 void Map::printMaze(int w, int h)
 {
+	return;
 	for (int i = 0; i < h; i++) {
 		for (int k = 0; k < w; k++) {
 

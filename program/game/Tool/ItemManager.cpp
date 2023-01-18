@@ -1,4 +1,5 @@
 #include"ItemManager.h"
+#include"Item.h"
 
 ItemManager::ItemManager()
 {
@@ -23,5 +24,17 @@ void ItemManager::CreateItem(int id, int type)
 
 void ItemManager::Update()
 {
-
+	CheckItemIsAlive();
+}
+//List‚É‚ ‚éƒAƒCƒeƒ€‚Ìíœ
+void ItemManager::CheckItemIsAlive()
+{
+	auto it = Item_holder.begin();
+	while (it != Item_holder.end()) {
+		if (!(*it)->is_alive_) {
+			it = Item_holder.erase(it);
+			continue;
+		}
+		it++;
+	}
 }

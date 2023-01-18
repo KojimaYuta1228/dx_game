@@ -113,7 +113,7 @@ void Enemy::Render()
 {
 	enSprite_->pos_ = pos_;
 	enSprite_->render(camera_);
-	//DrawOBB(camera_, enSprite_->pos_, enSprite_->rot_, { 30,32,32 });
+	DrawOBB(camera_, enSprite_->pos_, enSprite_->rot_, { 30,32,32 });
 }
 
 float Enemy::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
@@ -134,7 +134,7 @@ void Enemy::EnemyMove()
 	std::string anim_names[4] = {
 		"en1_walk_back","en1_walk_right","en1_walk_front","en1_walk_left"
 	};
-	enSprite_->setCurrentAnim(anim_names[enemy_status_]);
+	//enSprite_->setCurrentAnim(anim_names[enemy_status_]);
 
 	tnl::Vector3 move = { 0,0,0 };
 	tnl::Vector3 dir[4] = {
@@ -144,20 +144,26 @@ void Enemy::EnemyMove()
 		camera_->left().xz(),
 	};
 	//Œü‚¢‚Ä‚¢‚é•ûŒü‚É‘Î‚µ‚Äsprite‚ðŒü‚¯‚é
-	tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
+	/*tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 	move += dir[idx];
 	}, eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT);
-	
+	*/
 	tnl::Vector3 move_n = tnl::Vector3::Normalize(move_target_pos_ - pos_);
 	pos_ += move_n * 1.0f ;
 
-	 prev_pos_ = pos_;
-	 enSprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move), 0.3f);
+
+	int t = tnl::GetXzRegionPointAndOBB(
+		camera_->pos_
+		, enSprite_->pos_
+		, { 32, 48, 32 }
+	, enSprite_->rot_);
+
+	enSprite_->setCurrentAnim(anim_names[t]);
 	
-	 /*if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
-		 move.normalize();
-		 enSprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(enPos_, enPos_ + move), 0.3f);
-		 enPos_ += move * 2.0f;
-	 }*/
-	 //enPos_ += move * 2.0f;
+
+
+	prev_pos_ = pos_;
+	enSprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, move_target_pos_), 0.3f);
+	
+
 }
