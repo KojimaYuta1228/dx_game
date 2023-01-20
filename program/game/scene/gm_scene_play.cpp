@@ -124,8 +124,7 @@ void ScenePlay::update(float delta_time)
 			frag_camera_rotate_ = false;
 			camera_->free_look_angle_xy_ += rot[idx];//ŽOlÌ
 		}, eKeys::KB_D, eKeys::KB_A);
-				
-		
+	
 	
 	camera_->target_ = player_->sprite_->pos_;
 
@@ -209,26 +208,6 @@ void ScenePlay::update(float delta_time)
 		cnt_play_se_laugh_ = 0;
 	}
 	
-	//tnl::Vector3 up = { 0,0,1 };
-	//float base_speed = 2.0f;
-	//CharacterBase::objects.emplace_back(player_);
-	//if (tnl::Input::IsKeyDownTrigger(eKeys::KB_Z)) {
-	//	CharacterBase::objects.emplace_back(new Bullet(player_->pos_,up,base_speed));
-	//}
-	//for (auto obj : CharacterBase::objects) {
-	//	obj->Update(delta_time);
-	//}
-	//auto it = CharacterBase::objects.begin();
-	//while (it != CharacterBase::objects.end()) {
-	//	if (!(*it)->is_alive_) {
-	//		auto cb = *it;
-	//		cb.reset();
-	//		//delete (*it);
-	//		it = CharacterBase::objects.erase(it);
-	//		continue;
-	//	}
-	//	it++;
-	//}
 }
 
 void ScenePlay::render()

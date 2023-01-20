@@ -6,6 +6,15 @@ extern ScenePlay* scene_play_;
 Item::Item(int id, int type)
 {
 	id_ = id; type_ = type;
+	// 使用するテクスチャを事前ロード
+	Shared<dxe::Texture> texs[5];
+
+	texs[0] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_up.jpg");
+	texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_down.jpg");
+	texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/strong_time.jpg");
+	texs[3] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/key.jpg");
+	texs[4] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/coin.jpg");
+	
 }
 
 Item::~Item()

@@ -27,7 +27,7 @@ public:
 	tnl::Vector3 move_target_pos_;
 
 	std::vector<Node*> route_player_;
-	//tnl::Vector3& startPos ;
+	float en_speed = 0.5f;
 	float x;
 	float z;
 	

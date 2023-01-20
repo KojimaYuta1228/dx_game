@@ -124,6 +124,7 @@ float Enemy::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
 void Enemy::EnemyMove()
 {
 	//ˆÚ“®§Œä
+	//Œü‚¢‚Ä‚¢‚é•ûŒü‚É‘Î‚µ‚Äsprite‚ðŒü‚¯‚é
 	int enemy_status_ = tnl::GetXzRegionPointAndOBB(
 		camera_->pos_,
 		enSprite_->pos_,
@@ -134,7 +135,6 @@ void Enemy::EnemyMove()
 	std::string anim_names[4] = {
 		"en1_walk_back","en1_walk_right","en1_walk_front","en1_walk_left"
 	};
-	//enSprite_->setCurrentAnim(anim_names[enemy_status_]);
 
 	tnl::Vector3 move = { 0,0,0 };
 	tnl::Vector3 dir[4] = {
@@ -143,11 +143,7 @@ void Enemy::EnemyMove()
 		camera_->back().xz(),
 		camera_->left().xz(),
 	};
-	//Œü‚¢‚Ä‚¢‚é•ûŒü‚É‘Î‚µ‚Äsprite‚ðŒü‚¯‚é
-	/*tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
-	move += dir[idx];
-	}, eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT);
-	*/
+	
 	tnl::Vector3 move_n = tnl::Vector3::Normalize(move_target_pos_ - pos_);
 	pos_ += move_n * 1.0f ;
 
@@ -159,9 +155,6 @@ void Enemy::EnemyMove()
 	, enSprite_->rot_);
 
 	enSprite_->setCurrentAnim(anim_names[t]);
-	
-
-
 	prev_pos_ = pos_;
 	enSprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, move_target_pos_), 0.3f);
 	
