@@ -20,72 +20,8 @@ Item::Item(int id, int type, SceneBase* scene_base)
 		camera_ = scene_play->GetCamera();
 	}
 
-   //scene_play_->map_->Root_holder_[random];
 	id_ = id; type_ = type;
-	//// 使用するテクスチャを事前ロード
-	//Shared<dxe::Texture> texs[5];
-
-	//texs[0] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_up.jpg");//速度上昇
-	//texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_down.jpg");//速度減少
-	//texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/strong_time.jpg");//無敵
-	//texs[3] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/key.jpg");//鍵
-	//texs[4] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/coin.jpg");//コイン
-
-	//Itemのクローンの作成
-	//dxe::Mesh* item_box_[9];//クローンしたアイテムをいれておく箱
-
-	/*
-	for (int i = 0; i < 9; ++i) {
-		
-		random = rand() % 25;
-		if (i < 2) {
-			//item_box_[i] = dxe::Mesh::CreateBarrelMV(10, 13, 25);//半径、膨らみ、高さ
-			//item_box_[i]->setTexture(texs[0]);
-			MyVec2i v = i_map_->Root_holder_[random];
-			item_spawn = { (float)v.x_ * 50,0,(float)v.y_ * 50 };
-			//item_ = item_box_[i]->createClone();
-			type_ = 0;
-			printfDx("x = %d, y = %d", v.x_, v.y_, true);
-		}
-		if (i >= 2 && i < 4) {
-			//item_box_[i] = dxe::Mesh::CreateBarrelMV(10, 13, 25);//半径、膨らみ、高さ
-			//item_box_[i]->setTexture(texs[1]);
-			MyVec2i v = i_map_->Root_holder_[random];
-			item_spawn = { (float)v.x_ * 10,0,(float)v.y_ * 10 };
-			//item_ = item_box_[i]->createClone();
-			printfDx("x = %d, y = %d", v.x_, v.y_, true);
-			type_ = 1;
-		}
-		if (i == 5) {
-			//item_box_[i] = dxe::Mesh::CreateTorusMV(10, 8);
-			//item_box_[i]->setTexture(texs[2]);
-			MyVec2i v = i_map_->Root_holder_[random];
-			item_spawn = { (float)v.x_ * 10,0,(float)v.y_ * 10 };
-			//item_ = item_box_[i]->createClone();
-			type_ = 2;
-			printfDx("x = %d, y = %d", v.x_, v.y_, true);
-		}
-		if (i == 6) {
-			//item_box_[i] = dxe::Mesh::CreateTorusMV(10, 8);
-			//item_box_[i]->setTexture(texs[3]);
-			MyVec2i v = i_map_->Root_holder_[random];
-			item_spawn = { (float)v.x_ * 10,0,(float)v.y_ * 10 };
-			//item_ = item_box_[i]->createClone();
-			type_ = 3;
-			printfDx("x = %d, y = %d", v.x_, v.y_, true);
-		}
-		else {
-			//item_box_[i] = dxe::Mesh::CreateDiskMV(50);
-			//item_box_[i]->setTexture(texs[4]);
-			MyVec2i v = i_map_->Root_holder_[random];
-			item_spawn = { (float)v.x_ * 10,0,(float)v.y_ * 10 };
-			//item_ = item_box_[i]->createClone();
-			type_ = 4;
-			printfDx("x = %d, y = %d", v.x_, v.y_, true);
-		}
-		
-	}
-	*/
+	
 
 }
 
@@ -124,7 +60,6 @@ void Item::Update(float delta_time)
 
 void Item::Render()
 {
-	//item_->pos_ = item_spawn;
 	item_->render(camera_);
 }
 

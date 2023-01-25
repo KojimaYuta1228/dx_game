@@ -83,35 +83,7 @@ void ScenePlay::update(float delta_time)
 	Animation* newAnim = nullptr;
 	
 	// カメラ制御
-	//tnl::Vector3 mv = tnl::Input::GetMouseVelocity();
-	//float length = mv.length();//マウスを動かしたときの距離をとる
-	//mv.normalize();//正規化
-	//if (length > 2.0f) {
-	//	tnl::Vector3 v = { mv.x, -mv.y, mv.z };
-	//	tnl::Vector3 front = camera_->front();
-	//	tnl::Vector3 v_scr = tnl::Vector3::TransformCoord(v, camera_->c_rot);
-	//	tnl::Vector3 axis = tnl::Vector3::Cross(front, v_scr);
-	//	tnl::Vector3 front_xz = front.xz();
-	//	float angle = front_xz.angle(front);
-	//	bool is_look_up = (front.y > 0) ? true : false;
-	//	bool is_mouse_up = (mv.y < 0) ? true : false;
-	//	if ((is_look_up && is_mouse_up) || (!is_look_up && !is_mouse_up)) {
-	//		if (tnl::ToDegree(angle) < 70) {
-	//			camera_->c_rot = tnl::Quaternion::RotationAxis(axis, tnl::ToRadian(length * 0.1f));
-	//		}
-	//	}
-	//	else {
-	//		camera_->c_rot = tnl::Quaternion::RotationAxis(axis, tnl::ToRadian(length * 0.1f));
-	//	}
-	//}
-	//tnl::Vector3 move_v = { 0,0,0 };
-	//tnl::Vector3 dir[4] = {
-	//	camera_->left().xz(),
-	//	camera_->right().xz(),
-	//	camera_->front().xz(),	
-	//	camera_->back().xz(),
-	//	
-	//};
+	
 	
 	//三人称
 
@@ -120,10 +92,10 @@ void ScenePlay::update(float delta_time)
 			{ 0, tnl::ToRadian(1.0), 0 },//各速度
 			{ 0, -tnl::ToRadian(1.0), 0 },
 		};
-		//tnl::Input::RunIndexPadDown([&](uint32_t idx) {
-		//	frag_camera_rotate_ = false;
-		//	camera_->free_look_angle_xy_ += rot[idx];//三人称
-		//	}, ePad::KEY_6, ePad::KEY_7);
+		tnl::Input::RunIndexPadDown([&](uint32_t idx) {
+			frag_camera_rotate_ = false;
+			camera_->free_look_angle_xy_ += rot[idx];//三人称
+			}, ePad::KEY_6, ePad::KEY_7);
 		tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 			frag_camera_rotate_ = false;
 			camera_->free_look_angle_xy_ += rot[idx];//三人称

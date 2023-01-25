@@ -23,6 +23,8 @@ public :
 	//map‚ÌÀ•W
 	int maze_pos_x_ = 0 ;
 	int maze_pos_z_ = 0;
+
+	int player_hp_cnt = 3;
 	//ƒtƒ‰ƒO
 	bool frag_input_ = true;
 	bool frag_move_posY_ = true;

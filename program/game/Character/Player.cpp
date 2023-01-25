@@ -67,9 +67,9 @@ void Player::Update(float delta_time)
 		camera_->back().xz(),
 		camera_->left().xz(),
 	};
-	/*tnl::Input::RunIndexPadDown([&](uint32_t idx) {
+	tnl::Input::RunIndexPadDown([&](uint32_t idx) {
 		move_v += dir[idx];
-		}, ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT);*/
+		}, ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT);
 
 	tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 		move_v += dir[idx];
@@ -78,15 +78,21 @@ void Player::Update(float delta_time)
 	prev_pos_ = pos_;
 	//ˆÚ“®
 	/*-------------PAD-----------------*/
-	/*if (tnl::Input::IsPadDown(ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT) && frag_input_ == true) {
+	if (tnl::Input::IsPadDown(ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT) && frag_input_ == true) {
 		move_v.normalize();
 		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
 		frag_play_se_ = false;
 		pos_ += move_v * 2.0f;
 	}
+	/*if (tnl::Input::GetLeftStick) {
+		move_v.normalize();
+		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
+		frag_play_se_ = false;
+		pos_ += move_v * 2.0f;
+	}*/
 	if (tnl::Input::IsPadReleaseTrigger(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
 		frag_play_se_ = true;
-	}*/
+	}
 	
 	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
 		move_v.normalize();
