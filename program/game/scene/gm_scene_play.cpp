@@ -14,6 +14,7 @@
 #include"../Tool/Bullet.h"
 #include "../gm_main.h"
 #include"../gm_manager.h"
+#include"../Tool/ItemManager.h"
 #include<algorithm>
 
 
@@ -35,7 +36,7 @@ void ScenePlay::initialzie() {
 	map_ = std::make_shared<Map>();
 	map_->initialzie();
 	
-
+	
 	//auto startPos = map_->start_pos;
 	auto startPos = map_->GetRandomRoot();
 	auto startEnPos = map_->GetRandomRoot();
@@ -59,7 +60,10 @@ void ScenePlay::initialzie() {
 	floor_->setTexture(dxe::Texture::CreateFromFile("graphics/Resouce/image/dangeon_floor01.jpg"));
 
 	img_note = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/old_later3.png");
+
+	item_ = std::make_shared<ItemManager>( this );
 	
+	//item_->CreateItem(0,0);
 	SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_START);
 	
 }
@@ -131,8 +135,8 @@ void ScenePlay::update(float delta_time)
 	// 移動制御
 	player_->Update(delta_time);
 	enemy_->Update(delta_time);
+	item_->Update(delta_time);
 	
-
 
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
 		mgr->chengeScene(new SceneResult());
@@ -167,8 +171,9 @@ void ScenePlay::update(float delta_time)
 		}
 	}
 	//プレイヤーとエネミーと当たり判定
+
 	if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
-		mgr->chengeScene(new GameOver());
+		//mgr->chengeScene(new GameOver());
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 	}
 
@@ -217,7 +222,7 @@ void ScenePlay::render()
 	map_->Rander();
 	floor_->render(camera_);
 	dome_->render(camera_);
-
+	item_->Render();
 
 	for (auto& hoge : draw_character_) {
 		hoge->Render();
@@ -225,7 +230,7 @@ void ScenePlay::render()
 	
 	SetFontSize(20);
 	if (img_note) {
-		DrawRotaGraph(120, 90, 0.4, 0, img_note, true);
+		//DrawRotaGraph(120, 90, 0.4, 0, img_note, true);
 		DrawStringEx(60, 150, 0, "Q:CLOSE");
 	}
 

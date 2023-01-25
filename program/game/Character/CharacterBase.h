@@ -6,7 +6,7 @@ class GmCamera;
 
 class CharacterBase {
 public:
-	CharacterBase();
+	CharacterBase(){};
 	virtual ~CharacterBase() {}
 	virtual void initialzie() = 0;
 	virtual void Update(float delta_time) {}

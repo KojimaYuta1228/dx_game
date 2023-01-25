@@ -3,13 +3,15 @@
 
 class SceneBase;
 class CharacterBase;
+//class Player;
+
 class GameManager {
 private:
 	GameManager();
 	~GameManager();
 
 
-
+	
 	int img_black_ = 0;
 	//‰Šú‰»ƒtƒ‰ƒO
 	bool init = false;
@@ -66,6 +68,7 @@ public:
 		CharacterBase* chara_base;
 	};*/
 	std::unordered_map<std::string, int> imghandle;
+	//std::shared_ptr<Player> player_ = nullptr;
 	int ImgHandle(std::string img_pass);
 	int save_img = 0;//‰æ‘œ‚ğ•Û‘¶‚·‚é•Ï”
 

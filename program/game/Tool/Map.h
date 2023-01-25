@@ -8,6 +8,14 @@ class ScenePlay;
 class GmCamera;
 class GameManager;
 
+class MyVec2i {
+public :
+	MyVec2i(){}
+	MyVec2i(const int x, const int y) : x_(x), y_(y) {}
+	int x_;
+	int y_;
+};
+
 //int Map::maze[MEIRO_HEIGHT][MEIRO_WIDTH];
 class Map {
 public:
@@ -26,6 +34,7 @@ public:
 	static int maze[MEIRO_HEIGHT][MEIRO_WIDTH];
 
 	dxe::Mesh* map_chips_[MEIRO_WIDTH][MEIRO_HEIGHT];
+	std::vector<MyVec2i> Root_holder_;
 
 	void initialzie();
 

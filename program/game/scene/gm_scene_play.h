@@ -1,3 +1,4 @@
+#pragma once
 #include "gm_scene_base.h"
 #include "../gm_camera.h"
 #include"../Tool/Map.h"

@@ -9,14 +9,17 @@ class GmCamera;
 
 class ItemManager {
 public:
-	ItemManager();
+	ItemManager(){}
+	ItemManager( SceneBase* scene_base );
 	~ItemManager();
 
 	void CreateItem(int id, int type);
-	void Update();
+	void Update(float delta_time);
 	void CheckItemIsAlive();
+	void Render();
 	std::shared_ptr<Item>item_ = nullptr;
-	std::list<std::shared_ptr<Item>> Item_holder;
+	std::list<std::shared_ptr<Item>> spawn_Item_list;//new‚µ‚½Item‚ðŠi”[‚·‚éList
+	SceneBase* ref_scene_ = nullptr;
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;

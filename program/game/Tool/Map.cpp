@@ -78,7 +78,6 @@ void Map::initialzie()
 	std::shared_ptr<dxe::Texture> tex = nullptr;
 	for (int i = 0; i < MEIRO_HEIGHT; ++i) {
 		for (int k = 0; k < MEIRO_WIDTH; ++k) {
-			//map_chips_[i][k] = origin_boxs[i]->createClone();
 			if (maze[i][k] == ROOT)map_chips_[i][k] = origin_boxs[0]->createClone();
 			if (maze[i][k] == WALL)map_chips_[i][k] = origin_boxs[1]->createClone();
 			if (maze[i][k] == GOAL) {
@@ -338,7 +337,9 @@ Cell Map::Dig(int startX, int startY)
 
 void Map::SetPath(int setX, int setY)
 {
-	maze[setY][setX] = ROOT;
+	maze[setY][setX] = ROOT;//二次元配列上のx,yをRootに
+	//Root_holder_.emplace_back(maze[setY][setX]);//Rootになった二次元座標での配列を保存
+	Root_holder_.emplace_back( MyVec2i(setX,setY) );
 
 	//奇数番の場合はスタート地点の候補の配列に入れる
 
