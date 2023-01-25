@@ -17,9 +17,11 @@ public:
 	void Update(float delta_time);
 	void CheckItemIsAlive();
 	void Render();
-	std::shared_ptr<Item>item_ = nullptr;
 	std::list<std::shared_ptr<Item>> spawn_Item_list;//newしたItemを格納するList
 	SceneBase* ref_scene_ = nullptr;
+	// 使用するテクスチャを事前ロード
+	Shared<dxe::Texture> texs[5];
+	dxe::Mesh* item_box_[9];//アイテム用のオリジナルの箱
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;

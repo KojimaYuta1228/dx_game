@@ -150,9 +150,9 @@ void ScenePlay::update(float delta_time)
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
 
-				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
+				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize }, player_->pos_);
-				}
+				}*/
 				/*if (tnl::IsIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize }, enemy_->enPos_);
 				}*/
