@@ -61,6 +61,7 @@ void Player::Update(float delta_time)
 	sprite_->setCurrentAnim(anim_names[t]);
 
 	tnl::Vector3 move_v = { 0,0,0 };
+	tnl::Vector3 move_p = { 0,0,0 };
 	tnl::Vector3 dir[4] = {
 		camera_->front().xz(),
 		camera_->right().xz(),
@@ -70,30 +71,36 @@ void Player::Update(float delta_time)
 	tnl::Input::RunIndexPadDown([&](uint32_t idx) {
 		move_v += dir[idx];
 		}, ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT);
-
 	tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 		move_v += dir[idx];
-		},  eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT);
+		}, eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT);
 
+	move_v = tnl::Input::GetLeftStick();
 	prev_pos_ = pos_;
-	//移動
-	/*-------------PAD-----------------*/
-	if (tnl::Input::IsPadDown(ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT) && frag_input_ == true) {
-		move_v.normalize();
-		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
-		frag_play_se_ = false;
-		pos_ += move_v * 2.0f;
-	}
-	/*if (tnl::Input::GetLeftStick) {
+	sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
+	pos_ += move_v;
+	//----------------------移動----------------------
+	/*----------------------------pad----------------------------------*/
+	/*if (tnl::Input::IsPadDown(ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT) && frag_input_ == true) {
 		move_v.normalize();
 		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
 		frag_play_se_ = false;
 		pos_ += move_v * 2.0f;
 	}*/
+	
+		/*move_v.normalize();
+		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
+		pos_ += move_v;*/
+	
+	
 	if (tnl::Input::IsPadReleaseTrigger(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
 		frag_play_se_ = true;
 	}
-	
+	//加速
+	if (tnl::Input::IsPadDown(ePad::KEY_5)) {
+		pos_ += move_v * 10;
+	}
+	/*----------------------------key----------------------------------*/
 	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
 		move_v.normalize();
 		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
@@ -103,33 +110,24 @@ void Player::Update(float delta_time)
 	if (tnl::Input::IsKeyReleaseTrigger(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
 		frag_play_se_ = true;
 	}
-
 	//加速
-	if (tnl::Input::IsPadDown(ePad::KEY_5)) {
-		pos_ += move_v * 10;
-	}
 	if (tnl::Input::IsKeyDown(eKeys::KB_1)) {
 		pos_ += move_v * 10;
 	}
-	
+	//-----------------------------------------------
 	//マップの座標の補正
-	//maze_pos_x_ = (pos_.x - (-12.5f * 50.0f)) / 50;
-	//maze_pos_z_ = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
-
 	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
 	map_->goal_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
 
 	distance_ = CameraDis(pos_, camera_->pos_);
 	sprite_->update(delta_time);
-	//playerのposをA*用のゴールAGOALに
-	//map_->maze[static_cast<int>(pos_.x)][static_cast<int>(pos_.z)] = static_cast<int>(Map::MAZESTATE::AGOAL);
+	
 }
 
 void Player::Render()
 {
 	sprite_->pos_ = pos_;
 	sprite_->render(camera_);
-	//DrawOBB(camera_, sprite_->pos_, sprite_->rot_, { 32, 48, 32 });
 }
 
 float Player::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)

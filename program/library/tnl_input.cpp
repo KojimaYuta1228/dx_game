@@ -501,7 +501,8 @@ namespace tnl {
 		return float(joy_state_.lRy + 1000) / 2000.0f;
 	}
 	tnl::Vector3 Input::GetLeftStick() {
-		return { float(joy_state_.lX) / 1000.0f, float(joy_state_.lY) / 1000.0f, 0 };
+		//return { float(joy_state_.lX) / 1000.0f, float(joy_state_.lY) / 1000.0f, 0 };//ƒIƒŠƒWƒiƒ‹
+		return { float(joy_state_.lX) / 1000.0f, 0 , -(float(joy_state_.lY) / 1000.0f) };//‰ü•Ï
 	}
 	tnl::Vector3 Input::GetRightStick() {
 		return { float(joy_state_.lZ) / 1000.0f, float(joy_state_.lRz) / 1000.0f, 0 };
