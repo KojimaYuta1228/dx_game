@@ -21,7 +21,7 @@ public:
 	void Update(float delta_time)override;
 	void Render()override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
-	void SwithItemMove();
+	void SwithItemMove(int item_num);
 	std::list<dxe::Mesh*> item_boxs_;
 	dxe::Mesh* item_mesh;
 	SceneBase* ref_scene_ = nullptr ;

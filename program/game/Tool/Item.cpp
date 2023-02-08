@@ -27,11 +27,14 @@ Item::Item(int id, int type, SceneBase* scene_base)
 
 Item::~Item()
 {
+
+
+
 }
 
 
 
-void Item::SwithItemMove()
+void Item::SwithItemMove(int item_num)
 {
 	switch (type_)
 	{

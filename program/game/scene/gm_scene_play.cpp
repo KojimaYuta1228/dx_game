@@ -219,7 +219,7 @@ void ScenePlay::render()
 		//DrawRotaGraph(120, 90, 0.4, 0, img_note, true);
 		DrawStringEx(60, 150, 0, "Q:CLOSE");
 	}
-
+	
 	//DrawRotaGraph(500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 1.7 + 1.7 * sin(tnl::ToRadian(cnt_smoke)), 0, img_smoke,true);
 	/*DrawStringEx(10, 20, 0, "MAXE_X :%d", static_cast<int>(player_->pos_.x));
 	DrawStringEx(10, 40, 0, "MAXE_Z :%d", static_cast<int>(player_->pos_.z));
