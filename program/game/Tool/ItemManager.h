@@ -22,6 +22,7 @@ public:
 	// 使用するテクスチャを事前ロード
 	Shared<dxe::Texture> texs[5];
 	dxe::Mesh* item_box_[9];//アイテム用のオリジナルの箱
+	std::shared_ptr<Item> item;
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;

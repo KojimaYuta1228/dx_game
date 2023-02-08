@@ -30,7 +30,7 @@ public:
 	std::shared_ptr<Player> player_ = nullptr;
 	std::shared_ptr<Enemy> enemy_ = nullptr;
 	std::shared_ptr<Map> map_ = nullptr;
-	std::shared_ptr<ItemManager> item_ = nullptr;
+	std::shared_ptr<ItemManager> item_mgr = nullptr;
 	std::list<dxe::Mesh*> map_chip_list_;
 
 	dxe::Mesh* map_chips_[Map::MEIRO_WIDTH][Map::MEIRO_HEIGHT];

@@ -60,7 +60,7 @@ void Item::Update(float delta_time)
 
 void Item::Render()
 {
-	item_->render(camera_);
+	item_mesh->render(camera_);
 }
 
 float Item::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)

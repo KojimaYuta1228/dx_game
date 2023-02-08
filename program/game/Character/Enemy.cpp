@@ -16,23 +16,34 @@ Enemy::Enemy(tnl::Vector3& startEnPos)
 	if (scene_play) {
 		camera_ = scene_play->GetCamera();
 	}
-	enSprite_ = new AnimSprite3D(camera_);
-	enSprite_->regist(30, 32, "en1_walk_front", "graphics/Resouce/image/enemy/obake_back.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
-	enSprite_->regist(30, 32, "en1_walk_back", "graphics/Resouce/image/enemy/obake_front.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
-	enSprite_->regist(30, 32, "en1_walk_left", "graphics/Resouce/image/enemy/obake_left.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
-	enSprite_->regist(30, 32, "en1_walk_right", "graphics/Resouce/image/enemy/obake_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
 
-	enSprite_->setCurrentAnim("en1_walk_front");
+
+
+	for (int i = 0; i < 1; i++) {
+		enSprite_[i] = new AnimSprite3D(camera_);
+		
+		enSprite_[i]->regist(30, 32, "en_walk_front", "graphics/Resouce/image/enemy/obake_back.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
+		enSprite_[i]->regist(30, 32, "en_walk_back", "graphics/Resouce/image/enemy/obake_front.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
+		enSprite_[i]->regist(30, 32, "en_walk_left", "graphics/Resouce/image/enemy/obake_left.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
+		enSprite_[i]->regist(30, 32, "en_walk_right", "graphics/Resouce/image/enemy/obake_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
+		enSprite_[i]->setCurrentAnim("en_walk_front");
+	}
+
+	
+	
+	
 	/*----Enemy‚Ì‰ŠúÀ•W----*/
 	 x = startEnPos.x * 50;
 	 z = startEnPos.z * 50;
 	pos_ = tnl::Vector3(x, 10, z);
-
+	
 	move_target_pos_ = pos_;
 }
 
 Enemy::~Enemy(){
-	delete enSprite_;
+	for (int i = 0; i < 1; i++) {
+		delete enSprite_[i];
+	}
 }
 
 void Enemy::initialzie()
@@ -105,15 +116,15 @@ void Enemy::Update(float delta_time)
 
 	EnemyMove();
 	distance_ = CameraDis(pos_, camera_->pos_);
-	enSprite_->update(delta_time);
+	enSprite_[0]->update(delta_time);
 	
 }
 
 void Enemy::Render()
 {
-	enSprite_->pos_ = pos_;
-	enSprite_->render(camera_);
-	DrawOBB(camera_, enSprite_->pos_, enSprite_->rot_, { 30,32,32 });
+	enSprite_[0]->pos_ = pos_;
+	enSprite_[0]->render(camera_);
+	//DrawOBB(camera_, enSprite_->pos_, enSprite_->rot_, { 30,32,32 });
 }
 
 float Enemy::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
@@ -127,13 +138,17 @@ void Enemy::EnemyMove()
 	//Œü‚¢‚Ä‚¢‚é•ûŒü‚É‘Î‚µ‚Äsprite‚ğŒü‚¯‚é
 	int enemy_status_ = tnl::GetXzRegionPointAndOBB(
 		camera_->pos_,
-		enSprite_->pos_,
+		enSprite_[0]->pos_,
 		{30,32,32},
-		enSprite_->rot_
+		enSprite_[0]->rot_
 	);
+	
 
 	std::string anim_names[4] = {
-		"en1_walk_back","en1_walk_right","en1_walk_front","en1_walk_left"
+		"en_walk_back","en_walk_right","en_walk_front","en_walk_left"
+	};
+	std::string anim_names01[4] = {
+		"en2_walk_back","en2_walk_right","en2_walk_front","en2_walk_left"
 	};
 
 	tnl::Vector3 move = { 0,0,0 };
@@ -150,13 +165,16 @@ void Enemy::EnemyMove()
 
 	int t = tnl::GetXzRegionPointAndOBB(
 		camera_->pos_
-		, enSprite_->pos_
+		, enSprite_[0]->pos_
 		, { 32, 48, 32 }
-	, enSprite_->rot_);
+	, enSprite_[0]->rot_);
+	
 
-	enSprite_->setCurrentAnim(anim_names[t]);
+	enSprite_[0]->setCurrentAnim(anim_names[t]);
+	//enSprite_hone_->setCurrentAnim(anim_names01[t]);
 	prev_pos_ = pos_;
-	enSprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, move_target_pos_), 0.3f);
+	enSprite_[0]->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, move_target_pos_), 0.3f);
+	//enSprite_hone_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, move_target_pos_), 0.3f);
 	
 
 }

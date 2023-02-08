@@ -16,7 +16,8 @@ public:
 	tnl::Vector3 pos_;//当たり判定用座標
 
 	AnimSprite3D* sprite_ = nullptr;
-	AnimSprite3D* enSprite_ = nullptr;
+	AnimSprite3D* enSprite_[2] = {nullptr, nullptr};
+	//AnimSprite3D* enSprite_hone_ = nullptr;
 	GmCamera* camera_ = nullptr;
 	static std::list<std::shared_ptr<CharacterBase>> objects;//弾を保存するための箱
 	bool is_alive_ = true;//生存フラグ

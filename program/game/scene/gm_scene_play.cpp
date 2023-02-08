@@ -15,11 +15,11 @@
 #include "../gm_main.h"
 #include"../gm_manager.h"
 #include"../Tool/ItemManager.h"
+#include "../Tool/Item.h"
 #include<algorithm>
 
 
 ScenePlay::ScenePlay() {
-	
 }
 
 ScenePlay::~ScenePlay() {	
@@ -29,6 +29,7 @@ ScenePlay::~ScenePlay() {
 
 void ScenePlay::initialzie() {
 	playsound();
+
 	camera_ = GetCamera();
 	//camera_->camF = GmCamera::CAMERA_TARGET;
 	camera_->camF = GmCamera::CAMERA_FREE_LOOK;
@@ -36,13 +37,14 @@ void ScenePlay::initialzie() {
 	map_ = std::make_shared<Map>();
 	map_->initialzie();
 	
-	
 	//auto startPos = map_->start_pos;
 	auto startPos = map_->GetRandomRoot();
 	auto startEnPos = map_->GetRandomRoot();
 
 	enemy_ = std::make_shared<Enemy>(startEnPos);
 	enemy_->map_ = map_;
+
+
 	player_ = std::make_shared<Player>(startPos);
 	player_->map_ = map_;
 
@@ -61,11 +63,11 @@ void ScenePlay::initialzie() {
 
 	img_note = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/old_later3.png");
 
-	item_ = std::make_shared<ItemManager>( this );
+
+	item_mgr = std::make_shared<ItemManager>( this );
 	
 	//item_->CreateItem(0,0);
 	SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_START);
-	
 }
 
 GmCamera* ScenePlay::GetCamera()
@@ -107,7 +109,7 @@ void ScenePlay::update(float delta_time)
 	// 移動制御
 	player_->Update(delta_time);
 	enemy_->Update(delta_time);
-	item_->Update(delta_time);
+	item_mgr->Update(delta_time);
 	
 
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
@@ -149,6 +151,13 @@ void ScenePlay::update(float delta_time)
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 	}
 
+	for (auto items : item_mgr->spawn_Item_list) {
+
+		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, items->pos_, { 30,32,32 })) {
+
+		}
+	}
+
 
 	RenderSort();
 	
@@ -184,17 +193,17 @@ void ScenePlay::update(float delta_time)
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_LAUGH);
 		cnt_play_se_laugh_ = 0;
 	}
-	
 }
 
 void ScenePlay::render()
 {
+
 	camera_->update();
 
 	map_->Rander();
 	floor_->render(camera_);
 	dome_->render(camera_);
-	item_->Render();
+	item_mgr->Render();
 
 	for (auto& hoge : draw_character_) {
 		hoge->Render();
@@ -211,7 +220,6 @@ void ScenePlay::render()
 	DrawStringEx(10, 40, 0, "MAXE_Z :%d", static_cast<int>(player_->pos_.z));
 	DrawStringEx(10, 60, 0, "MASU STATUS :%d", map_->maze[player_->maze_pos_x_][player_->maze_pos_z_]);*///Playerのマップチップの座標
 	//DrawStringEx(10, 60, -1, "MASU STATUS :%d", map_->maze[static_cast<int>(player_->pos_.x)][static_cast<int>(player_->pos_.z)]);
-
 }
 
 void ScenePlay::playsound()

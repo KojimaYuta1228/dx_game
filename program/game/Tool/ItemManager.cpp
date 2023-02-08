@@ -54,17 +54,17 @@ ItemManager::~ItemManager()
 
 void ItemManager::CreateItem(int id, int type)
 {	
-	std::shared_ptr<Item> item = std::make_shared<Item>(id, type, ref_scene_);//Itemをnew
+	item = std::make_shared<Item>(id, type, ref_scene_);//Itemをnew
 	spawn_Item_list.emplace_back(item);//listに追加
-	item->item_ = item_box_[id]->createClone();//クローン化
+	item->item_mesh = item_box_[id]->createClone();//クローン化
 
 	ScenePlay* sptr_play = static_cast<ScenePlay*>(ref_scene_);
 	//二次元配列座標をランダム抽選
 	auto random = rand() % sptr_play->map_->Root_holder_.size();
 	MyVec2i v = sptr_play->map_->Root_holder_[random];
 	//ワールド座標に変換
-	item->item_->pos_.x = (v.x_ * 50) - (12.5f * 50) + 25;
-	item->item_->pos_.z = (-v.y_ * 50) + (12.5f * 50) - 25;
+	item->item_mesh->pos_.x = (v.x_ * 50) - (12.5f * 50) + 25;
+	item->item_mesh->pos_.z = (-v.y_ * 50) + (12.5f * 50) - 25;
 
 
 }

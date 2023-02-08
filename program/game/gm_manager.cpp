@@ -69,7 +69,9 @@ bool GameManager::seqSceneInTransition(const float delta_time)
 	if (sequence_.isStart()) {
 		scene_transition_time_ = 0;
 	}
-	scene_transition_time_ += delta_time;
+	else {
+		scene_transition_time_ += delta_time;
+	}
 
 	scene_transition_alpha_ = 1.0f - (scene_transition_time_ / SCENE_TRANSITION_FIX_TIME);
 
