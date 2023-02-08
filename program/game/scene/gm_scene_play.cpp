@@ -151,9 +151,14 @@ void ScenePlay::update(float delta_time)
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 	}
 
+	// アイテムマネージャーのリストを総チェック
 	for (auto items : item_mgr->spawn_Item_list) {
 
+		//------------------------------------------------------------------------------------------
+		// Item と Player との当たり判定
 		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, items->pos_, { 30,32,32 })) {
+
+			items->is_alive_ = false;	// アイテムを消す
 
 		}
 	}

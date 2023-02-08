@@ -66,6 +66,8 @@ void ItemManager::CreateItem(int id, int type)
 	item->item_mesh->pos_.x = (v.x_ * 50) - (12.5f * 50) + 25;
 	item->item_mesh->pos_.z = (-v.y_ * 50) + (12.5f * 50) - 25;
 
+	item->pos_.x = item->item_mesh->pos_.x;
+	item->pos_.z = item->item_mesh->pos_.z;
 
 }
 
