@@ -15,6 +15,7 @@ public:
 	void CreateItem(int id, int type);
 	void Update(float delta_time);
 	void CheckItemIsAlive();
+	void UseHaveItem();
 	void Render();
 	std::list<std::shared_ptr<Item>> spawn_Item_list;//new‚µ‚½Item‚ğŠi”[‚·‚éList
 	std::vector<std::shared_ptr<Item>> get_Item_vec;//Šl“¾‚µ‚½Item‚ğŠi”[‚·‚éList
@@ -26,7 +27,7 @@ public:
 	//‰æ‘œƒnƒ“ƒhƒ‹
 	const int IMG_NUM = 5;
 	int img_hd[5];
-	bool get_item_frag[5] = { false,false,false,false,false };
+	bool get_item_frag[5] = { false,false,false,false,false };//Šl“¾‚µ‚½Item‚Ì•`‰æ‚ğØ‚è‘Ö‚¦‚éfrag
 	int cnt_pos_ = 0;
 	int arrow_pos = 100;
 private:

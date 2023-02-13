@@ -83,6 +83,28 @@ void ItemManager::CreateItem(int id, int type)
 
 void ItemManager::Update(float delta_time)
 {
+	CheckItemIsAlive();
+	UseHaveItem();
+}
+//Listにあるアイテムの削除
+void ItemManager::CheckItemIsAlive()
+{
+	auto it = spawn_Item_list.begin();
+	while (it != spawn_Item_list.end()) {
+		if (!(*it)->is_alive_) {
+			auto item = *it;	//itemにitのアドレスを代入
+			get_item_frag[item->type_] = true;	//get_item_fragのitemのtype番目をtrueに
+			get_Item_vec[item->type_] = item;	//get_item_vecのitemのtype番目にitemを代入
+
+			it = spawn_Item_list.erase(it);
+			//get_Item_vec.insert(get_Item_vec.end(), item);
+			continue;
+		}
+		it++;
+	}
+}
+void ItemManager::UseHaveItem()
+{
 	if (tnl::Input::IsPadDown(ePad::KEY_7) && cnt_pos_ == 0) {
 		arrow_pos += 50;
 		cnt_pos_++;
@@ -91,41 +113,18 @@ void ItemManager::Update(float delta_time)
 		arrow_pos -= 50;
 		cnt_pos_--;
 	}
-	
+	if (!get_item_frag[cnt_pos_]) return;
+	else {
+		if (tnl::Input::IsPadDown(ePad::KEY_5)) {
+			// Itemの動きをここで呼び出す
 
-		if (!get_item_frag[cnt_pos_]) return;
-		else {
-				if (tnl::Input::IsPadDown(ePad::KEY_5)) {
-					
-				
-				// Itemの動きをここで呼び出す
-
-				get_item_frag[cnt_pos_] = false;
-				auto erace_item = get_Item_vec.at(cnt_pos_);
-				get_Item_vec[cnt_pos_] = nullptr ;
-			}
+			get_item_frag[cnt_pos_] = false;
+			auto erace_item = get_Item_vec.at(cnt_pos_);
+			get_Item_vec[cnt_pos_] = nullptr;
 		}
-
-		//item->SwithItemMove(cnt_pos_);
-	CheckItemIsAlive();
-}
-//Listにあるアイテムの削除
-void ItemManager::CheckItemIsAlive()
-{
-	auto it = spawn_Item_list.begin();
-	while (it != spawn_Item_list.end()) {
-		if (!(*it)->is_alive_) {
-			auto item = *it;	
-			get_item_frag[item->type_] = true;
-			get_Item_vec[item->type_] = item;
-
-			//it = spawn_Item_list.erase(it);
-			//get_Item_vec.insert(get_Item_vec.end(), item);
-			continue;
-		}
-		it++;
 	}
 }
+
 void ItemManager::Render() {
 
 	// マップにあるアイテムの描画
