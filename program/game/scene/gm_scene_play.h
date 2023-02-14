@@ -44,6 +44,8 @@ public:
 	void update(float delta_time) override;
 	void render() override;
 	void playsound()override;
+	void Collision();
+	void PlayerGoaled(float delta_time);
 	
 	
 
