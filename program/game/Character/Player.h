@@ -15,6 +15,8 @@ public :
 
 	void initialzie() override;
 	void Update(float delta_time)override;
+	void PlayerAnim();
+	void PlayerInput();
 	void Render()override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 
@@ -30,5 +32,8 @@ public :
 	bool frag_move_posY_ = true;
 	bool frag_play_se_ = true;
 
+	int anim_pos_;
 
+	tnl::Vector3 move_v;
+	tnl::Vector3 start_pos_;
 };

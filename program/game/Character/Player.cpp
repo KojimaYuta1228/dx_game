@@ -29,9 +29,8 @@ Player::Player(tnl::Vector3& startPos)
 	/*----Playerの初期座標----*/
 	auto x = startPos.x * 50;
 	auto z = startPos.z * 50;
-	/*auto x = map_->dis_x * 50;
-	auto z = map_->dis_y * 50;*/
 	pos_ = tnl::Vector3(x,0,z);
+	start_pos_ = pos_;
 	
 }
 
@@ -46,10 +45,20 @@ void Player::initialzie()
 
 void Player::Update(float delta_time)
 {
+	PlayerAnim();
+	PlayerInput();
+	//-----------------------------------------------
+	//マップの座標の補正
+	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
+	map_->goal_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
 
-	// 移動制御
+	distance_ = CameraDis(pos_, camera_->pos_);
+	sprite_->update(delta_time);
+}
 
-	int t = tnl::GetXzRegionPointAndOBB(
+void Player::PlayerAnim()
+{
+	anim_pos_ = tnl::GetXzRegionPointAndOBB(
 		camera_->pos_
 		, sprite_->pos_
 		, { 32, 48, 32 }
@@ -58,49 +67,38 @@ void Player::Update(float delta_time)
 	std::string anim_names[4] = {
 		"walk_back" , "walk_right","walk_front", "walk_left"
 	};
-	sprite_->setCurrentAnim(anim_names[t]);
+	sprite_->setCurrentAnim(anim_names[anim_pos_]);
+}
 
-	tnl::Vector3 move_v = { 0,0,0 };
-	tnl::Vector3 move_p = { 0,0,0 };
+void Player::PlayerInput()
+{
 	tnl::Vector3 dir[4] = {
 		camera_->front().xz(),
 		camera_->right().xz(),
 		camera_->back().xz(),
 		camera_->left().xz(),
 	};
-	/*tnl::Input::RunIndexPadDown([&](uint32_t idx) {
-		move_v += dir[idx];
-		}, ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT);*/
-	tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
-		move_v += dir[idx];
-		}, eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT);
-
-	/*move_v = tnl::Input::GetLeftStick();
+	//----------------------移動----------------------//
+	//左スティックによる移動
+	move_v = tnl::Input::GetLeftStick();
 	if (move_v.length() > 0.5f) {
 		prev_pos_ = pos_;
 		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
 		pos_ += move_v;
-	}*/
-	//----------------------移動----------------------
-	/*----------------------------pad----------------------------------*/
-	if (tnl::Input::IsPadDown(ePad::KEY_UP, ePad::KEY_RIGHT, ePad::KEY_DOWN, ePad::KEY_LEFT) && frag_input_ == true) {
-		move_v.normalize();
-		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
-		frag_play_se_ = false;
-		pos_ += move_v * 2.0f;
 	}
+	//キー入力による移動
+	tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
+		move_v += dir[idx];
+		}, eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT);
+
 	
-		/*move_v.normalize();
-		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
-		pos_ += move_v;*/
-	
-	
-	if (tnl::Input::IsPadReleaseTrigger(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
-		frag_play_se_ = true;
-	}
 	//加速
 	if (tnl::Input::IsPadDown(ePad::KEY_5)) {
 		pos_ += move_v * 10;
+	}
+	//瞬間移動
+	if (tnl::Input::IsPadDown(ePad::KEY_4)) {
+		pos_ = start_pos_;
 	}
 	/*----------------------------key----------------------------------*/
 	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
@@ -116,13 +114,6 @@ void Player::Update(float delta_time)
 	if (tnl::Input::IsKeyDown(eKeys::KB_1)) {
 		pos_ += move_v * 10;
 	}
-	//-----------------------------------------------
-	//マップの座標の補正
-	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
-	map_->goal_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
-
-	distance_ = CameraDis(pos_, camera_->pos_);
-	sprite_->update(delta_time);
 	
 }
 

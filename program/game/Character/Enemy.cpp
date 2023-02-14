@@ -52,6 +52,26 @@ void Enemy::initialzie()
 
 void Enemy::Update(float delta_time)
 {
+	SetAster(delta_time);
+	EnemyMove();
+	distance_ = CameraDis(pos_, camera_->pos_);
+	enSprite_[0]->update(delta_time);
+}
+
+void Enemy::Render()
+{
+	enSprite_[0]->pos_ = pos_;
+	enSprite_[0]->render(camera_);
+	//DrawOBB(camera_, enSprite_->pos_, enSprite_->rot_, { 30,32,32 });
+}
+
+float Enemy::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
+{
+	return std::sqrtf(((camera_pos2.x - pos1.x) * (camera_pos2.x - pos1.x)) + ((camera_pos2.y - pos1.y) * (camera_pos2.y - pos1.y)) + ((camera_pos2.z - pos1.z) * (camera_pos2.z - pos1.z)));
+}
+
+void Enemy::SetAster(float delta_time)
+{
 	search_time_count_ += delta_time;
 	if (search_time_count_ > 0.25f) {
 
@@ -106,30 +126,12 @@ void Enemy::Update(float delta_time)
 		if (route.size() > 1) {
 			float fx = route_player_[1]->pos.x;
 			float fy = route_player_[1]->pos.y;
-			move_target_pos_.x = (fx * 50) - (12.5f * 50) + 25 ;
-			move_target_pos_.z = (-fy * 50) + (12.5f * 50) - 25 ;
+			move_target_pos_.x = (fx * 50) - (12.5f * 50) + 25;
+			move_target_pos_.z = (-fy * 50) + (12.5f * 50) - 25;
 		}
 
 		search_time_count_ = 0;
 	}
-
-
-	EnemyMove();
-	distance_ = CameraDis(pos_, camera_->pos_);
-	enSprite_[0]->update(delta_time);
-	
-}
-
-void Enemy::Render()
-{
-	enSprite_[0]->pos_ = pos_;
-	enSprite_[0]->render(camera_);
-	//DrawOBB(camera_, enSprite_->pos_, enSprite_->rot_, { 30,32,32 });
-}
-
-float Enemy::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
-{
-	return std::sqrtf(((camera_pos2.x - pos1.x) * (camera_pos2.x - pos1.x)) + ((camera_pos2.y - pos1.y) * (camera_pos2.y - pos1.y)) + ((camera_pos2.z - pos1.z) * (camera_pos2.z - pos1.z)));
 }
 
 void Enemy::EnemyMove()

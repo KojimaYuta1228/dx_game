@@ -19,9 +19,6 @@ Map::Map()
 	mgr = GameManager::GetInstance();
 	SceneBase* scene_base = mgr->getCurrentScene();
 	ScenePlay* scene_play = dynamic_cast<ScenePlay*>(scene_base);
-	/*path = mgr->ImgHandle("graphics/red1.bmp");
-	wall = mgr->ImgHandle("graphics/Resouce/image/item/green_blook.jpg");
-	goal = mgr->ImgHandle("graphics/graphics/Resouce/image/img_goal.png");*/
 	if (scene_play) {
 		camera_ = scene_play->GetCamera();
 	}
@@ -51,7 +48,6 @@ void Map::initialzie()
 
 	// 使用するテクスチャを事前ロード
 	Shared<dxe::Texture> texs[3];
-
 	texs[0] = dxe::Texture::CreateFromFile("graphics/red1.bmp");//RootTexture
 	texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/item/green_blook.jpg");//WallTexture
 	texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/img_goal.jpg");//GoalTexture
@@ -83,20 +79,16 @@ void Map::initialzie()
 			if (maze[i][k] == GOAL) {
 				map_chips_[i][k] = origin_boxs[2]->createClone();
 			}
-
 			if (map_chips_[i][k]) {
 				map_chips_[i][k]->pos_ = { (float)(-(12 * 50) + (k * 50)), 0, (float)((12 * 50) - (i * 50)) };
 				field_boxs_.emplace_back(map_chips_[i][k]);//クローンしたマップをリストに追加
 			}
 		}
 	}
-
-
 }
 
 void Map::Update()
 {
-
 }
 
 void Map::Rander()
@@ -108,7 +100,6 @@ int Map::SelectStartPoint(int MAXSIZE)
 {
 	//マップのどこかの奇数番の数字を返す
 	int reStart = std::rand() % MAXSIZE;
-
 	//余りが1ではない==奇数なら調整する
 	if (reStart % 2 != 1) {
 		//最大数より1低い数字以外なら1を足す(配列の範囲外エラー対策)
@@ -121,31 +112,19 @@ int Map::SelectStartPoint(int MAXSIZE)
 			reStart--;
 		}
 	}
-
 	return reStart;
-}
-
-int Map::SelectGoalPoint()
-{
-	return 0;
 }
 
 void Map::createMaze()
 {
 	createWall(MEIRO_WIDTH, MEIRO_HEIGHT);	//壁の生成
-
-	//始点の生成
-
+	//----------------------始点の生成------------------------//
 	int startX, startY, startEnX, startEnY;
-
 	//スタート地点を乱数で取得する
-
 	startX = SelectStartPoint(MEIRO_WIDTH);
 	startY = SelectStartPoint(MEIRO_HEIGHT);
-	//start_pos = { static_cast<float>(startX),0,static_cast<float>(startY) };
 	dis_x = startX;
 	dis_y = startY;
-
 	//Enemy用のスタート地点を取得する
 	startEnX = SelectStartPoint(MEIRO_WIDTH);
 	startEnY = SelectStartPoint(MEIRO_WIDTH);
@@ -157,19 +136,14 @@ void Map::createMaze()
 	}
 	start_en_pos = { static_cast<float>(startEnX) ,0,static_cast<float>(startEnY) };
 	dis_en_x = startEnX;
-	dis_en_y = startEnY;
-	maze[startEnX][startEnY] = ASTART;//enemyの初期位置をA*用のenumに
-	
-
-
+	dis_en_y = startEnY;	
 	//Debug必須
-	std::string hoge = "(startX=" + std::to_string(startX) + ",startY=" + std::to_string(startY) + ")";
+	/*std::string hoge = "(startX=" + std::to_string(startX) + ",startY=" + std::to_string(startY) + ")";
 	tnl::DebugTrace(hoge.c_str());
-	tnl::DebugTrace("\n");
+	tnl::DebugTrace("\n");*/
 
 	//移動先の座標を保存する
 	SetPath(startX, startY);
-
 	Cell c = Dig(startX, startY);
 	SetGoal(c.x, c.y);
 
@@ -177,7 +151,6 @@ void Map::createMaze()
 
 void Map::printMaze(int w, int h)
 {
-	//return;
 	for (int i = 0; i < h; i++) {
 		for (int k = 0; k < w; k++) {
 
@@ -195,8 +168,7 @@ void Map::createWall(int w, int h)
 {
 	//j->x i->yになる
 	int i, k;
-	//関数内でstaticを付けると１度呼ばれると再度呼ばれなくなる
-	//すべての壁で埋める
+	//すべてを壁で埋める
 	{
 		for (i = 0; i < h; i++) {
 			for (k = 0; k < w; k++) {
@@ -210,20 +182,16 @@ std::shared_ptr<Cell> Map::GetStartCell()
 {
 	//StartCells内のチェック
 	if (StartCells.size() == 0) return nullptr;
-
 	//配列番号の決定→戻った時にランダムに開始座標を取得する
 	auto index = GetRand(StartCells.size() - 1);
-
 	//cellの取り出し
 	auto cell = StartCells[index];
-
 	//shared_ptrとイテレータを使いStartCells内の指定した配列内の添え字を消す
 	std::vector<std::shared_ptr<Cell>>::iterator itr = StartCells.begin();
 	for (int i = 0; i < index - 1; ++i) {
 		itr++;
 	}
 	StartCells.erase(itr);
-
 	//cellを返す
 	return cell;
 }
@@ -236,11 +204,6 @@ Cell Map::Dig(int startX, int startY)
 
 	//while
 	while (1) {
-
-		/*std::string point = "(" + std::to_string(bufX) + "," + std::to_string(bufY) + ")";
-		tnl::DebugTrace(point.c_str());
-		tnl::DebugTrace("\n");*/
-
 		//if文による壁の判定→配列の末尾に登録
 		//up
 		if (bufY > 1) {
@@ -266,18 +229,12 @@ Cell Map::Dig(int startX, int startY)
 				directions.emplace_back(DIRECTION::LEFT);
 			}
 		}
-		/*if (directions.size() == 1) {
-			SetGoal(bufX, bufY);
-		}*/
-
 		//配列内が空だった場合while文を抜ける
 		if (directions.size() == 0) {
 			break;
 		}
-
 		//directions配列内の添え字をランダムに取得
 		auto index = GetRand(directions.size() - 1);
-
 		//取得した添え字を素にswitch文を回す→道を作る
 		switch (directions[index])
 		{
@@ -316,48 +273,28 @@ Cell Map::Dig(int startX, int startY)
 		//配列内を空にする
 		directions.clear();
 	}
-	//掘り進めなくなった時その地点をゴールとして保存
-	/*if (repeatCount >= MAXREPEAT) {
-
-		SetGoal(bufX,bufY);
-		return;
-	}*/
 	//どこにも掘り進められない場合、穴掘り開始候補座標から掘りなおし
 	//候補座標が存在しないとき、穴掘り完了
-	cnt_repeat_++;
 	auto cell = GetStartCell();
 	if (cell != nullptr)
 	{
 		Dig(cell->x, cell->y);
 	}
-
 	return Cell(bufX, bufY);
-
 }
 
 void Map::SetPath(int setX, int setY)
 {
 	maze[setY][setX] = ROOT;//二次元配列上のx,yをRootに
-	//Root_holder_.emplace_back(maze[setY][setX]);//Rootになった二次元座標での配列を保存
+	//Rootになった二次元座標での配列を保存
 	Root_holder_.emplace_back( MyVec2i(setX,setY) );
-
 	//奇数番の場合はスタート地点の候補の配列に入れる
-
 	if (setX % 2 == 1 && setY % 2 == 1)
 	{
 		// 穴掘り候補座標
 		auto thisCell = std::make_shared<Cell>(setX, setY);
 		StartCells.emplace_back(thisCell);
 	}
-
-	//掘り進めなくなった時その地点をゴールとして保存
-	/*if (repeatCount == MAXREPEAT) {
-
-		int a = 0;
-		a++;
-
-		maze[setY][setX] = GOAL;
-	}*/
 }
 
 void Map::GetMapChipList(std::list<dxe::Mesh*> mc_list)

@@ -19,6 +19,7 @@ public:
 	void Update(float delta_time)override;
 	void Render()override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
+	void SetAster(float delta_time);
 	void EnemyMove();
 	std::shared_ptr<Map> map_ = nullptr;
 
