@@ -5,13 +5,10 @@
 
 //extern ScenePlay* scene_play_;
 tnl::Vector3 item_spawn;
-
 Item::Item(int id, int type, SceneBase* scene_base)
 {
-	
 	ref_scene_ = scene_base;
 	ScenePlay* sptr_play = static_cast<ScenePlay*>(ref_scene_);
-
 	if (sptr_play) {
 		i_map_ = sptr_play->map_;
 	}
@@ -19,17 +16,11 @@ Item::Item(int id, int type, SceneBase* scene_base)
 	if (scene_play) {
 		camera_ = scene_play->GetCamera();
 	}
-
 	id_ = id; type_ = type;
-	
-
 }
 
 Item::~Item()
 {
-
-
-
 }
 
 
@@ -54,15 +45,11 @@ void Item::SwithItemMove(int item_num)
 }
 
 void Item::initialzie()
-{
-
-
-	
+{	
 }
 
 void Item::Update(float delta_time)
 {
-
 }
 
 void Item::Render()

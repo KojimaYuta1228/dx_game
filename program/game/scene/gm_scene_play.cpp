@@ -78,17 +78,17 @@ void ScenePlay::update(float delta_time)
 	
 	// カメラ制御
 	//三人称
-		tnl::Vector3 rot[2] = {
-			{ 0, tnl::ToRadian(1.0), 0 },//各速度
-			{ 0, -tnl::ToRadian(1.0), 0 },
-		};
+		//tnl::Vector3 rot[2] = {
+		//	{ 0, tnl::ToRadian(1.0), 0 },//各速度
+		//	{ 0, -tnl::ToRadian(1.0), 0 },
+		//};
 		tnl::Input::RunIndexPadDown([&](uint32_t idx) {
 			frag_camera_rotate_ = false;
-			camera_->free_look_angle_xy_ += rot[idx];//三人称
+			//camera_->free_look_angle_xy_ += rot[idx];//三人称
 			}, ePad::KEY_6, ePad::KEY_7);
 		tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
 			frag_camera_rotate_ = false;
-			camera_->free_look_angle_xy_ += rot[idx];//三人称
+			//camera_->free_look_angle_xy_ += rot[idx];//三人称
 		}, eKeys::KB_D, eKeys::KB_A);
 	
 	
@@ -98,21 +98,12 @@ void ScenePlay::update(float delta_time)
 	player_->Update(delta_time);
 	enemy_->Update(delta_time);
 	item_mgr->Update(delta_time);
-	
-
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
 		mgr->chengeScene(new SceneResult());
-	}
-
-	
+	}	
 	Collision();
-
-	RenderSort();
-	
+	RenderSort();	
 	PlayerGoaled(delta_time);
-	if (tnl::Input::IsKeyDown(eKeys::KB_Q) ) {
-		img_note = false;
-	}
 	cnt_play_se_ghost_ += delta_time;
 	cnt_play_se_laugh_ += delta_time;
 	if (cnt_play_se_ghost_ >= 3) {
@@ -130,24 +121,19 @@ void ScenePlay::update(float delta_time)
 
 void ScenePlay::render()
 {
-
 	camera_->update();
-
 	map_->Rander();
 	floor_->render(camera_);
 	dome_->render(camera_);
 	item_mgr->Render();
-
 	for (auto& hoge : draw_character_) {
 		hoge->Render();
-	}
-	
+	}	
 	SetFontSize(20);
 	if (img_note) {
 		//DrawRotaGraph(120, 90, 0.4, 0, img_note, true);
 		DrawStringEx(60, 150, 0, "Q:CLOSE");
-	}
-	
+	}	
 	//DrawRotaGraph(500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 1.7 + 1.7 * sin(tnl::ToRadian(cnt_smoke)), 0, img_smoke,true);
 	/*DrawStringEx(10, 20, 0, "MAXE_X :%d", static_cast<int>(player_->pos_.x));
 	DrawStringEx(10, 40, 0, "MAXE_Z :%d", static_cast<int>(player_->pos_.z));
@@ -157,8 +143,7 @@ void ScenePlay::render()
 
 void ScenePlay::playsound()
 {
-	SoundManager::GetInstance()->SoundBgm(SoundManager::BGM::PLAY);
-	
+	SoundManager::GetInstance()->SoundBgm(SoundManager::BGM::PLAY);	
 }
 
 void ScenePlay::Collision()
@@ -170,7 +155,6 @@ void ScenePlay::Collision()
 		for (int k = 0; k < Map::MEIRO_WIDTH; k++) {
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
-
 				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize }, player_->pos_);
 				}*/
@@ -197,11 +181,8 @@ void ScenePlay::Collision()
 		//mgr->chengeScene(new GameOver());
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 	}
-
 	// アイテムマネージャーのリストを総チェック
 	for (auto items : item_mgr->spawn_Item_list) {
-
-		//------------------------------------------------------------------------------------------
 		// Item と Player との当たり判定
 		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, items->pos_, { 30,32,32 })) {
 			items->is_alive_ = false;	// アイテムを消す
@@ -236,7 +217,6 @@ inline void ScenePlay::RenderSort()
 	draw_character_.sort([&](std::shared_ptr<CharacterBase> a, std::shared_ptr<CharacterBase> b) {
 		return a->distance_ > b->distance_;
 		});
-
 }
 
 

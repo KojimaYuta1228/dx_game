@@ -105,17 +105,25 @@ void ItemManager::CheckItemIsAlive()
 }
 void ItemManager::UseHaveItem()
 {
-	if (tnl::Input::IsPadDown(ePad::KEY_7) && cnt_pos_ == 0) {
-		arrow_pos += 50;
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_7)) {
+		arrow_pos += 100;
 		cnt_pos_++;
 	}
-	else if (tnl::Input::IsPadDown(ePad::KEY_6) && cnt_pos_ == 1) {
-		arrow_pos -= 50;
+	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_6)) {
+		arrow_pos -= 100;
 		cnt_pos_--;
+	}
+	if (cnt_pos_ > 4) {
+		arrow_pos = 0;
+		cnt_pos_ = 0;
+	}
+	else if (cnt_pos_ < 0) {
+		arrow_pos = 400;
+		cnt_pos_ = 4;
 	}
 	if (!get_item_frag[cnt_pos_]) return;
 	else {
-		if (tnl::Input::IsPadDown(ePad::KEY_5)) {
+		if (tnl::Input::IsPadDown(ePad::KEY_3)) {
 			// Itemの動きをここで呼び出す
 
 			get_item_frag[cnt_pos_] = false;
@@ -131,11 +139,8 @@ void ItemManager::Render() {
 	for (auto item : spawn_Item_list) {
 		item->Render();
 	}
-
-
 	// 獲得したアイテムの描画
 	for (int i = 0; i < IMG_NUM; i++) {
-
 		if (get_item_frag[i]) {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
 			DrawRotaGraph(100 + i * 100, 100, 0.1, 0, img_hd[i], true);
@@ -145,9 +150,8 @@ void ItemManager::Render() {
 			DrawRotaGraph(100 + i * 100, 100, 0.1, 0, img_hd[i], true);
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
 		}
-
 	}
-	SetFontSize(200);
-	DrawStringEx( 100 + arrow_pos ,100, 0, "@");
+	SetFontSize(50);
+	DrawStringEx(75 + arrow_pos ,100, 0, "↑");
 
 }

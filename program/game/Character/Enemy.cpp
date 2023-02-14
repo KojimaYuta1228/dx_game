@@ -27,11 +27,7 @@ Enemy::Enemy(tnl::Vector3& startEnPos)
 		enSprite_[i]->regist(30, 32, "en_walk_left", "graphics/Resouce/image/enemy/obake_left.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
 		enSprite_[i]->regist(30, 32, "en_walk_right", "graphics/Resouce/image/enemy/obake_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
 		enSprite_[i]->setCurrentAnim("en_walk_front");
-	}
-
-	
-	
-	
+	}	
 	/*----Enemy‚Ì‰ŠúÀ•W----*/
 	 x = startEnPos.x * 50;
 	 z = startEnPos.z * 50;
