@@ -23,7 +23,6 @@ Player::Player(tnl::Vector3& startPos)
 	sprite_->regist(32, 48, "walk_back", "graphics/c1_anim_down.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);	
 	sprite_->regist(32, 48, "walk_left", "graphics/c1_anim_left.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
 	sprite_->regist(32, 48, "walk_right", "graphics/c1_anim_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
-
 	sprite_->setCurrentAnim("walk_front");
 
 	/*----Player‚Ì‰ŠúÀ•W----*/
@@ -97,7 +96,8 @@ void Player::PlayerInput()
 		pos_ += move_v * 10;
 	}
 	//uŠÔˆÚ“®
-	if (tnl::Input::IsPadDown(ePad::KEY_4)) {
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0) {
+		teleportation_cnt--;
 		pos_ = start_pos_;
 	}
 	/*----------------------------key----------------------------------*/

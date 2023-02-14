@@ -33,6 +33,7 @@ public :
 	bool frag_play_se_ = true;
 
 	int anim_pos_;
+	int teleportation_cnt = 3;
 
 	tnl::Vector3 move_v;
 	tnl::Vector3 start_pos_;
