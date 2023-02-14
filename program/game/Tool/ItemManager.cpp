@@ -12,14 +12,14 @@ ItemManager::ItemManager(SceneBase* scene_base)
 	texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_down.jpg");//速度減少
 	texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/strong_time.jpg");//無敵
 	texs[3] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/key.jpg");//鍵
-	texs[4] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/coin.jpg");//コイン
+	texs[4] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/coin.png");//コイン
 
 	// 2D用の画像
 	img_hd[0] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.jpg");
 	img_hd[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_down.jpg");
 	img_hd[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/strong_time.jpg");
 	img_hd[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/key.jpg");
-	img_hd[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/coin.jpg");
+	img_hd[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/coin.png");
 
 	load_item_csv = tnl::LoadCsv("csv/Item.csv");
 	
@@ -133,8 +133,8 @@ void ItemManager::UseHaveItem()
 	}
 }
 
-void ItemManager::Render() {
-
+void ItemManager::Render()
+{
 	// マップにあるアイテムの描画
 	for (auto item : spawn_Item_list) {
 		item->Render();
