@@ -10,7 +10,7 @@ class CharacterBase;
 
 class Player :public CharacterBase{
 public :
-	Player(tnl::Vector3& startPos);
+	Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos);
 	~Player();
 
 	void initialzie() override;

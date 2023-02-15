@@ -315,8 +315,12 @@ tnl::Vector3 Map::GetRandomRoot()
 	while (true) {
 		X = SelectStartPoint(MEIRO_WIDTH);
 		Y = SelectStartPoint(MEIRO_HEIGHT);
-		if (X > 11 || Y > 11)continue;
-		if (maze[X][Y] == ROOT)break;
+		/*X1 = SelectStartPoint(MEIRO_HEIGHT);
+		Y1 = SelectStartPoint(MEIRO_HEIGHT);*/
+		if (X > 11 || Y > 11 )continue;
+		if (maze[X][Y] == ROOT ) { break; }
+		
+		
 
 	}
 	return tnl::Vector3(X,0,Y);

@@ -37,11 +37,12 @@ void ScenePlay::initialzie() {
 	map_->initialzie();
 	
 	auto startPos = map_->GetRandomRoot();
+	auto teleportationPos = map_->GetRandomRoot();
 	auto startEnPos = map_->GetRandomRoot();
 
 	enemy_ = std::make_shared<Enemy>(startEnPos);
 	enemy_->map_ = map_;
-	player_ = std::make_shared<Player>(startPos);
+	player_ = std::make_shared<Player>(startPos,teleportationPos);
 	player_->map_ = map_;
 	//List‚Ìhoge_‚É‚»‚ê‚¼‚ê‚ÌƒNƒ‰ƒX‚Ì’Ç‰Á
 	draw_character_.emplace_back(enemy_);

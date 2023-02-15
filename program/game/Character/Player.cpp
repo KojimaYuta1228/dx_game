@@ -7,8 +7,8 @@
 #include"../Tool/gm_soundmanager.h"
 #include "../Tool/Map.h"
 
-
-Player::Player(tnl::Vector3& startPos)
+tnl::Vector3 telePos;
+Player::Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
 {
 	GameManager* mgr = GameManager::GetInstance();
 	SceneBase* scene_base = mgr->getCurrentScene();
@@ -30,6 +30,9 @@ Player::Player(tnl::Vector3& startPos)
 	auto z = startPos.z * 50;
 	pos_ = tnl::Vector3(x,0,z);
 	start_pos_ = pos_;
+	auto x1 = teleportationPos.x * 50;
+	auto z1 = teleportationPos.z * 50;
+	telePos = tnl::Vector3(x1, 0, z1);
 	
 }
 
@@ -102,7 +105,7 @@ void Player::PlayerInput()
 	}
 	if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0) {
 		teleportation_cnt--;
-		pos_ = start_pos_;
+		pos_ = telePos;
 	}
 
 	/*----------------------------key----------------------------------*/
