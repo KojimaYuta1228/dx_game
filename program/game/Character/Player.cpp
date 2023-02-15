@@ -92,7 +92,7 @@ void Player::PlayerInput()
 
 	
 	//‰Á‘¬
-	if (tnl::Input::IsPadDown(ePad::KEY_5)) {
+	if (tnl::Input::IsPadDown(ePad::KEY_1) && move_v.length() > 0.5f) {
 		pos_ += move_v * 10;
 	}
 	//uŠÔˆÚ“®
@@ -100,6 +100,11 @@ void Player::PlayerInput()
 		teleportation_cnt--;
 		pos_ = start_pos_;
 	}
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0) {
+		teleportation_cnt--;
+		pos_ = start_pos_;
+	}
+
 	/*----------------------------key----------------------------------*/
 	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
 		move_v.normalize();

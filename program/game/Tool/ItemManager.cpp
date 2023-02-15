@@ -65,14 +65,20 @@ void ItemManager::CreateItem(int id, int type)
 	item = std::make_shared<Item>(id, type, ref_scene_);//Itemをnew
 	spawn_Item_list.emplace_back(item);//listに追加
 	item->item_mesh = item_box_[id]->createClone();//クローン化
-
+	item->item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
 	ScenePlay* sptr_play = static_cast<ScenePlay*>(ref_scene_);
 	//二次元配列座標をランダム抽選
 	auto random = rand() % sptr_play->map_->Root_holder_.size();
 	MyVec2i v = sptr_play->map_->Root_holder_[random];
+	
+	if (v.x_ == save_v.x_ || v.y_ == save_v.y_) {
+		random = rand() % sptr_play->map_->Root_holder_.size();
+		v = sptr_play->map_->Root_holder_[random];
+	}
+	save_v = v;
 	//ワールド座標に変換
-	item->item_mesh->pos_.x = (v.x_ * 50) - (12.5f * 50) + 25;
-	item->item_mesh->pos_.z = (-v.y_ * 50) + (12.5f * 50) - 25;
+	item->item_mesh->pos_.x = (save_v.x_ * 50) - (12.5f * 50) + 25;
+	item->item_mesh->pos_.z = (-save_v.y_ * 50) + (12.5f * 50) - 25;
 	//当たり判定用の座標の取得
 	item->pos_.x = item->item_mesh->pos_.x;
 	item->pos_.z = item->item_mesh->pos_.z;
@@ -80,7 +86,7 @@ void ItemManager::CreateItem(int id, int type)
 
 void ItemManager::Update(float delta_time)
 {
-	item->item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
+	
 	angle_++;
 	CheckItemIsAlive();
 	UseHaveItem();

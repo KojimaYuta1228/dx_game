@@ -31,6 +31,7 @@ public:
 	int cnt_pos_ = 0;
 	int arrow_pos = 0;
 	float angle_ = 0;
+	MyVec2i save_v;
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;

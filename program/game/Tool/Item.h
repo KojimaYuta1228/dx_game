@@ -24,6 +24,7 @@ public:
 	void SwithItemMove(int item_num);
 	std::list<dxe::Mesh*> item_boxs_;
 	dxe::Mesh* item_mesh;
+	std::shared_ptr<Player> player_ = nullptr;
 	SceneBase* ref_scene_ = nullptr ;
 private:
 
