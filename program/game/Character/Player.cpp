@@ -48,7 +48,7 @@ void Player::initialzie()
 void Player::Update(float delta_time)
 {
 	PlayerAnim();
-	PlayerInput();
+	PlayerInput(delta_time);
 	//-----------------------------------------------
 	//マップの座標の補正
 	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
@@ -72,7 +72,7 @@ void Player::PlayerAnim()
 	sprite_->setCurrentAnim(anim_names[anim_pos_]);
 }
 
-void Player::PlayerInput()
+void Player::PlayerInput(float delta_time)
 {
 	tnl::Vector3 dir[4] = {
 		camera_->front().xz(),
@@ -99,13 +99,22 @@ void Player::PlayerInput()
 		pos_ += move_v * 10;
 	}
 	//瞬間移動
-	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0) {
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp) {
+		frag_tp = false;
 		teleportation_cnt--;
 		pos_ = start_pos_;
 	}
-	if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0) {
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0 && frag_tp) {
+		frag_tp = false;
 		teleportation_cnt--;
 		pos_ = telePos;
+	}
+	if (!frag_tp) {
+		cnt_frag_tp -= delta_time;
+	}
+	if (cnt_frag_tp < 0) {
+		frag_tp = true;
+		cnt_frag_tp = 3;
 	}
 
 	/*----------------------------key----------------------------------*/
