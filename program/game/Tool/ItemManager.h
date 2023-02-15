@@ -30,6 +30,7 @@ public:
 	bool get_item_frag[5] = { false,false,false,false,false };//Šl“¾‚µ‚½Item‚Ì•`‰æ‚ğØ‚è‘Ö‚¦‚éfrag
 	int cnt_pos_ = 0;
 	int arrow_pos = 0;
+	float angle_ = 0;
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;

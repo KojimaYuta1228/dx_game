@@ -27,6 +27,7 @@ Item::~Item()
 
 void Item::SwithItemMove(int item_num)
 {
+
 	switch (type_)
 	{
 	case 0:

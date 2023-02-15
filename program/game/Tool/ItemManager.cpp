@@ -10,15 +10,15 @@ ItemManager::ItemManager(SceneBase* scene_base)
 	// 3D用の画像
 	texs[0] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_up.jpg");//速度上昇
 	texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_down.jpg");//速度減少
-	texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/strong_time.jpg");//無敵
-	texs[3] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/key.jpg");//鍵
+	texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/strong.png");//無敵
+	texs[3] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/key.png");//鍵
 	texs[4] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/coin.png");//コイン
 
 	// 2D用の画像
 	img_hd[0] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.jpg");
 	img_hd[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_down.jpg");
-	img_hd[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/strong_time.jpg");
-	img_hd[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/key.jpg");
+	img_hd[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/strong.png");
+	img_hd[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/key.png");
 	img_hd[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/coin.png");
 
 	load_item_csv = tnl::LoadCsv("csv/Item.csv");
@@ -33,11 +33,11 @@ ItemManager::ItemManager(SceneBase* scene_base)
 			item_box_[i]->setTexture(texs[1]);
 		}
 		else if (i == 5) {
-			item_box_[i] = dxe::Mesh::CreateTorusMV(15, 10);
+			item_box_[i] = dxe::Mesh::CreateDiskMV(25);
 			item_box_[i]->setTexture(texs[2]);
 		}
 		else if (i == 6) {
-			item_box_[i] = dxe::Mesh::CreateTorusMV(15, 10);
+			item_box_[i] = dxe::Mesh::CreateDiskMV(25);
 			item_box_[i]->setTexture(texs[3]);
 		}
 		else {
@@ -53,9 +53,7 @@ ItemManager::ItemManager(SceneBase* scene_base)
 		type_ = std::atoi(load_item_csv[i][1].c_str());
 		CreateItem(id_, type_);
 	}
-
 	get_Item_vec.resize(5);
-
 }
 
 ItemManager::~ItemManager()
@@ -75,16 +73,18 @@ void ItemManager::CreateItem(int id, int type)
 	//ワールド座標に変換
 	item->item_mesh->pos_.x = (v.x_ * 50) - (12.5f * 50) + 25;
 	item->item_mesh->pos_.z = (-v.y_ * 50) + (12.5f * 50) - 25;
-
+	//当たり判定用の座標の取得
 	item->pos_.x = item->item_mesh->pos_.x;
 	item->pos_.z = item->item_mesh->pos_.z;
-
 }
 
 void ItemManager::Update(float delta_time)
 {
+	item->item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
+	angle_++;
 	CheckItemIsAlive();
 	UseHaveItem();
+	
 }
 //Listにあるアイテムの削除
 void ItemManager::CheckItemIsAlive()
@@ -125,7 +125,7 @@ void ItemManager::UseHaveItem()
 	else {
 		if (tnl::Input::IsPadDown(ePad::KEY_3)) {
 			// Itemの動きをここで呼び出す
-
+			item->SwithItemMove(cnt_pos_);
 			get_item_frag[cnt_pos_] = false;
 			auto erace_item = get_Item_vec.at(cnt_pos_);
 			get_Item_vec[cnt_pos_] = nullptr;
