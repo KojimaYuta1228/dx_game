@@ -8,15 +8,15 @@
 ItemManager::ItemManager(SceneBase* scene_base)
 {
 	// 3D用の画像
-	texs[0] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_up.jpg");//速度上昇
-	texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_down.jpg");//速度減少
+	texs[0] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_up.png");//速度上昇
+	texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/speed_down.png");//速度減少
 	texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/strong.png");//無敵
 	texs[3] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/key.png");//鍵
 	texs[4] = dxe::Texture::CreateFromFile("graphics/Resouce/image/color/coin.png");//コイン
 
 	// 2D用の画像
-	img_hd[0] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.jpg");
-	img_hd[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_down.jpg");
+	img_hd[0] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
+	img_hd[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_down.png");
 	img_hd[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/strong.png");
 	img_hd[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/key.png");
 	img_hd[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/coin.png");
@@ -25,11 +25,11 @@ ItemManager::ItemManager(SceneBase* scene_base)
 	
 	for (int i = 0; i < 9; i++) {
 		if (i < 2) {
-			item_box_[i] = dxe::Mesh::CreateBarrelMV(5, 50, 5);//半径、高さ、膨らみ
+			item_box_[i] = dxe::Mesh::CreateSphereMV(25);//半径、高さ、膨らみ
 			item_box_[i]->setTexture(texs[0]);
 		}
 		else if (i >= 2 && i < 4) {
-			item_box_[i] = dxe::Mesh::CreateBarrelMV(5, 50, 5);
+			item_box_[i] = dxe::Mesh::CreateSphereMV(25);
 			item_box_[i]->setTexture(texs[1]);
 		}
 		else if (i == 5) {
@@ -54,6 +54,8 @@ ItemManager::ItemManager(SceneBase* scene_base)
 		CreateItem(id_, type_);
 	}
 	get_Item_vec.resize(5);
+
+	select_item_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/select_item.png");
 }
 
 ItemManager::~ItemManager()
@@ -90,7 +92,6 @@ void ItemManager::Update(float delta_time)
 	angle_++;
 	CheckItemIsAlive();
 	UseHaveItem();
-	
 }
 //Listにあるアイテムの削除
 void ItemManager::CheckItemIsAlive()
@@ -112,11 +113,11 @@ void ItemManager::CheckItemIsAlive()
 void ItemManager::UseHaveItem()
 {
 	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4)) {
-	    arrow_pos -= 100;
+	    arrow_pos -= 70;
 	    cnt_pos_--;
 	}
 	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_5)) {
-		arrow_pos += 100;
+		arrow_pos += 70;
 		cnt_pos_++;
 	}
 	
@@ -150,15 +151,19 @@ void ItemManager::Render()
 	for (int i = 0; i < IMG_NUM; i++) {
 		if (get_item_frag[i]) {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
-			DrawRotaGraph(100 + i * 100, 100, 0.1, 0, img_hd[i], true);
+			DrawRotaGraph(100 + i * 70, 100, 0.2, 0, img_hd[i], true);
 		}
 		else {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);//alpha値の設定
-			DrawRotaGraph(100 + i * 100, 100, 0.1, 0, img_hd[i], true);
+			DrawRotaGraph(100 + i * 70, 100, 0.2, 0, img_hd[i], true);
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
 		}
 	}
+	DrawRotaGraph(100 + arrow_pos , 100, 0.17, 0, select_item_img, true);
+	
+	/*
+	DrawRotaGraph(100 + arrow_pos * 100, 100, 0.1, 0, select_item_img, true);
 	SetFontSize(50);
-	DrawStringEx(75 + arrow_pos ,100, 0, "↑");
+	DrawStringEx(75 + arrow_pos ,100, 0, "↑");*/
 
 }

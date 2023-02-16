@@ -149,6 +149,7 @@ void Player::Render()
 {
 	sprite_->pos_ = pos_;
 	sprite_->render(camera_);
+	SetFontSize(25);
 	if (tnl::Input::IsPadDown(ePad::KEY_3) && cnt_chant_tp <= 3) {
 		DrawStringEx(0, 200, -1.0, "スキルチャージ中");
 	}

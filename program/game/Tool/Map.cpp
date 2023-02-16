@@ -153,7 +153,6 @@ void Map::printMaze(int w, int h)
 {
 	for (int i = 0; i < h; i++) {
 		for (int k = 0; k < w; k++) {
-
 			if (maze[i][k] == WALL) {
 				map_chips_[i][k]->render(camera_);
 			}

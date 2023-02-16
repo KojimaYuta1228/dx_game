@@ -32,6 +32,7 @@ public:
 	int arrow_pos = 0;
 	float angle_ = 0;
 	tnl::Vector3 move_p;
+	int select_item_img = 0;
 	MyVec2i save_v;
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
