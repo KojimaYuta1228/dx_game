@@ -101,7 +101,10 @@ void Player::PlayerInput(float delta_time)
 	//瞬間移動
 	//コントローラーY
 	if (tnl::Input::IsPadDown(ePad::KEY_3)) {
-		cnt_chant_tp++;
+		cnt_chant_tp+= delta_time;
+	}
+	if (cnt_chant_tp > 3) {
+		frag_chant_tp = false;
 	}
 	if (!frag_chant_tp) {
 		if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp) {
@@ -116,16 +119,13 @@ void Player::PlayerInput(float delta_time)
 		}
 	}
 	if (!frag_tp) {
-		cnt_frag_tp -= delta_time;		
-	}
-	if (cnt_chant_tp > 3) {
-		frag_chant_tp = false;
-	}
-	if (cnt_frag_tp < 0) {
-		frag_tp = true;
-		frag_chant_tp = true;
-		cnt_frag_tp = 3;
-		cnt_chant_tp = 0;
+		cnt_frag_tp -= delta_time;
+		if (cnt_frag_tp < 0) {
+			frag_tp = true;
+			frag_chant_tp = true;
+			cnt_chant_tp = 0;
+			cnt_frag_tp = 5;
+		}
 	}
 
 	/*----------------------------key----------------------------------*/
@@ -149,6 +149,15 @@ void Player::Render()
 {
 	sprite_->pos_ = pos_;
 	sprite_->render(camera_);
+	if (tnl::Input::IsPadDown(ePad::KEY_3)&& cnt_chant_tp <= 3) {
+		DrawStringEx(0, 200, -1.0, "スキルチャージ中");
+	}
+	else if (frag_tp && cnt_chant_tp > 3) {
+		DrawStringEx(0, 200, -1.0, "スキルチャージ済");
+	}
+    else if (!frag_tp ) {
+		DrawStringEx(0, 200, -1.0, "スキルクールダウン中");
+	}
 }
 
 float Player::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)

@@ -205,6 +205,9 @@
     <ClCompile Include="program\game\Tool\Item.cpp">
       <Filter>program\game\Tool</Filter>
     </ClCompile>
+    <ClCompile Include="program\game\Tool\Skill.cpp">
+      <Filter>program\game\Tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\library\picojson.h">
@@ -355,6 +358,9 @@
       <Filter>program\game\Tool</Filter>
     </ClInclude>
     <ClInclude Include="program\game\Tool\Item.h">
+      <Filter>program\game\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="program\game\Tool\Skill.h">
       <Filter>program\game\Tool</Filter>
     </ClInclude>
   </ItemGroup>

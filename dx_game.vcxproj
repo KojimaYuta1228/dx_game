@@ -56,6 +56,7 @@
     <ClCompile Include="program\game\Tool\Item.cpp" />
     <ClCompile Include="program\game\Tool\ItemManager.cpp" />
     <ClCompile Include="program\game\Tool\Map.cpp" />
+    <ClCompile Include="program\game\Tool\Skill.cpp" />
     <ClCompile Include="program\library\tnl_font_texture.cpp" />
     <ClCompile Include="program\library\tnl_input.cpp" />
     <ClCompile Include="program\library\tnl_intersect.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="program\game\Tool\Item.h" />
     <ClInclude Include="program\game\Tool\ItemManager.h" />
     <ClInclude Include="program\game\Tool\Map.h" />
+    <ClInclude Include="program\game\Tool\Skill.h" />
     <ClInclude Include="program\library\picojson.h" />
     <ClInclude Include="program\library\stb_image.h" />
     <ClInclude Include="program\library\tnl_flyweight_map.h" />
