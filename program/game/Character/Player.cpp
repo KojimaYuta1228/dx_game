@@ -149,7 +149,7 @@ void Player::Render()
 {
 	sprite_->pos_ = pos_;
 	sprite_->render(camera_);
-	if (tnl::Input::IsPadDown(ePad::KEY_3)&& cnt_chant_tp <= 3) {
+	if (tnl::Input::IsPadDown(ePad::KEY_3) && cnt_chant_tp <= 3) {
 		DrawStringEx(0, 200, -1.0, "スキルチャージ中");
 	}
 	else if (frag_tp && cnt_chant_tp > 3) {
@@ -157,6 +157,9 @@ void Player::Render()
 	}
     else if (!frag_tp ) {
 		DrawStringEx(0, 200, -1.0, "スキルクールダウン中");
+	}
+	else if (frag_tp && !tnl::Input::IsPadDown(ePad::KEY_3)) {
+		DrawStringEx(0, 200, -1.0, "スキルチャージ可能");
 	}
 }
 
