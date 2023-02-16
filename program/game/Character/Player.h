@@ -32,8 +32,10 @@ public :
 	bool frag_move_posY_ = true;
 	bool frag_play_se_ = true;
 	bool frag_tp = true;
+	bool frag_chant_tp = true;
 
 	float cnt_frag_tp = 3;
+	float cnt_chant_tp = 0;
 
 	int anim_pos_;
 	int teleportation_cnt = 3;

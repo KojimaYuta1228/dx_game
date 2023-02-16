@@ -111,14 +111,15 @@ void ItemManager::CheckItemIsAlive()
 }
 void ItemManager::UseHaveItem()
 {
-	if (tnl::Input::IsPadDownTrigger(ePad::KEY_7)) {
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4)) {
+	    arrow_pos -= 100;
+	    cnt_pos_--;
+	}
+	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_5)) {
 		arrow_pos += 100;
 		cnt_pos_++;
 	}
-	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_6)) {
-		arrow_pos -= 100;
-		cnt_pos_--;
-	}
+	
 	if (cnt_pos_ > 4) {
 		arrow_pos = 0;
 		cnt_pos_ = 0;
@@ -129,7 +130,7 @@ void ItemManager::UseHaveItem()
 	}
 	if (!get_item_frag[cnt_pos_]) return;
 	else {
-		if (tnl::Input::IsPadDown(ePad::KEY_3)) {
+		if (tnl::Input::IsPadDown(ePad::KEY_0)) {
 			// Item‚Ì“®‚«‚ð‚±‚±‚ÅŒÄ‚Ño‚·
 			item->SwithItemMove(cnt_pos_);
 			get_item_frag[cnt_pos_] = false;

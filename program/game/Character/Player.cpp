@@ -94,27 +94,38 @@ void Player::PlayerInput(float delta_time)
 		}, eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT);
 
 	
-	//加速
+	//加速//コントローラーB
 	if (tnl::Input::IsPadDown(ePad::KEY_1) && move_v.length() > 0.5f) {
 		pos_ += move_v * 10;
 	}
 	//瞬間移動
-	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp) {
-		frag_tp = false;
-		teleportation_cnt--;
-		pos_ = start_pos_;
+	//コントローラーY
+	if (tnl::Input::IsPadDown(ePad::KEY_3)) {
+		cnt_chant_tp++;
 	}
-	if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0 && frag_tp) {
-		frag_tp = false;
-		teleportation_cnt--;
-		pos_ = telePos;
+	if (!frag_chant_tp) {
+		if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp) {
+			frag_tp = false;
+			teleportation_cnt--;
+			pos_ = start_pos_;
+		}
+		if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0 && frag_tp) {
+			frag_tp = false;
+			teleportation_cnt--;
+			pos_ = telePos;
+		}
 	}
 	if (!frag_tp) {
-		cnt_frag_tp -= delta_time;
+		cnt_frag_tp -= delta_time;		
+	}
+	if (cnt_chant_tp > 3) {
+		frag_chant_tp = false;
 	}
 	if (cnt_frag_tp < 0) {
 		frag_tp = true;
+		frag_chant_tp = true;
 		cnt_frag_tp = 3;
+		cnt_chant_tp = 0;
 	}
 
 	/*----------------------------key----------------------------------*/
