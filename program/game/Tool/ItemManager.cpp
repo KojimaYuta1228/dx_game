@@ -160,10 +160,4 @@ void ItemManager::Render()
 		}
 	}
 	DrawRotaGraph(100 + arrow_pos , 100, 0.17, 0, select_item_img, true);
-	
-	/*
-	DrawRotaGraph(100 + arrow_pos * 100, 100, 0.1, 0, select_item_img, true);
-	SetFontSize(50);
-	DrawStringEx(75 + arrow_pos ,100, 0, "Å™");*/
-
 }
