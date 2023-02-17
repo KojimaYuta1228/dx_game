@@ -4,7 +4,7 @@
 #include"DxLib.h"
 
 //extern ScenePlay* scene_play_;
-tnl::Vector3 item_spawn;
+//tnl::Vector3 item_spawn;
 Item::Item(int id, int type, SceneBase* scene_base)
 {
 	ref_scene_ = scene_base;
@@ -27,6 +27,9 @@ Item::~Item()
 
 void Item::SwithItemMove(int item_num)
 {
+	/*ScenePlay* sptr_play = static_cast<ScenePlay*>(ref_scene_);
+	auto player_s = sptr_play->player_ptr;*/
+	//i_player_ = player_s->player_;
 	switch (type_)
 	{
 	case 0:

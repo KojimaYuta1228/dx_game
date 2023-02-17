@@ -122,6 +122,8 @@ void ScenePlay::update(float delta_time)
 		//mgr->chengeScene(new GameOver());
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 	}
+
+	player_ptr =  player_.get();
 }
 
 void ScenePlay::render()

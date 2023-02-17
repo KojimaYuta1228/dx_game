@@ -24,6 +24,7 @@ public:
 	Shared<dxe::Texture> texs[5];
 	dxe::Mesh* item_box_[9];//アイテム用のオリジナルの箱
 	std::shared_ptr<Item> item;
+	
 	//画像ハンドル
 	const int IMG_NUM = 5;
 	int img_hd[5];
@@ -33,6 +34,7 @@ public:
 	float angle_ = 0;
 	tnl::Vector3 move_p;
 	int select_item_img = 0;
+
 	MyVec2i save_v;
 private:
 	std::vector<std::vector<std::string>>load_item_csv;

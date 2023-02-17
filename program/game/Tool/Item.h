@@ -3,6 +3,7 @@
 
 class SceneBase;
 class CharacterBase;
+class ScenePlay;
 class Player;
 class Map;
 
@@ -24,14 +25,16 @@ public:
 	void SwithItemMove(int item_num);
 	std::list<dxe::Mesh*> item_boxs_;
 	dxe::Mesh* item_mesh;
-	std::shared_ptr<Player> player_ = nullptr;
+	//ScenePlay player_s;
+	
 	float angle_ = 0;
 	SceneBase* ref_scene_ = nullptr ;
 private:
 
 	int random = 0;
 	std::shared_ptr<Map> i_map_;
-
+	std::shared_ptr<Player> i_player_;
+	std::shared_ptr<ScenePlay> i_scene_play_;
 };
 
 

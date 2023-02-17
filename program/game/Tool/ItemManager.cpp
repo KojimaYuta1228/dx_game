@@ -32,11 +32,11 @@ ItemManager::ItemManager(SceneBase* scene_base)
 			item_box_[i] = dxe::Mesh::CreateSphereMV(25);
 			item_box_[i]->setTexture(texs[1]);
 		}
-		else if (i == 5) {
+		else if (i == 4) {
 			item_box_[i] = dxe::Mesh::CreateDiskMV(25);
 			item_box_[i]->setTexture(texs[2]);
 		}
-		else if (i == 6) {
+		else if (i == 5) {
 			item_box_[i] = dxe::Mesh::CreateDiskMV(25);
 			item_box_[i]->setTexture(texs[3]);
 		}
@@ -45,7 +45,6 @@ ItemManager::ItemManager(SceneBase* scene_base)
 			item_box_[i]->setTexture(texs[4]);
 		}
 	}
-
 
 	ref_scene_ = scene_base;
 	for (int i = 1; i < load_item_csv.size(); i++) {
@@ -90,8 +89,6 @@ void ItemManager::Update(float delta_time)
 	for (auto itembox : spawn_Item_list) {
 		itembox->Update(delta_time);
 	}
-	/*item->item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
-	angle_++;*/
 	CheckItemIsAlive();
 	UseHaveItem();
 }
