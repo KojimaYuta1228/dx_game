@@ -25,6 +25,7 @@ public:
 	std::list<dxe::Mesh*> item_boxs_;
 	dxe::Mesh* item_mesh;
 	std::shared_ptr<Player> player_ = nullptr;
+	float angle_ = 0;
 	SceneBase* ref_scene_ = nullptr ;
 private:
 

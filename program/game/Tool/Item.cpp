@@ -50,6 +50,8 @@ void Item::initialzie()
 
 void Item::Update(float delta_time)
 {
+	item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
+	angle_++;
 }
 
 void Item::Render()

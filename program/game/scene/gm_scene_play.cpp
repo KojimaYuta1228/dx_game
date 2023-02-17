@@ -118,6 +118,10 @@ void ScenePlay::update(float delta_time)
 	if (player_->pos_.y == 450) {
 		mgr->chengeScene(new SceneResult());
 	}
+	if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
+		//mgr->chengeScene(new GameOver());
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
+	}
 }
 
 void ScenePlay::render()
@@ -159,9 +163,9 @@ void ScenePlay::Collision()
 				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize }, player_->pos_);
 				}*/
-				/*if (tnl::IsIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize })) {
-					tnl::GetCorrectPositionIntersectAABB(enemy_->enPos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize }, enemy_->enPos_);
-				}*/
+				if (tnl::IsIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize })) {
+					tnl::GetCorrectPositionIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize }, enemy_->pos_);
+				}
 			}
 			else if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::GOAL)) {
 				tnl::Vector3 goal_pos = map_->map_chips_[i][k]->pos_;
@@ -178,10 +182,7 @@ void ScenePlay::Collision()
 	}
 	//プレイヤーとエネミーと当たり判定
 
-	if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
-		//mgr->chengeScene(new GameOver());
-		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
-	}
+	
 	// アイテムマネージャーのリストを総チェック
 	for (auto items : item_mgr->spawn_Item_list) {
 		// Item と Player との当たり判定

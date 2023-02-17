@@ -67,7 +67,6 @@ void ItemManager::CreateItem(int id, int type)
 	item = std::make_shared<Item>(id, type, ref_scene_);//Itemをnew
 	spawn_Item_list.emplace_back(item);//listに追加
 	item->item_mesh = item_box_[id]->createClone();//クローン化
-	item->item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
 	ScenePlay* sptr_play = static_cast<ScenePlay*>(ref_scene_);
 	//二次元配列座標をランダム抽選
 	auto random = rand() % sptr_play->map_->Root_holder_.size();
@@ -88,8 +87,11 @@ void ItemManager::CreateItem(int id, int type)
 
 void ItemManager::Update(float delta_time)
 {
-	
-	angle_++;
+	for (auto itembox : spawn_Item_list) {
+		itembox->Update(delta_time);
+	}
+	/*item->item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
+	angle_++;*/
 	CheckItemIsAlive();
 	UseHaveItem();
 }
@@ -126,7 +128,7 @@ void ItemManager::UseHaveItem()
 		cnt_pos_ = 0;
 	}
 	else if (cnt_pos_ < 0) {
-		arrow_pos = 400;
+		arrow_pos = 280;
 		cnt_pos_ = 4;
 	}
 	if (!get_item_frag[cnt_pos_]) return;
