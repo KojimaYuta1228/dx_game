@@ -34,6 +34,8 @@ public:
 	float angle_ = 0;
 	tnl::Vector3 move_p;
 	int select_item_img = 0;
+	int wood_freme_img = 0;
+	int old_paper_frame_img = 0;
 
 	MyVec2i save_v;
 private:

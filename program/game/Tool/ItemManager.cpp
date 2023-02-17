@@ -55,6 +55,8 @@ ItemManager::ItemManager(SceneBase* scene_base)
 	get_Item_vec.resize(5);
 
 	select_item_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/select_item.png");
+	wood_freme_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/wood_frame.png");
+	old_paper_frame_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/old_paper_frame.png");
 }
 
 ItemManager::~ItemManager()
@@ -144,6 +146,10 @@ void ItemManager::Render()
 	// マップにあるアイテムの描画
 	for (auto item : spawn_Item_list) {
 		item->Render();
+	}
+	//DrawExtendGraph(10 , 0, 370, 100,old_paper_frame_img, true);
+	for (int i = 0; i < 5; i++) {
+		DrawRotaGraph(50 + i * 70, 50, 0.17, 0, wood_freme_img, true);
 	}
 	// 獲得したアイテムの描画
 	for (int i = 0; i < IMG_NUM; i++) {
