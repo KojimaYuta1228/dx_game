@@ -101,7 +101,6 @@ void ItemManager::CheckItemIsAlive()
 			auto item = *it;	//itemにitのアドレスを代入
 			get_item_frag[item->type_] = true;	//get_item_fragのitemのtype番目をtrueに
 			get_Item_vec[item->type_] = item;	//get_item_vecのitemのtype番目にitemを代入
-
 			it = spawn_Item_list.erase(it);
 			//get_Item_vec.insert(get_Item_vec.end(), item);
 			continue;
@@ -150,13 +149,16 @@ void ItemManager::Render()
 	for (int i = 0; i < IMG_NUM; i++) {
 		if (get_item_frag[i]) {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
-			DrawRotaGraph(100 + i * 70, 100, 0.2, 0, img_hd[i], true);
+			DrawRotaGraph(50 + i * 70, 100, 0.2, 0, img_hd[i], true);
 		}
 		else {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);//alpha値の設定
-			DrawRotaGraph(100 + i * 70, 100, 0.2, 0, img_hd[i], true);
+			DrawRotaGraph(50 + i * 70, 100, 0.2, 0, img_hd[i], true);
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
 		}
 	}
-	DrawRotaGraph(100 + arrow_pos , 100, 0.17, 0, select_item_img, true);
+	if (get_item_frag[cnt_pos_]) {
+		DrawRotaGraph(50 + cnt_pos_ * 70, 100, 0.25, 0, img_hd[cnt_pos_], true);
+	}
+	DrawRotaGraph(50 + arrow_pos , 100, 0.21, 0, select_item_img, true);
 }
