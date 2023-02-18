@@ -96,7 +96,7 @@ void Player::PlayerInput(float delta_time)
 	
 	//加速//コントローラーB
 	if (tnl::Input::IsPadDown(ePad::KEY_1) && move_v.length() > 0.5f) {
-		pos_ += move_v * 10;
+		pos_ += move_v * move_speed;
 	}
 	//瞬間移動
 	//コントローラーY

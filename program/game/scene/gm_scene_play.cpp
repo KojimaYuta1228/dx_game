@@ -139,8 +139,9 @@ void ScenePlay::render()
 	SetFontSize(20);
 	if (img_note) {
 		//DrawRotaGraph(120, 90, 0.4, 0, img_note, true);
-		DrawStringEx(60, 150, 0, "Q:CLOSE");
+		//DrawStringEx(60, 150, 0, "Q:CLOSE");
 	}	
+	DrawStringEx(60, 150, 0, "move_speed:%f",player_->move_speed);
 	//DrawRotaGraph(500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 1.7 + 1.7 * sin(tnl::ToRadian(cnt_smoke)), 0, img_smoke,true);
 	/*DrawStringEx(10, 20, 0, "MAXE_X :%d", static_cast<int>(player_->pos_.x));
 	DrawStringEx(10, 40, 0, "MAXE_Z :%d", static_cast<int>(player_->pos_.z));
@@ -172,12 +173,12 @@ void ScenePlay::Collision()
 			else if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::GOAL)) {
 				tnl::Vector3 goal_pos = map_->map_chips_[i][k]->pos_;
 				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, goal_pos, { boxSize, boxSize, boxSize })) {
-					//tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, goal_pos, { 10, boxSize, 10 }, player_->pos_);
-					frag_cnt_timer_ = false;
-
-					player_->frag_input_ = false;
-					player_->frag_move_posY_ = false;
-					SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_GOAL);
+					if (!frag_can_goal) {
+						frag_cnt_timer_ = false;
+						player_->frag_input_ = false;
+						player_->frag_move_posY_ = false;
+						SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_GOAL);
+					}
 				}
 			}
 		}

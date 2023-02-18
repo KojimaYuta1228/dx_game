@@ -1,5 +1,6 @@
 #include "Item.h"
 #include"Map.h"
+#include "../Character/Player.h"
 #include"../scene/gm_scene_play.h"
 #include"DxLib.h"
 
@@ -17,6 +18,7 @@ Item::Item(int id, int type, SceneBase* scene_base)
 		camera_ = scene_play->GetCamera();
 	}
 	id_ = id; type_ = type;
+	//i_player_ = std::make_shared<Player>();
 }
 
 Item::~Item()
@@ -27,9 +29,7 @@ Item::~Item()
 
 void Item::SwithItemMove(int item_num)
 {
-	/*ScenePlay* sptr_play = static_cast<ScenePlay*>(ref_scene_);
-	auto player_s = sptr_play->player_ptr;*/
-	//i_player_ = player_s->player_;
+	ScenePlay* scene_play_ = static_cast<ScenePlay*>(ref_scene_);;
 	switch (type_)
 	{
 	case 0:
@@ -39,8 +39,10 @@ void Item::SwithItemMove(int item_num)
 	case 2:
 		break;
 	case 3:
+		scene_play_->frag_can_goal = false;
 		break;
 	case 4:
+		scene_play_->player_->move_speed = 0.1;
 		break;
 	default:
 		break;

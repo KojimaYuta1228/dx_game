@@ -62,6 +62,7 @@ public:
 	bool frag_move_result_ = true;
 	bool frag_draw_note_ = true;
 	bool frag_camera_rotate_ = true;
+	bool frag_can_goal = true;
 	//ŒvŽZ—p
 	float calc_A_ = 0;
 	float calc_B_ = 0;
