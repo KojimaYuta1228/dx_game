@@ -28,7 +28,7 @@ public:
 	GmCamera* GetCamera();
 	
 	std::shared_ptr<Player> player_ = nullptr;
-	Player* player_ptr;
+	//Player* player_ptr;
 	std::shared_ptr<Enemy> enemy_ = nullptr;
 	std::shared_ptr<Map> map_ = nullptr;
 	std::shared_ptr<ItemManager> item_mgr = nullptr;

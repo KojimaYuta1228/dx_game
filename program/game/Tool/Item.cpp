@@ -1,6 +1,7 @@
 #include "Item.h"
 #include"Map.h"
 #include "../Character/Player.h"
+#include"../Character/Enemy.h"
 #include"../scene/gm_scene_play.h"
 #include"DxLib.h"
 
@@ -36,7 +37,7 @@ void Item::SwithItemMove(int cnt_pos_)
 		scene_play_->player_->base_move_speed = 2.0;
 		break;
 	case 1:
-		
+		scene_play_->enemy_->base_move_speed = 0.5;
 		break;
 	case 2:
 		break;

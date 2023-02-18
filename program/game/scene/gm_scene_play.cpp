@@ -123,7 +123,7 @@ void ScenePlay::update(float delta_time)
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 	}
 
-	player_ptr =  player_.get();
+	//player_ptr =  player_.get();
 }
 
 void ScenePlay::render()
