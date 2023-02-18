@@ -19,7 +19,7 @@ Item::Item(int id, int type, SceneBase* scene_base)
 		camera_ = scene_play->GetCamera();
 	}
 	id_ = id; type_ = type;
-	//i_player_ = std::make_shared<Player>();
+	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
 }
 
 Item::~Item()
@@ -30,14 +30,13 @@ Item::~Item()
 
 void Item::SwithItemMove(int cnt_pos_)
 {
-	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
 	switch (cnt_pos_)
 	{
 	case 0:
 		scene_play_->player_->base_move_speed = 2.0;
 		break;
 	case 1:
-		scene_play_->enemy_->base_move_speed = 0.5;
+		frag_enemy_speed_down = false;
 		break;
 	case 2:
 		scene_play_->frag_strong_time = false;
@@ -52,6 +51,19 @@ void Item::SwithItemMove(int cnt_pos_)
 	}
 }
 
+void Item::ItemProcess(float delta_time)
+{
+	if (!frag_enemy_speed_down) {
+		scene_play_->enemy_->base_move_speed = 0.1;
+		cnt_enemy_speed_down -= delta_time;
+	}
+	if(cnt_enemy_speed_down < 0) {
+		scene_play_->enemy_->base_move_speed = 1.0;
+		cnt_enemy_speed_down = 3.0;
+		frag_enemy_speed_down = true;
+	}
+}
+
 void Item::initialzie()
 {	
 }
@@ -60,6 +72,7 @@ void Item::Update(float delta_time)
 {
 	item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
 	angle_++;
+	ItemProcess(delta_time);
 }
 
 void Item::Render()

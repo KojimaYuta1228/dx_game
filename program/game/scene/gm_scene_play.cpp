@@ -131,8 +131,6 @@ void ScenePlay::update(float delta_time)
 		frag_strong_time = true;
 		cnt_strong_time = 3;
 	}
-
-	//player_ptr =  player_.get();
 }
 
 void ScenePlay::render()

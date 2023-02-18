@@ -23,16 +23,17 @@ public:
 	void Render()override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 	void SwithItemMove(int item_num);
+	void ItemProcess(float delta_time);
 	std::list<dxe::Mesh*> item_boxs_;
 	dxe::Mesh* item_mesh;
 	ScenePlay* scene_play_ = nullptr;
-	//ScenePlay player_s;
-	
 	float angle_ = 0;
 	SceneBase* ref_scene_ = nullptr ;
 private:
 
 	int random = 0;
+	float cnt_enemy_speed_down = 3;
+	bool frag_enemy_speed_down = true;
 	std::shared_ptr<Map> i_map_;
 	std::shared_ptr<Player> i_player_;
 	std::shared_ptr<ScenePlay> i_scene_play_;
