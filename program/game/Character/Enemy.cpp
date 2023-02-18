@@ -34,6 +34,7 @@ Enemy::Enemy(tnl::Vector3& startEnPos)
 	pos_ = tnl::Vector3(x, 10, z);
 	
 	move_target_pos_ = pos_;
+	base_move_speed = 1.0;
 }
 
 Enemy::~Enemy(){
@@ -158,7 +159,7 @@ void Enemy::EnemyMove()
 	};
 	
 	tnl::Vector3 move_n = tnl::Vector3::Normalize(move_target_pos_ - pos_);
-	pos_ += move_n * 1.0f ;
+	pos_ += move_n * base_move_speed;
 
 
 	int t = tnl::GetXzRegionPointAndOBB(

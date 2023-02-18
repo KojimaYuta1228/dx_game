@@ -30,5 +30,5 @@ public:
 	float en_speed = 0.5f;
 	float x;
 	float z;
-	
+		
 };

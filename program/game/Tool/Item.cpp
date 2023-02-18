@@ -33,8 +33,10 @@ void Item::SwithItemMove(int cnt_pos_)
 	switch (cnt_pos_)
 	{
 	case 0:
+		scene_play_->player_->base_move_speed = 2.0;
 		break;
 	case 1:
+		
 		break;
 	case 2:
 		break;
@@ -42,7 +44,6 @@ void Item::SwithItemMove(int cnt_pos_)
 		scene_play_->frag_can_goal = false;
 		break;
 	case 4:
-		scene_play_->player_->move_speed = 0.1;
 		break;
 	default:
 		break;

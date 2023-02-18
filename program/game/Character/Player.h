@@ -43,4 +43,5 @@ public :
 	tnl::Vector3 move_v;
 	tnl::Vector3 start_pos_;
 	float move_speed = 10;
+	
 };

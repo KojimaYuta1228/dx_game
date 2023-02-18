@@ -22,6 +22,7 @@ public:
 	static std::list<std::shared_ptr<CharacterBase>> objects;//’e‚ğ•Û‘¶‚·‚é‚½‚ß‚Ì” 
 	bool is_alive_ = true;//¶‘¶ƒtƒ‰ƒO
 	float distance_;
+	float base_move_speed;
 	
 	virtual float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2){
 		return std::sqrtf(((camera_pos2.x - pos1.x) * (camera_pos2.x - pos1.x)) + ((camera_pos2.y - pos1.y) * (camera_pos2.y - pos1.y)) + ((camera_pos2.z - pos1.z) * (camera_pos2.z - pos1.z)));

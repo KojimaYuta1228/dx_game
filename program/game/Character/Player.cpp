@@ -33,7 +33,7 @@ Player::Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
 	auto x1 = teleportationPos.x * 50;
 	auto z1 = teleportationPos.z * 50;
 	telePos = tnl::Vector3(x1, 0, z1);
-	
+	base_move_speed = 1.0;
 }
 
 Player::~Player()
@@ -86,7 +86,7 @@ void Player::PlayerInput(float delta_time)
 	if (move_v.length() > 0.5f) {
 		prev_pos_ = pos_;
 		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
-		pos_ += move_v;
+		pos_ += move_v * base_move_speed;
 	}
 	//ƒL[“ü—Í‚É‚æ‚éˆÚ“®
 	tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
