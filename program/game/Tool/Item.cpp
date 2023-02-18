@@ -40,6 +40,7 @@ void Item::SwithItemMove(int cnt_pos_)
 		scene_play_->enemy_->base_move_speed = 0.5;
 		break;
 	case 2:
+		scene_play_->frag_strong_time = false;
 		break;
 	case 3:
 		scene_play_->frag_can_goal = false;

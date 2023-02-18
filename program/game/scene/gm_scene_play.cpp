@@ -121,7 +121,7 @@ void ScenePlay::update(float delta_time)
 	
 	if (frag_strong_time) {
 		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
-			//mgr->chengeScene(new GameOver());
+			mgr->chengeScene(new GameOver());
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 		}
 	}else if (!frag_strong_time) {
