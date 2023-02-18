@@ -27,10 +27,10 @@ Item::~Item()
 
 
 
-void Item::SwithItemMove(int item_num)
+void Item::SwithItemMove(int cnt_pos_)
 {
 	ScenePlay* scene_play_ = static_cast<ScenePlay*>(ref_scene_);;
-	switch (type_)
+	switch (cnt_pos_)
 	{
 	case 0:
 		break;

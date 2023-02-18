@@ -142,6 +142,9 @@ void ScenePlay::render()
 		//DrawStringEx(60, 150, 0, "Q:CLOSE");
 	}	
 	DrawStringEx(60, 150, 0, "move_speed:%f",player_->move_speed);
+	if (frag_can_goal) {
+		DrawStringEx(60, 170, 0, "can_gosl_frag:true");
+	}else{ DrawStringEx(60, 170, 0, "can_gosl_frag:false"); }
 	//DrawRotaGraph(500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 1.7 + 1.7 * sin(tnl::ToRadian(cnt_smoke)), 0, img_smoke,true);
 	/*DrawStringEx(10, 20, 0, "MAXE_X :%d", static_cast<int>(player_->pos_.x));
 	DrawStringEx(10, 40, 0, "MAXE_Z :%d", static_cast<int>(player_->pos_.z));
