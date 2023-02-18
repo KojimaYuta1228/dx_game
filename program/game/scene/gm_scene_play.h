@@ -63,6 +63,7 @@ public:
 	bool frag_draw_note_ = true;
 	bool frag_camera_rotate_ = true;
 	bool frag_can_goal = true;
+	bool frag_strong_time = true;
 	//ŒvŽZ—p
 	float calc_A_ = 0;
 	float calc_B_ = 0;
@@ -72,6 +73,7 @@ public:
 	float cnt_play_se_ghost_ = 0;
 	float cnt_play_se_laugh_ = 0;
 	float cnt_camera_rotate_ = 0;
+	float cnt_strong_time = 3;
 
 	float cam_rot_x = 1.0;
 	

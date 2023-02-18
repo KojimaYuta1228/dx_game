@@ -118,9 +118,18 @@ void ScenePlay::update(float delta_time)
 	if (player_->pos_.y == 450) {
 		mgr->chengeScene(new SceneResult());
 	}
-	if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
-		//mgr->chengeScene(new GameOver());
-		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
+	
+	if (frag_strong_time) {
+		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
+			//mgr->chengeScene(new GameOver());
+			SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
+		}
+	}else if (!frag_strong_time) {
+		cnt_strong_time -= delta_time;
+	}
+	if (cnt_strong_time < 0) {
+		frag_strong_time = true;
+		cnt_strong_time = 3;
 	}
 
 	//player_ptr =  player_.get();

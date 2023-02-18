@@ -25,6 +25,7 @@ public:
 	void SwithItemMove(int item_num);
 	std::list<dxe::Mesh*> item_boxs_;
 	dxe::Mesh* item_mesh;
+	ScenePlay* scene_play_ = nullptr;
 	//ScenePlay player_s;
 	
 	float angle_ = 0;
