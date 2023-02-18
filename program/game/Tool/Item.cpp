@@ -33,7 +33,7 @@ void Item::SwithItemMove(int cnt_pos_)
 	switch (cnt_pos_)
 	{
 	case 0:
-		scene_play_->player_->base_move_speed = 2.0;
+		frag_player_speed_up = false;
 		break;
 	case 1:
 		frag_enemy_speed_down = false;
@@ -56,12 +56,22 @@ void Item::ItemProcess(float delta_time)
 	if (!frag_enemy_speed_down) {
 		scene_play_->enemy_->base_move_speed = 0.1;
 		cnt_enemy_speed_down -= delta_time;
+		if (cnt_enemy_speed_down < 0) {
+			scene_play_->enemy_->base_move_speed = 1.0;
+			cnt_enemy_speed_down = 3.0;
+			frag_enemy_speed_down = true;
+		}
 	}
-	if(cnt_enemy_speed_down < 0) {
-		scene_play_->enemy_->base_move_speed = 1.0;
-		cnt_enemy_speed_down = 3.0;
-		frag_enemy_speed_down = true;
+	if (!frag_player_speed_up) {
+		scene_play_->player_->base_move_speed = 2.0;
+		cnt_player_speed_up -= delta_time;
+		if (cnt_player_speed_up < 0) {
+			scene_play_->player_->base_move_speed = 1.0;
+			cnt_player_speed_up = 3.0;
+			frag_player_speed_up = true;
+		}
 	}
+	
 }
 
 void Item::initialzie()

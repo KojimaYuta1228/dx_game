@@ -32,7 +32,9 @@ public:
 private:
 
 	int random = 0;
+	float cnt_player_speed_up = 3;
 	float cnt_enemy_speed_down = 3;
+	bool frag_player_speed_up = true;
 	bool frag_enemy_speed_down = true;
 	std::shared_ptr<Map> i_map_;
 	std::shared_ptr<Player> i_player_;
