@@ -55,7 +55,7 @@ void Enemy::Update(float delta_time)
 	enSprite_[0]->update(delta_time);
 }
 
-void Enemy::Render()
+void Enemy::Render(float delta_time)
 {
 	enSprite_[0]->pos_ = pos_;
 	enSprite_[0]->render(camera_);

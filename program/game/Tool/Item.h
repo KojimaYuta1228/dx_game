@@ -6,6 +6,7 @@ class CharacterBase;
 class ScenePlay;
 class Player;
 class Map;
+class Animation;
 
 class Item : public CharacterBase
 {
@@ -20,7 +21,7 @@ public:
 
 	void initialzie() override;
 	void Update(float delta_time)override;
-	void Render()override;
+	void Render(float delta_time)override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 	void SwithItemMove(int item_num);
 	void ItemProcess(float delta_time);
@@ -29,6 +30,9 @@ public:
 	ScenePlay* scene_play_ = nullptr;
 	float angle_ = 0;
 	SceneBase* ref_scene_ = nullptr ;
+	std::list<Animation*> liveAnim;
+	int gh_speed_up[10] = {};
+	int gh_speed_down[10] = {};
 private:
 
 	int random = 0;
@@ -39,6 +43,7 @@ private:
 	std::shared_ptr<Map> i_map_;
 	std::shared_ptr<Player> i_player_;
 	std::shared_ptr<ScenePlay> i_scene_play_;
+	Animation* i_anim_ = nullptr;
 };
 
 

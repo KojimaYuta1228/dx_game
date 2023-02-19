@@ -10,7 +10,7 @@ public:
 	virtual ~CharacterBase() {}
 	virtual void initialzie() = 0;
 	virtual void Update(float delta_time) {}
-	virtual void Render() {}
+	virtual void Render(float delta_time) {}
 
 	tnl::Vector3 prev_pos_;//前回座標
 	tnl::Vector3 pos_;//当たり判定用座標

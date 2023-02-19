@@ -5,6 +5,7 @@
 #include"../scene/gm_scene_play.h"
 #include"DxLib.h"
 #include "../Tool/gm_soundmanager.h"
+#include"../Tool/Animation.h"
 
 //extern ScenePlay* scene_play_;
 //tnl::Vector3 item_spawn;
@@ -21,6 +22,8 @@ Item::Item(int id, int type, SceneBase* scene_base)
 	}
 	id_ = id; type_ = type;
 	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
+	LoadDivGraph("Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, gh_speed_up);
+
 }
 
 Item::~Item()
@@ -36,6 +39,8 @@ void Item::SwithItemMove(int cnt_pos_)
 	case 0:
 		frag_player_speed_up = false;
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_UP);
+		i_anim_ = new Animation("Resouce/image/use_efect/speed_up.png", 11, 10, 1, 120, 120, scene_play_->player_->pos_.x, scene_play_->player_->pos_.z);
+		liveAnim.emplace_back(i_anim_);
 		break;
 	case 1:
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_DOWN);
@@ -91,14 +96,18 @@ void Item::Update(float delta_time)
 	ItemProcess(delta_time);
 }
 
-void Item::Render()
+void Item::Render(float delta_time)
 {
 	item_mesh->render(camera_);
+	//アニメーションの描画
+	for (auto anim : liveAnim) {
+		anim->DrawAnimation(delta_time);
+	}
 }
 
 float Item::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
 {
-	return 0.0f;
+	return std::sqrtf(((camera_pos2.x - pos1.x) * (camera_pos2.x - pos1.x)) + ((camera_pos2.y - pos1.y) * (camera_pos2.y - pos1.y)) + ((camera_pos2.z - pos1.z) * (camera_pos2.z - pos1.z)));
 }
 
 

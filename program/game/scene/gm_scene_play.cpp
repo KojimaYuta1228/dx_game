@@ -135,19 +135,16 @@ void ScenePlay::update(float delta_time)
 
 void ScenePlay::render()
 {
+	
 	camera_->update();
 	map_->Rander();
 	floor_->render(camera_);
 	dome_->render(camera_);
 	item_mgr->Render();
 	for (auto& hoge : draw_character_) {
-		hoge->Render();
+		hoge->Render(1.0);
 	}	
 	SetFontSize(20);
-	if (img_note) {
-		//DrawRotaGraph(120, 90, 0.4, 0, img_note, true);
-		//DrawStringEx(60, 150, 0, "Q:CLOSE");
-	}	
 	DrawStringEx(60, 150, 0, "move_speed:%f",player_->move_speed);
 	if (frag_can_goal) {
 		DrawStringEx(60, 170, 0, "can_gosl_frag:true");

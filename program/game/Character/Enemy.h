@@ -17,7 +17,7 @@ public:
 
 	void initialzie() override;
 	void Update(float delta_time)override;
-	void Render()override;
+	void Render(float delta_time)override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 	void SetAster(float delta_time);
 	void EnemyMove();

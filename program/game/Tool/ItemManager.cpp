@@ -150,7 +150,7 @@ void ItemManager::Render()
 {
 	// マップにあるアイテムの描画
 	for (auto item : spawn_Item_list) {
-		item->Render();
+		item->Render(1.0);
 	}
 	//DrawExtendGraph(10 , 0, 370, 100,old_paper_frame_img, true);
 	for (int i = 0; i < 5; i++) {

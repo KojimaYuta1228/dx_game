@@ -17,7 +17,7 @@ public :
 	void Update(float delta_time)override;
 	void PlayerAnim();
 	void PlayerInput(float delta_time);
-	void Render()override;
+	void Render(float delta_time)override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 
 	std::shared_ptr<Map> map_ = nullptr;
@@ -42,6 +42,17 @@ public :
 
 	tnl::Vector3 move_v;
 	tnl::Vector3 start_pos_;
-	float move_speed = 10;
+	float move_speed = 1.1;
 	
+	int staminum = 350;
+	int max_staminum = 350;
+    
+	int emp_stam_ber = 0;
+
+	int bar_width = 350; // バーの初期幅
+	int bar_height = 20; // バーの高さ
+	int bar_x = 0; // バーのX座標
+	int bar_y = 100; // バーのY座標
+	int decrease_amount = 2; // 減少量
+	int increase_amount = 1; // 増加量
 };
