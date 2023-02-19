@@ -55,6 +55,7 @@ void SoundManager::LoadSound()
 	se_strong_time = LoadSoundMem("sound/se/strong_time.mp3");
 	se_use_key = LoadSoundMem("sound/se/magic5.mp3");
 	se_use_coin = LoadSoundMem("sound/se/coin07.mp3");
+	se_charge_skill = LoadSoundMem("sound/se/charge.mp3");
 	
 	se.emplace_back(se_press_space);
 	se.emplace_back(se_get_start);
@@ -72,6 +73,7 @@ void SoundManager::LoadSound()
 	se.emplace_back(se_strong_time);
 	se.emplace_back(se_use_key);
 	se.emplace_back(se_use_coin);
+	se.emplace_back(se_charge_skill);
 }
 
 

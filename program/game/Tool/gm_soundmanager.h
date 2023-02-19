@@ -27,6 +27,7 @@ public:
 		STRONG_TIME,
 		USE_KEY,
 		USE_COIN,
+		CHARGE,
 		MAX
 	};
 	static SoundManager* instance_;
@@ -63,6 +64,7 @@ public:
 	int se_strong_time = 0;
 	int se_use_key = 0;
 	int se_use_coin = 0;
+	int se_charge_skill = 0;
 
 	//ç°ó¨ÇÍÇƒÇ¢ÇÈBGM
 	int nowPlayBGM = 0;

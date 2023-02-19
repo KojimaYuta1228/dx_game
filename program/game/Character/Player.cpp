@@ -111,7 +111,7 @@ void Player::PlayerInput(float delta_time)
 	//瞬間移動
 	//コントローラーY
 	if (tnl::Input::IsPadDown(ePad::KEY_3)) {
-		cnt_chant_tp+= delta_time;
+		cnt_chant_tp += delta_time;
 	}
 	if (cnt_chant_tp > 3) {
 		frag_chant_tp = false;
@@ -137,6 +137,10 @@ void Player::PlayerInput(float delta_time)
 			cnt_frag_tp = 5;
 		}
 	}
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_3)) {
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::CHARGE);
+	}
+		
 
 	/*----------------------------key----------------------------------*/
 	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
