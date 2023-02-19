@@ -21,6 +21,12 @@ public:
 		ENEMY_GHOST,
 		GET_ITEM,
 		SELECT_ITEM,
+		DECISION_ITEM,
+		SPEED_UP,
+		SPEED_DOWN,
+		STRONG_TIME,
+		USE_KEY,
+		USE_COIN,
 		MAX
 	};
 	static SoundManager* instance_;
@@ -52,6 +58,11 @@ public:
 	int se_get_item = 0;
 	int se_select_item = 0;
 	int se_decision_item = 0;
+	int se_speed_up = 0;
+	int se_speed_down = 0;
+	int se_strong_time = 0;
+	int se_use_key = 0;
+	int se_use_coin = 0;
 
 	//ç°ó¨ÇÍÇƒÇ¢ÇÈBGM
 	int nowPlayBGM = 0;

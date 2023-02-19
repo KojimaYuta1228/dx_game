@@ -50,6 +50,11 @@ void SoundManager::LoadSound()
 	se_get_item = LoadSoundMem("sound/se/get_item.mp3");
 	se_select_item = LoadSoundMem("sound/se/select_item.mp3");
 	se_decision_item = LoadSoundMem("sound/se/decision_item.mp3");
+	se_speed_up = LoadSoundMem("sound/se/speed_up.mp3");
+	se_speed_down = LoadSoundMem("sound/se/speed_down.mp3");
+	se_strong_time = LoadSoundMem("sound/se/strong_time.mp3");
+	se_use_key = LoadSoundMem("sound/se/key_open.mp3");
+	se_use_coin = LoadSoundMem("sound/se/coin.mp3");
 	
 	se.emplace_back(se_press_space);
 	se.emplace_back(se_get_start);
@@ -62,6 +67,11 @@ void SoundManager::LoadSound()
 	se.emplace_back(se_get_item);
 	se.emplace_back(se_select_item);
 	se.emplace_back(se_decision_item);
+	se.emplace_back(se_speed_up);
+	se.emplace_back(se_speed_down);
+	se.emplace_back(se_strong_time);
+	se.emplace_back(se_use_key);
+	se.emplace_back(se_use_coin);
 }
 
 

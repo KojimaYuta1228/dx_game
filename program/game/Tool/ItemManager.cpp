@@ -4,6 +4,7 @@
 #include"Item.h"
 #include "../gm_manager.h"
 #include"../Tool/Map.h"
+#include "../Tool/gm_soundmanager.h"
 
 ItemManager::ItemManager(SceneBase* scene_base)
 {
@@ -100,6 +101,7 @@ void ItemManager::CheckItemIsAlive()
 	auto it = spawn_Item_list.begin();
 	while (it != spawn_Item_list.end()) {
 		if (!(*it)->is_alive_) {
+			SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_ITEM);
 			auto item = *it;	//itemにitのアドレスを代入
 			get_item_frag[item->type_] = true;	//get_item_fragのitemのtype番目をtrueに
 			get_Item_vec[item->type_] = item;	//get_item_vecのitemのtype番目にitemを代入
@@ -113,10 +115,12 @@ void ItemManager::CheckItemIsAlive()
 void ItemManager::UseHaveItem()
 {
 	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4)) {
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SELECT_ITEM);
 	    arrow_pos -= 70;
 	    cnt_pos_--;
 	}
 	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_5)) {
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SELECT_ITEM);
 		arrow_pos += 70;
 		cnt_pos_++;
 	}
@@ -132,6 +136,7 @@ void ItemManager::UseHaveItem()
 	if (!get_item_frag[cnt_pos_]) return;
 	else {
 		if (tnl::Input::IsPadDown(ePad::KEY_0)) {
+			SoundManager::GetInstance()->SoundSe(SoundManager::SE::DECISION_ITEM);
 			// Itemの動きをここで呼び出す
 			item->SwithItemMove(cnt_pos_);
 			get_item_frag[cnt_pos_] = false;
