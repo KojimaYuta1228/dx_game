@@ -23,15 +23,13 @@ Item::Item(int id, int type, SceneBase* scene_base)
 	id_ = id; type_ = type;
 	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
 	LoadDivGraph("Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, gh_speed_up);
+	LoadDivGraph("Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gh_speed_down);
 
 }
 
 Item::~Item()
 {
 }
-
-
-
 void Item::SwithItemMove(int cnt_pos_)
 {
 	switch (cnt_pos_)
@@ -39,8 +37,6 @@ void Item::SwithItemMove(int cnt_pos_)
 	case 0:
 		frag_player_speed_up = false;
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_UP);
-		i_anim_ = new Animation("Resouce/image/use_efect/speed_up.png", 11, 10, 1, 120, 120, scene_play_->player_->pos_.x, scene_play_->player_->pos_.z);
-		liveAnim.emplace_back(i_anim_);
 		break;
 	case 1:
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_DOWN);
@@ -64,16 +60,9 @@ void Item::SwithItemMove(int cnt_pos_)
 
 void Item::ItemProcess(float delta_time)
 {
-	if (!frag_enemy_speed_down) {
-		scene_play_->enemy_->base_move_speed = 0.1;
-		cnt_enemy_speed_down -= delta_time;
-		if (cnt_enemy_speed_down < 0) {
-			scene_play_->enemy_->base_move_speed = 1.0;
-			cnt_enemy_speed_down = 3.0;
-			frag_enemy_speed_down = true;
-		}
-	}
 	if (!frag_player_speed_up) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		scene_play_->player_->base_move_speed = 2.0;
 		cnt_player_speed_up -= delta_time;
 		if (cnt_player_speed_up < 0) {
@@ -82,7 +71,17 @@ void Item::ItemProcess(float delta_time)
 			frag_player_speed_up = true;
 		}
 	}
-	
+	if (!frag_enemy_speed_down) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
+		scene_play_->enemy_->base_move_speed = 0.1;
+		cnt_enemy_speed_down -= delta_time;
+		if (cnt_enemy_speed_down < 0) {
+			scene_play_->enemy_->base_move_speed = 1.0;
+			cnt_enemy_speed_down = 3.0;
+			frag_enemy_speed_down = true;
+		}
+	}	
 }
 
 void Item::initialzie()
@@ -94,6 +93,25 @@ void Item::Update(float delta_time)
 	item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
 	angle_++;
 	ItemProcess(delta_time);
+	//再生し終わったアニメーションがあったらリストから消してdeleteする
+	//リストの一番最初の要素に矢印(イテレータ)を置く
+	auto itr = liveAnim.begin();
+	//リストのすべての要素に対して検索する
+	for (int i = 0; i < liveAnim.size(); ++i) {
+		//リストが空だったらfor文を抜ける
+		if (liveAnim.empty())break;
+		//もしイテレータが指しているアニメーションのisLiveがfalseなら(アニメーション再生が終わっていれば
+		//中身のアニメーションのメモリを開放する
+		//リストからそのアニメーションを排除してイテレータを次の要素に移す
+		if ((*itr)->isLive == false) {
+			delete (*itr);
+			itr = liveAnim.erase(itr);
+		}
+		else {
+			//もし生きているアニメーションを指していれば次の要素にイテレータを移す
+			itr++;
+		}
+	}
 }
 
 void Item::Render(float delta_time)
@@ -103,6 +121,7 @@ void Item::Render(float delta_time)
 	for (auto anim : liveAnim) {
 		anim->DrawAnimation(delta_time);
 	}
+	
 }
 
 float Item::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)

@@ -114,12 +114,12 @@ void ItemManager::CheckItemIsAlive()
 }
 void ItemManager::UseHaveItem()
 {
-	if (tnl::Input::IsPadDownTrigger(ePad::KEY_4)) {
+	if (tnl::Input::IsPadDownTrigger(ePad::KEY_LEFT)) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SELECT_ITEM);
 	    arrow_pos -= 70;
 	    cnt_pos_--;
 	}
-	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_5)) {
+	else if (tnl::Input::IsPadDownTrigger(ePad::KEY_RIGHT)) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SELECT_ITEM);
 		arrow_pos += 70;
 		cnt_pos_++;
