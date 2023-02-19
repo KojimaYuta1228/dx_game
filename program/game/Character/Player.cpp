@@ -117,23 +117,41 @@ void Player::PlayerInput(float delta_time)
 		frag_chant_tp = false;
 	}
 	if (!frag_chant_tp) {
-		if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp) {
+		if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp ) {
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::TELEPORT);
-			frag_tp = false;
-			pos_ = start_pos_;
+			frag_cnt_tp = false;			
 		}
-		if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0 && frag_tp) {
+		else if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0 && frag_tp) {
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::TELEPORT);
-			frag_tp = false;
-			pos_ = telePos;
+			frag_cnt_tp = false;			
 		}
+	}
+	if (!frag_cnt_tp) {
+		cnt_preparation_time -= delta_time;
+	}
+	if (cnt_preparation_time < 0 && frag_tp_start) {
+		frag_tp_start = false;
+		frag_tp = false;
+	}
+	else if (cnt_preparation_time < 0 && frag_tp_else) {
+		frag_tp_else = false;
+		frag_tp = false;
+	}
+	if (!frag_tp_start) {
+		pos_ = start_pos_;
+	}
+	else if (!frag_tp_else) {
+		pos_ = telePos;
 	}
 	if (!frag_tp) {
 		cnt_frag_tp -= delta_time;
 		if (cnt_frag_tp < 0) {
+			frag_tp_start = frag_tp_else = true;
 			frag_tp = true;
 			frag_chant_tp = true;
+			frag_cnt_tp = true;
 			cnt_chant_tp = 0;
+			cnt_preparation_time = 2;
 			cnt_frag_tp = 5;
 		}
 	}
