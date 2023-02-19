@@ -22,9 +22,13 @@ Item::Item(int id, int type, SceneBase* scene_base)
 	}
 	id_ = id; type_ = type;
 	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
-	LoadDivGraph("Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, gh_speed_up);
-	LoadDivGraph("Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gh_speed_down);
+	LoadDivGraph("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, gh_speed_up);
+	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gh_speed_down);
 
+	/*i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+	liveAnim.emplace_back(i_anim_);
+	i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+	liveAnim.emplace_back(i_anim_);*/
 }
 
 Item::~Item()
@@ -61,9 +65,7 @@ void Item::SwithItemMove(int cnt_pos_)
 void Item::ItemProcess(float delta_time)
 {
 	if (!frag_player_speed_up) {
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveAnim.emplace_back(i_anim_);
-		scene_play_->player_->base_move_speed = 2.0;
+		scene_play_->player_->base_move_speed = 3.0;
 		cnt_player_speed_up -= delta_time;
 		if (cnt_player_speed_up < 0) {
 			scene_play_->player_->base_move_speed = 1.0;
@@ -72,8 +74,6 @@ void Item::ItemProcess(float delta_time)
 		}
 	}
 	if (!frag_enemy_speed_down) {
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveAnim.emplace_back(i_anim_);
 		scene_play_->enemy_->base_move_speed = 0.1;
 		cnt_enemy_speed_down -= delta_time;
 		if (cnt_enemy_speed_down < 0) {

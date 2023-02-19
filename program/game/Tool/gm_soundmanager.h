@@ -28,6 +28,7 @@ public:
 		USE_KEY,
 		USE_COIN,
 		CHARGE,
+		TELEPORT,
 		MAX
 	};
 	static SoundManager* instance_;
@@ -65,6 +66,7 @@ public:
 	int se_use_key = 0;
 	int se_use_coin = 0;
 	int se_charge_skill = 0;
+	int se_teleport = 0;
 
 	//ç°ó¨ÇÍÇƒÇ¢ÇÈBGM
 	int nowPlayBGM = 0;

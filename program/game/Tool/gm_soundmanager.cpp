@@ -56,6 +56,7 @@ void SoundManager::LoadSound()
 	se_use_key = LoadSoundMem("sound/se/magic5.mp3");
 	se_use_coin = LoadSoundMem("sound/se/coin07.mp3");
 	se_charge_skill = LoadSoundMem("sound/se/charge.mp3");
+	se_teleport = LoadSoundMem("sound/se/telepoton.mp3");
 	
 	se.emplace_back(se_press_space);
 	se.emplace_back(se_get_start);
@@ -74,6 +75,7 @@ void SoundManager::LoadSound()
 	se.emplace_back(se_use_key);
 	se.emplace_back(se_use_coin);
 	se.emplace_back(se_charge_skill);
+	se.emplace_back(se_teleport);
 }
 
 

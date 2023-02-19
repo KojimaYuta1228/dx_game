@@ -118,13 +118,13 @@ void Player::PlayerInput(float delta_time)
 	}
 	if (!frag_chant_tp) {
 		if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp) {
+			SoundManager::GetInstance()->SoundSe(SoundManager::SE::TELEPORT);
 			frag_tp = false;
-			teleportation_cnt--;
 			pos_ = start_pos_;
 		}
 		if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0 && frag_tp) {
+			SoundManager::GetInstance()->SoundSe(SoundManager::SE::TELEPORT);
 			frag_tp = false;
-			teleportation_cnt--;
 			pos_ = telePos;
 		}
 	}
