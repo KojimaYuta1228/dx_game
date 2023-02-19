@@ -19,6 +19,8 @@ public:
 		SE_SCREAM,
 		ENEMY_LAUGH,
 		ENEMY_GHOST,
+		GET_ITEM,
+		SELECT_ITEM,
 		MAX
 	};
 	static SoundManager* instance_;
@@ -47,6 +49,9 @@ public:
 	int se_player_walk = 0;
 	int se_scream = 0;
 	int se_insect = 0;
+	int se_get_item = 0;
+	int se_select_item = 0;
+	int se_decision_item = 0;
 
 	//ç°ó¨ÇÍÇƒÇ¢ÇÈBGM
 	int nowPlayBGM = 0;

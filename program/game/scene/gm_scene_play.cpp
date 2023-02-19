@@ -83,14 +83,14 @@ void ScenePlay::update(float delta_time)
 		//	{ 0, tnl::ToRadian(1.0), 0 },//各速度
 		//	{ 0, -tnl::ToRadian(1.0), 0 },
 		//};
-		tnl::Input::RunIndexPadDown([&](uint32_t idx) {
-			frag_camera_rotate_ = false;
-			//camera_->free_look_angle_xy_ += rot[idx];//三人称
-			}, ePad::KEY_6, ePad::KEY_7);
-		tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
-			frag_camera_rotate_ = false;
-			//camera_->free_look_angle_xy_ += rot[idx];//三人称
-		}, eKeys::KB_D, eKeys::KB_A);
+		//tnl::Input::RunIndexPadDown([&](uint32_t idx) {
+		//	frag_camera_rotate_ = false;
+		//	//camera_->free_look_angle_xy_ += rot[idx];//三人称
+		//	}, ePad::KEY_6, ePad::KEY_7);
+		//tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
+		//	frag_camera_rotate_ = false;
+		//	//camera_->free_look_angle_xy_ += rot[idx];//三人称
+		//}, eKeys::KB_D, eKeys::KB_A);
 	
 	
 	camera_->target_ = player_->sprite_->pos_;

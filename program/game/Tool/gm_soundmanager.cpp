@@ -47,6 +47,9 @@ void SoundManager::LoadSound()
 	se_scream = LoadSoundMem("sound/se/scream.mp3");
 	se_enemy_ghost = LoadSoundMem("sound/se/enemy_ghost.mp3");
 	se_enemy_laugh = LoadSoundMem("sound/se/enemy_laugh.mp3");
+	se_get_item = LoadSoundMem("sound/se/get_item.mp3");
+	se_select_item = LoadSoundMem("sound/se/select_item.mp3");
+	se_decision_item = LoadSoundMem("sound/se/decision_item.mp3");
 	
 	se.emplace_back(se_press_space);
 	se.emplace_back(se_get_start);
@@ -56,6 +59,9 @@ void SoundManager::LoadSound()
 	se.emplace_back(se_scream);
 	se.emplace_back(se_enemy_ghost);
 	se.emplace_back(se_enemy_laugh);
+	se.emplace_back(se_get_item);
+	se.emplace_back(se_select_item);
+	se.emplace_back(se_decision_item);
 }
 
 
