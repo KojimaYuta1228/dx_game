@@ -4,6 +4,7 @@
 #include"../Character/Enemy.h"
 #include"../scene/gm_scene_play.h"
 #include"DxLib.h"
+#include "../Tool/gm_soundmanager.h"
 
 //extern ScenePlay* scene_play_;
 //tnl::Vector3 item_spawn;
@@ -34,17 +35,22 @@ void Item::SwithItemMove(int cnt_pos_)
 	{
 	case 0:
 		frag_player_speed_up = false;
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_UP);
 		break;
 	case 1:
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_DOWN);
 		frag_enemy_speed_down = false;
 		break;
 	case 2:
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::STRONG_TIME);
 		scene_play_->frag_strong_time = false;
 		break;
 	case 3:
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_KEY);
 		scene_play_->frag_can_goal = false;
 		break;
 	case 4:
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_COIN);
 		break;
 	default:
 		break;

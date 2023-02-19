@@ -53,8 +53,8 @@ void SoundManager::LoadSound()
 	se_speed_up = LoadSoundMem("sound/se/speed_up.mp3");
 	se_speed_down = LoadSoundMem("sound/se/speed_down.mp3");
 	se_strong_time = LoadSoundMem("sound/se/strong_time.mp3");
-	se_use_key = LoadSoundMem("sound/se/key_open.mp3");
-	se_use_coin = LoadSoundMem("sound/se/coin.mp3");
+	se_use_key = LoadSoundMem("sound/se/magic5.mp3");
+	se_use_coin = LoadSoundMem("sound/se/coin07.mp3");
 	
 	se.emplace_back(se_press_space);
 	se.emplace_back(se_get_start);
