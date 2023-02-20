@@ -94,8 +94,6 @@ void ScenePlay::update(float delta_time)
 	
 	
 	camera_->target_ = player_->sprite_->pos_;
-
-	// 移動制御
 	player_->Update(delta_time);
 	enemy_->Update(delta_time);
 	item_mgr->Update(delta_time);
@@ -140,7 +138,6 @@ void ScenePlay::render()
 	dome_->render(camera_);
 	map_->Rander();
 	for (auto& hoge : draw_character_) {
-
 		hoge->Render(0.01666);
 		item_mgr->Render();
 	}
@@ -163,8 +160,7 @@ void ScenePlay::playsound()
 
 void ScenePlay::Collision()
 {
-	//壁とプレイヤーとの当たり判定
-	//壁とエネミーとの当たり判定
+	//壁とプレイヤーとの当たり判定//壁とエネミーとの当たり判定
 	//listでmap_chip_を管理
 	for (int i = 0; i < Map::MEIRO_HEIGHT; i++) {
 		for (int k = 0; k < Map::MEIRO_WIDTH; k++) {

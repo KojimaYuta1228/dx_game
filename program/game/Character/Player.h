@@ -16,9 +16,10 @@ public :
 
 	void initialzie() override;
 	void Update(float delta_time)override;
-	void PlayerAnim();
+	void PlayerAnim(float delta_time);
 	void PlayerInput(float delta_time);
 	void Render(float delta_time)override;
+	
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 
 	std::shared_ptr<Map> map_ = nullptr; 

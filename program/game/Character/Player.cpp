@@ -51,14 +51,39 @@ void Player::initialzie()
 
 void Player::Update(float delta_time)
 {
-	PlayerAnim();
-	PlayerInput(delta_time);
+	if (pos_.y > 50) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/wing.png", 10, 10, 1, 188, 150, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
+	}
+	PlayerAnim(delta_time);
+	PlayerInput(delta_time);	
+	//-----------------------------------------------
+	//マップの座標の補正
+	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
+	map_->goal_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
 
+	distance_ = CameraDis(pos_, camera_->pos_);
+	sprite_->update(delta_time);
+
+}
+
+void Player::PlayerAnim(float delta_time)
+{
+	anim_pos_ = tnl::GetXzRegionPointAndOBB(
+		camera_->pos_
+		, sprite_->pos_
+		, { 32, 48, 32 }
+	, sprite_->rot_);
+
+	std::string anim_names[4] = {
+		"walk_back" , "walk_right","walk_front", "walk_left"
+	};
+
+	sprite_->setCurrentAnim(anim_names[anim_pos_]);
 	//アニメーションの更新
 	for (auto anim : liveAnim) {
 		//アニメーションが終わっていれば
 		anim->UpdateAnimation(delta_time);
-
 	}
 	//再生し終わったアニメーションがあったらリストから消してdeleteする
 	auto itr = liveAnim.begin();
@@ -71,29 +96,6 @@ void Player::Update(float delta_time)
 			itr++;
 		}
 	}
-	
-	//-----------------------------------------------
-	//マップの座標の補正
-	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
-	map_->goal_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
-
-	distance_ = CameraDis(pos_, camera_->pos_);
-	sprite_->update(delta_time);
-
-}
-
-void Player::PlayerAnim()
-{
-	anim_pos_ = tnl::GetXzRegionPointAndOBB(
-		camera_->pos_
-		, sprite_->pos_
-		, { 32, 48, 32 }
-	, sprite_->rot_);
-
-	std::string anim_names[4] = {
-		"walk_back" , "walk_right","walk_front", "walk_left"
-	};
-	sprite_->setCurrentAnim(anim_names[anim_pos_]);
 }
 
 void Player::PlayerInput(float delta_time)
@@ -129,11 +131,12 @@ void Player::PlayerInput(float delta_time)
 	//瞬間移動
 	//コントローラーY
 	if (tnl::Input::IsPadDown(ePad::KEY_3) && frag_chant_tp) {
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/shineFix.png", 10, 10, 1, 192, 192, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveAnim.emplace_back(i_anim_);
 		cnt_chant_tp += delta_time;
 	}
-	
+	if (cnt_chant_tp < 3 && cnt_chant_tp > 2.5) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/shineFix.png", 10, 10, 1, 192, 192, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
+	}
 	if (cnt_chant_tp > 3) {
 		frag_chant_tp = false;
 	}
@@ -151,8 +154,6 @@ void Player::PlayerInput(float delta_time)
 		}
 	}
 	if (!frag_tp) {
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/tp_move.png", 7, 7, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveAnim.emplace_back(i_anim_);
 		cnt_frag_tp -= delta_time;
 		if (cnt_frag_tp < 0) {
 			frag_tp = true;
@@ -177,8 +178,6 @@ void Player::PlayerInput(float delta_time)
 	}
 	//加速
 	if (tnl::Input::IsKeyDown(eKeys::KB_1) && staminum > 0) {
-		
-		//staminum -= delta_time;
 		pos_ += move_v * 10;
 	}
 	
@@ -213,6 +212,7 @@ void Player::Render(float delta_time)
 	SetFontSize(20);
 	DrawStringEx(5, bar_y, 0, "スタミナ");
 }
+
 
 float Player::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
 {
