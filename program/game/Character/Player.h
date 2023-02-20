@@ -33,9 +33,6 @@ public :
 	bool frag_play_se_ = true;
 	bool frag_tp = true;
 	bool frag_chant_tp = true;
-	bool frag_tp_start = true;
-	bool frag_tp_else = true;
-	bool frag_cnt_tp = true;
 
 	float cnt_preparation_time = 2;
 	float cnt_frag_tp = 5;
