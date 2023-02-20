@@ -89,14 +89,10 @@ void Item::ItemProcess(float delta_time)
 		}
 	}	
 }
-void Item::initialzie()
-{	
-}
-void Item::Update(float delta_time)
+void Item::ItemAnim(float delta_time)
 {
 	item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
 	angle_++;
-	ItemProcess(delta_time);
 	for (auto anim : liveAnim) {
 		anim->UpdateAnimation(delta_time);
 	}
@@ -106,10 +102,19 @@ void Item::Update(float delta_time)
 		if ((*itr)->isLive == false) {
 			delete (*itr);
 			itr = liveAnim.erase(itr);
-		}else {
+		}
+		else {
 			itr++;
 		}
 	}
+}
+void Item::initialzie()
+{	
+}
+void Item::Update(float delta_time)
+{	
+	ItemProcess(delta_time);
+	ItemAnim(delta_time);
 }
 
 void Item::Render(float delta_time)

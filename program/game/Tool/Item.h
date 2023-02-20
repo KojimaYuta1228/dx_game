@@ -19,7 +19,8 @@ public:
 	void Render(float delta_time)override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 	void SwithItemMove(int item_num);//アイテムごとの動き
-	void ItemProcess(float delta_time); 
+	void ItemProcess(float delta_time); //アイテムごとの細かい処理
+	void ItemAnim(float delta_time);//アイテムのアニメーション
 	int id_;
 	int type_;
 	float angle_ = 0;
