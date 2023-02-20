@@ -5,7 +5,7 @@
 class Animation
 {
 public:
-	Animation(std::string ghPass, int sumNum, int widthNum, int heightNum, int width, int height,int anim_type, float x, float y);
+	Animation(std::string ghPass, int sumNum, int widthNum, int heightNum, int width, int height,float x, float y);
 	~Animation();
 
 	//アニメーションの更新関数

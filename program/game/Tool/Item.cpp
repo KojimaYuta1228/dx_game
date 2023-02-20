@@ -31,31 +31,31 @@ void Item::SwithItemMove(int cnt_pos_)
 	switch (cnt_pos_)
 	{
 	case 0:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120,1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1,120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		frag_player_speed_up = false;
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_UP);
 		break;
 	case 1:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120,  DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_DOWN);
 		frag_enemy_speed_down = false;
 		break;
 	case 2:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::STRONG_TIME);
 		scene_play_->frag_strong_time = false;
 		break;
 	case 3:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_KEY);
 		scene_play_->frag_can_goal = false;
 		break;
 	case 4:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120,  DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_COIN);
 		break;
@@ -98,8 +98,8 @@ void Item::Update(float delta_time)
 	//アニメーションの更新
 	for (auto anim : liveAnim) {
 		//アニメーションが終わっていれば
-		if (anim->UpdateAnimation(delta_time)) {
-		}
+		anim->UpdateAnimation(delta_time);
+		
 	}
 	//再生し終わったアニメーションがあったらリストから消してdeleteする
 	auto itr = liveAnim.begin();

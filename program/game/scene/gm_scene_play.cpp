@@ -140,9 +140,9 @@ void ScenePlay::render()
 	map_->Rander();
 	floor_->render(camera_);
 	dome_->render(camera_);
-	item_mgr->Render();
 	for (auto& hoge : draw_character_) {
-		hoge->Render(0.0166);
+		hoge->Render(0.01666);
+		item_mgr->Render();
 	}
 	//SetFontSize(20);
 	/*DrawStringEx(60, 150, 0, "move_speed:%f",player_->move_speed);
