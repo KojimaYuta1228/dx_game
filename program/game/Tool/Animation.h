@@ -12,15 +12,10 @@ public:
 	bool UpdateAnimation(const float deltatime);
 	//アニメーションの描画関数
 	void DrawAnimation(const float deltatime);
-
-	void UseAnim(float delta_time);
-
 	//画像の総枚数
 	int sumAnimNum = 0;
-
 	//足していく現在のタイマー
 	float gfx_timer = 0;
-
 	//描画中の配列番号
 
 	int anim_frame = 0;
@@ -29,7 +24,6 @@ public:
 	int gh[10] = {};
 
 	float anim_time_count = 0;
-	//int anim_frame = 0;
 	int anim_type = 0;
 	int gfx_hdl[10][10] = { 0 };
 

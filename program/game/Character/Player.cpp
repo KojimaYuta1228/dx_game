@@ -6,6 +6,7 @@
 #include "../../dxlib_ext/dxlib_ext.h"
 #include"../Tool/gm_soundmanager.h"
 #include "../Tool/Map.h"
+#include"../Tool/Animation.h"
 
 tnl::Vector3 telePos;
 Player::Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
@@ -13,6 +14,7 @@ Player::Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
 	GameManager* mgr = GameManager::GetInstance();
 	SceneBase* scene_base = mgr->getCurrentScene();
 	ScenePlay* scene_play = dynamic_cast<ScenePlay*>(scene_base);
+	
 	if (scene_play) {
 		camera_ = scene_play->GetCamera();
 	}
@@ -52,6 +54,24 @@ void Player::Update(float delta_time)
 	PlayerAnim();
 	PlayerInput(delta_time);
 
+	//アニメーションの更新
+	for (auto anim : liveAnim) {
+		//アニメーションが終わっていれば
+		anim->UpdateAnimation(delta_time);
+
+	}
+	//再生し終わったアニメーションがあったらリストから消してdeleteする
+	auto itr = liveAnim.begin();
+	while (itr != liveAnim.end()) {
+		if ((*itr)->isLive == false) {
+			delete (*itr);
+			itr = liveAnim.erase(itr);
+		}
+		else {
+			itr++;
+		}
+	}
+	
 	//-----------------------------------------------
 	//マップの座標の補正
 	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
@@ -100,19 +120,20 @@ void Player::PlayerInput(float delta_time)
 	
 	//加速//コントローラーB
 	if (tnl::Input::IsPadDown(ePad::KEY_1) && move_v.length() > 0.5f && bar_width > 0) {
-		bar_width -= decrease_amount; // バーの幅を減らす
-		//staminum -= delta_time;
+		bar_width -= decrease_amount; //バーの幅を減らす
 		pos_ += move_v * move_speed;
 	}
     if (max_staminum > bar_width && !tnl::Input::IsPadDown(ePad::KEY_1) && move_v.length() < 0.5f) {
 		bar_width += decrease_amount;
-		//staminum += delta_time;
 	}
 	//瞬間移動
 	//コントローラーY
-	if (tnl::Input::IsPadDown(ePad::KEY_3)) {
+	if (tnl::Input::IsPadDown(ePad::KEY_3) && frag_chant_tp) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/shineFix.png", 10, 10, 1, 192, 192, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		cnt_chant_tp += delta_time;
 	}
+	
 	if (cnt_chant_tp > 3) {
 		frag_chant_tp = false;
 	}
@@ -130,6 +151,8 @@ void Player::PlayerInput(float delta_time)
 		}
 	}
 	if (!frag_tp) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/tp_move.png", 7, 7, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		cnt_frag_tp -= delta_time;
 		if (cnt_frag_tp < 0) {
 			frag_tp = true;
@@ -140,8 +163,7 @@ void Player::PlayerInput(float delta_time)
 	}
 	if (tnl::Input::IsPadDownTrigger(ePad::KEY_3)) {
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::CHARGE);
-	}
-		
+	}		
 
 	/*----------------------------key----------------------------------*/
 	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
@@ -164,8 +186,14 @@ void Player::PlayerInput(float delta_time)
 
 void Player::Render(float delta_time)
 {
+
+	//アニメーションの描画
+	for (auto anim : liveAnim) {
+		anim->DrawAnimation(delta_time);
+	}
 	sprite_->pos_ = pos_;
 	sprite_->render(camera_);
+	
 	SetFontSize(25);
 	if (tnl::Input::IsPadDown(ePad::KEY_3) && cnt_chant_tp <= 3) {
 		DrawStringEx(0, 130, -1.0, "スキルチャージ中");

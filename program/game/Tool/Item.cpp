@@ -43,19 +43,21 @@ void Item::SwithItemMove(int cnt_pos_)
 		frag_enemy_speed_down = false;
 		break;
 	case 2:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/strong_time1.png", 14, 14, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/gate.png", 5, 5, 1, 186, 159, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::STRONG_TIME);
 		scene_play_->frag_strong_time = false;
 		break;
 	case 3:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/use_key.png", 10, 10, 1, 167, 159, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_KEY);
 		scene_play_->frag_can_goal = false;
 		break;
 	case 4:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120,  DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/use_coin.png", 8, 8, 1, 120, 120,  DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_COIN);
 		break;
@@ -120,7 +122,6 @@ void Item::Render(float delta_time)
 	for (auto anim : liveAnim) {
 		anim->DrawAnimation(delta_time);
 	}
-
 }
 
 float Item::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)

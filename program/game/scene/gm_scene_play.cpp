@@ -135,12 +135,12 @@ void ScenePlay::update(float delta_time)
 
 void ScenePlay::render()
 {
-	
-	camera_->update();
-	map_->Rander();
+	camera_->update();	
 	floor_->render(camera_);
 	dome_->render(camera_);
+	map_->Rander();
 	for (auto& hoge : draw_character_) {
+
 		hoge->Render(0.01666);
 		item_mgr->Render();
 	}

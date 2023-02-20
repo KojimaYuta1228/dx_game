@@ -7,6 +7,7 @@
 class ScenePlay;
 class Map;
 class CharacterBase;
+class Animation;
 
 class Player :public CharacterBase{
 public :
@@ -20,7 +21,9 @@ public :
 	void Render(float delta_time)override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 
-	std::shared_ptr<Map> map_ = nullptr;
+	std::shared_ptr<Map> map_ = nullptr; 
+	std::list<Animation*> liveAnim;
+	Animation* i_anim_ = nullptr;
 
 	//mapÇÃç¿ïW
 	int maze_pos_x_ = 0 ;
