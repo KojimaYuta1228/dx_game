@@ -99,22 +99,20 @@ void ScenePlay::playsound()
 
 void ScenePlay::Collision()
 {
-	//壁とプレイヤーとの当たり判定//壁とエネミーとの当たり判定
-	//listでmap_chip_を管理
 	for (int i = 0; i < Map::MEIRO_HEIGHT; i++) {
 		for (int k = 0; k < Map::MEIRO_WIDTH; k++) {
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
-				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
-					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize }, player_->pos_);
+				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
+					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE }, player_->pos_);
 				}
-				if (tnl::IsIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize })) {
-					tnl::GetCorrectPositionIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize }, enemy_->pos_);
+				if (tnl::IsIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
+					tnl::GetCorrectPositionIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE }, enemy_->pos_);
 				}
 			}
 			else if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::GOAL)) {
 				tnl::Vector3 goal_pos = map_->map_chips_[i][k]->pos_;
-				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, goal_pos, { boxSize, boxSize, boxSize })) {
+				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, goal_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
 					if (!frag_can_goal) {
 						frag_cnt_timer_ = false;
 						player_->frag_input_ = false;
@@ -131,11 +129,9 @@ void ScenePlay::Collision()
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 		}
 	}
-	
-	// Item と Player との当たり判定
 	for (auto items : item_mgr->spawn_Item_list) {
 		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, items->pos_, { 30,32,32 })) {
-			items->is_alive_ = false;	// アイテムを消す
+			items->is_alive_ = false;	
 		}
 	}
 }
@@ -143,11 +139,11 @@ void ScenePlay::Collision()
 void ScenePlay::PlayerState(float delta_time)
 {
 	if (!frag_strong_time) {
-		cnt_strong_time -= delta_time;
+		cnt_strong_time_ -= delta_time;
 	}
-	if (cnt_strong_time < 0) {
+	if (cnt_strong_time_ < 0){
 		frag_strong_time = true;
-		cnt_strong_time = 3;
+		cnt_strong_time_ = 3;
 	}
 	if (player_->pos_.y == 450) {
 		mgr->chengeScene(new SceneResult());
@@ -187,7 +183,6 @@ void ScenePlay::ScenePlaySound(float delta_time)
 
 inline void ScenePlay::RenderSort()
 {
-	//List内の全てを計算しソートする
 	draw_character_.sort([&](std::shared_ptr<CharacterBase> a, std::shared_ptr<CharacterBase> b) {
 		return a->distance_ > b->distance_;
 		});
