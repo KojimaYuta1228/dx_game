@@ -21,19 +21,15 @@ public:
 	std::list<std::shared_ptr<Item>> spawn_Item_list;//newしたItemを格納するList
 	std::vector<std::shared_ptr<Item>> get_Item_vec;//獲得したItemを格納するList
 	SceneBase* ref_scene_ = nullptr;
-	//使用するテクスチャを事前ロードする際に
-	Shared<dxe::Texture> texs[5];
+	Shared<dxe::Texture> texs[5];//使用するテクスチャを事前ロードする際に保存するための配列
 	dxe::Mesh* item_box_[9];//アイテム用のオリジナルの箱
 	std::shared_ptr<Item> item;
-	
-	
 	bool get_item_frag[5] = { false,false,false,false,false };//獲得したItemの描画を切り替えるfrag
 	MyVec2i save_v;//マップ上にアイテムをスポーンさせるためのローカル座標を保存する変数
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;
 	int type_;
-	bool is_alive_ = true;
 	int select_item_img = 0;//画像ハンドル
 	int wood_freme_img = 0;//画像ハンドル
 	const int IMG_NUM = 5;//for文の最大数
