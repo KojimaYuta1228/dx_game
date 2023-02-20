@@ -16,8 +16,8 @@ public :
 
 	void initialzie() override;
 	void Update(float delta_time)override;
-	void PlayerAnim(float delta_time);
-	void PlayerInput(float delta_time);
+	void PlayerAnim(float delta_time);//Playerのアニメーション
+	void PlayerInput(float delta_time);//Playerの入力
 	void Render(float delta_time)override;
 	
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
@@ -29,31 +29,24 @@ public :
 	//mapの座標
 	int maze_pos_x_ = 0 ;
 	int maze_pos_z_ = 0;
-
-	int player_hp_cnt = 3;
-	//フラグ
-	bool frag_input_ = true;
-	bool frag_move_posY_ = true;
-	bool frag_play_se_ = true;
-	bool frag_tp = true;
-	bool frag_chant_tp = true;
-
-	float cnt_preparation_time = 2;
-	float cnt_frag_tp = 5;
-	float cnt_chant_tp = 0;
-
-	int anim_pos_;
-	int teleportation_cnt = 3;
-
-	tnl::Vector3 move_v;
-	tnl::Vector3 start_pos_;
-	float move_speed = 1.1;
 	
-	int staminum = 350;
-	int max_staminum = 350;
-    
-	int emp_stam_ber = 0;
+	bool frag_input_ = true;//入力を受け付けるかどうかを判定するためのフラグ
+	bool frag_move_posY_ = true;//ゴール時のPlayerの動きをいじるためのフラグ
+	bool frag_play_se_ = true;//seを鳴らすためのフラグ
+	bool frag_tp = true;//TPするためのフラグ
+	bool frag_chant_tp = true;//詠唱完了か判別するためのフラグ
 
+	float cnt_frag_tp = 5;//次の詠唱開始までの時間
+	float cnt_chant_tp = 0;//TPまでの詠唱時間ようカウント
+
+	
+	tnl::Vector3 move_v;//速度を加算減算するためのVector3
+	tnl::Vector3 start_pos_;//スタート地点
+	tnl::Vector3 telePos;//テレポート地点
+	float move_speed = 1.1;//ダッシュ速度	
+	int anim_pos_;//アニメスプライトの設定用
+	int max_staminum = 350;//スタミナ最大値
+	int emp_stam_ber = 0;//画像ハンドル
 	int bar_width = 3500; // バーの初期幅
 	int bar_height = 20; // バーの高さ
 	int bar_x = 0; // バーのX座標

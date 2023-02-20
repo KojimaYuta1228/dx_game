@@ -8,7 +8,6 @@
 #include "../Tool/Map.h"
 #include"../Tool/Animation.h"
 
-tnl::Vector3 telePos;
 Player::Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
 {
 	GameManager* mgr = GameManager::GetInstance();
@@ -18,17 +17,13 @@ Player::Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
 	if (scene_play) {
 		camera_ = scene_play->GetCamera();
 	}
-
 	sprite_ = new AnimSprite3D(camera_);
-
 	sprite_->regist(32, 48, "walk_front", "graphics/c1_anim_up.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
 	sprite_->regist(32, 48, "walk_back", "graphics/c1_anim_down.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);	
 	sprite_->regist(32, 48, "walk_left", "graphics/c1_anim_left.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
 	sprite_->regist(32, 48, "walk_right", "graphics/c1_anim_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
 	sprite_->setCurrentAnim("walk_front");
-
 	emp_stam_ber = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/emp_stam_ber.png");
-
 	/*----Playerの初期座標----*/
 	auto x = startPos.x * 50;
 	auto z = startPos.z * 50;
@@ -142,12 +137,12 @@ void Player::PlayerInput(float delta_time)
 	}
 
 	if (!frag_chant_tp) {
-		if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && teleportation_cnt > 0 && frag_tp ) {
+		if (tnl::Input::IsPadDownTrigger(ePad::KEY_4) && frag_tp ) {
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::TELEPORT);
 			pos_ = start_pos_;
 			frag_tp = false;
 		}
-		if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && teleportation_cnt > 0 && frag_tp) {
+		if (tnl::Input::IsPadDownTrigger(ePad::KEY_5) && frag_tp) {
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::TELEPORT);
 			pos_ = telePos;
 			frag_tp = false;
@@ -177,7 +172,7 @@ void Player::PlayerInput(float delta_time)
 		frag_play_se_ = true;
 	}
 	//加速
-	if (tnl::Input::IsKeyDown(eKeys::KB_1) && staminum > 0) {
+	if (tnl::Input::IsKeyDown(eKeys::KB_1) ) {
 		pos_ += move_v * 10;
 	}
 	
@@ -185,8 +180,6 @@ void Player::PlayerInput(float delta_time)
 
 void Player::Render(float delta_time)
 {
-
-	//アニメーションの描画
 	for (auto anim : liveAnim) {
 		anim->DrawAnimation(delta_time);
 	}
