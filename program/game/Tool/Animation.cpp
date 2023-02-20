@@ -4,7 +4,6 @@ Animation::Animation(std::string ghPass, int sumNum, int widthNum, int heightNum
 {
 	LoadDivGraph(ghPass.c_str(), sumNum, widthNum, heightNum, width, height, gh);
 	sumAnimNum = sumNum;
-
 	drawPos.x = x;
 	drawPos.y = y;
 }
@@ -13,7 +12,7 @@ Animation::~Animation()
 {
 }
 
-bool Animation::UpdateAnimation(const float deltatime)
+bool Animation::UpdateAnimation(const float delta_time)
 {
 
 	if (anim_frame == (sumAnimNum - 1)) {
@@ -22,7 +21,7 @@ bool Animation::UpdateAnimation(const float deltatime)
 		return true;
 	}
 
-	gfx_timer += deltatime;
+	gfx_timer += delta_time;
 
 	if (gfx_timer > 0.1f) {
 		gfx_timer = 0;
@@ -32,7 +31,7 @@ bool Animation::UpdateAnimation(const float deltatime)
 	return false;
 }
 
-void Animation::DrawAnimation(const float deltatime)
+void Animation::DrawAnimation(const float delta_time)
 {
 	if (!isLive)return;
 	DrawRotaGraph(drawPos.x, drawPos.y, 1.0f, 0, gh[anim_frame], true);

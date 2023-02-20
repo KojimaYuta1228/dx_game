@@ -50,7 +50,7 @@ public :
     
 	int emp_stam_ber = 0;
 
-	int bar_width = 350; // バーの初期幅
+	int bar_width = 3500; // バーの初期幅
 	int bar_height = 20; // バーの高さ
 	int bar_x = 0; // バーのX座標
 	int bar_y = 100; // バーのY座標

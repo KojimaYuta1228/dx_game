@@ -22,13 +22,10 @@ Item::Item(int id, int type, SceneBase* scene_base)
 	}
 	id_ = id; type_ = type;
 	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
-	LoadDivGraph("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, gh_speed_up);
-	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gh_speed_down);
-
-	/*i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-	liveAnim.emplace_back(i_anim_);
-	i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-	liveAnim.emplace_back(i_anim_);*/
+	LoadDivGraph("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, gfx_hdl[1]);
+	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gfx_hdl[2]);
+	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gfx_hdl[2]);
+	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gfx_hdl[2]);
 }
 
 Item::~Item()
@@ -39,10 +36,12 @@ void Item::SwithItemMove(int cnt_pos_)
 	switch (cnt_pos_)
 	{
 	case 0:
+		anim_type = 1;
 		frag_player_speed_up = false;
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_UP);
 		break;
 	case 1:
+		anim_type = 2;
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_DOWN);
 		frag_enemy_speed_down = false;
 		break;
@@ -51,10 +50,14 @@ void Item::SwithItemMove(int cnt_pos_)
 		scene_play_->frag_strong_time = false;
 		break;
 	case 3:
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/horn1.png", 10, 10, 1, 320, 240, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_KEY);
 		scene_play_->frag_can_goal = false;
 		break;
 	case 4:
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/craw1.png", 10, 10, 1, 108, 108, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_COIN);
 		break;
 	default:
@@ -64,22 +67,33 @@ void Item::SwithItemMove(int cnt_pos_)
 
 void Item::ItemProcess(float delta_time)
 {
+	
+	anim_time_count += delta_time;
+	if (0.25f < anim_time_count) {
+		anim_time_count = 0;
+		anim_frame++;
+		anim_frame %= 10;
+	}
 	if (!frag_player_speed_up) {
 		scene_play_->player_->base_move_speed = 3.0;
 		cnt_player_speed_up -= delta_time;
+
 		if (cnt_player_speed_up < 0) {
 			scene_play_->player_->base_move_speed = 1.0;
 			cnt_player_speed_up = 3.0;
 			frag_player_speed_up = true;
+			anim_type = 0;
 		}
 	}
-	if (!frag_enemy_speed_down) {
+	else if (!frag_enemy_speed_down) {
 		scene_play_->enemy_->base_move_speed = 0.1;
 		cnt_enemy_speed_down -= delta_time;
+
 		if (cnt_enemy_speed_down < 0) {
 			scene_play_->enemy_->base_move_speed = 1.0;
 			cnt_enemy_speed_down = 3.0;
 			frag_enemy_speed_down = true;
+			anim_type = 0;
 		}
 	}	
 }
@@ -94,21 +108,12 @@ void Item::Update(float delta_time)
 	angle_++;
 	ItemProcess(delta_time);
 	//再生し終わったアニメーションがあったらリストから消してdeleteする
-	//リストの一番最初の要素に矢印(イテレータ)を置く
 	auto itr = liveAnim.begin();
-	//リストのすべての要素に対して検索する
-	for (int i = 0; i < liveAnim.size(); ++i) {
-		//リストが空だったらfor文を抜ける
-		if (liveAnim.empty())break;
-		//もしイテレータが指しているアニメーションのisLiveがfalseなら(アニメーション再生が終わっていれば
-		//中身のアニメーションのメモリを開放する
-		//リストからそのアニメーションを排除してイテレータを次の要素に移す
+	while (itr != liveAnim.end()) {
 		if ((*itr)->isLive == false) {
 			delete (*itr);
 			itr = liveAnim.erase(itr);
-		}
-		else {
-			//もし生きているアニメーションを指していれば次の要素にイテレータを移す
+		}else {
 			itr++;
 		}
 	}
@@ -116,12 +121,14 @@ void Item::Update(float delta_time)
 
 void Item::Render(float delta_time)
 {
+
+	DrawRotaGraph(DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2, 2.0f, 0, gfx_hdl[anim_type][anim_frame], true);
 	item_mesh->render(camera_);
 	//アニメーションの描画
 	for (auto anim : liveAnim) {
 		anim->DrawAnimation(delta_time);
 	}
-	
+
 }
 
 float Item::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
