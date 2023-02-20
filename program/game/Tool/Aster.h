@@ -19,12 +19,11 @@ public:
 	Point(int _x, int _y) : x(_x), y(_y) {}
 	int x;
 	int y;
-
 	Point operator + (Point p) {
 		return Point(x + p.x, y + p.y);
 	}
 	bool operator == (Point p) {
-		if (x == p.x && y == p.y) return true;
+		if (x == p.x && y == p.y)return true;
 		return false;
 	}
 };
