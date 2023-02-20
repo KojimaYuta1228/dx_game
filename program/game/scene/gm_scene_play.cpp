@@ -24,43 +24,36 @@ ScenePlay::ScenePlay() {
 
 ScenePlay::~ScenePlay() {	
 	delete camera_;
+	delete newAnim;
 }
 
 
 void ScenePlay::initialzie() {
 	playsound();
-
 	camera_ = GetCamera();
 	camera_->camF = GmCamera::CAMERA_FREE_LOOK;
 	camera_->pos_ = { 0, 150, -300 };
 	map_ = std::make_shared<Map>();
-	map_->initialzie();
-	
+	map_->initialzie();	
 	auto startPos = map_->GetRandomRoot();
 	auto teleportationPos = map_->GetRandomRoot();
 	auto startEnPos = map_->GetRandomRoot();
-
-	enemy_ = std::make_shared<Enemy>(startEnPos);
-	enemy_->map_ = map_;
+	enemy_ = std::make_shared<Enemy>(startEnPos);	
 	player_ = std::make_shared<Player>(startPos,teleportationPos);
+	item_mgr = std::make_shared<ItemManager>(this);
+	enemy_->map_ = map_;
 	player_->map_ = map_;
-	//Listのhoge_にそれぞれのクラスの追加
 	draw_character_.emplace_back(enemy_);
 	draw_character_.emplace_back(player_);
-	//天井
 	dome_ = dxe::Mesh::CreateSphere(1000);
-	dome_->pos_ = { 0,0,0 };
-	dome_->setTexture(dxe::Texture::CreateFromFile("graphics/Resouce/image/dangeon01.jpg"));
-	//床の貼り付け
 	floor_ = dxe::Mesh::CreatePlane({ 1800,1800,0 });
 	floor_->rot_q_ = tnl::Quaternion::RotationAxis({ 1, 0, 0 }, tnl::ToRadian(90));
-	floor_->pos_ = { 0,-25,0 };
+	dome_->setTexture(dxe::Texture::CreateFromFile("graphics/Resouce/image/dangeon01.jpg"));
 	floor_->setTexture(dxe::Texture::CreateFromFile("graphics/Resouce/image/dangeon_floor01.jpg"));
-
-	img_note = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/old_later3.png");
-
-	item_mgr = std::make_shared<ItemManager>( this );
+	dome_->pos_ = { 0,0,0 };
+	floor_->pos_ = { 0,-25,0 };
 	SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_START);
+	mgr = GameManager::GetInstance();
 }
 
 GmCamera* ScenePlay::GetCamera()
@@ -74,61 +67,17 @@ GmCamera* ScenePlay::GetCamera()
 
 void ScenePlay::update(float delta_time)
 {
-	GameManager* mgr = GameManager::GetInstance();
-	Animation* newAnim = nullptr;
-	
-	// カメラ制御
-	//三人称
-		//tnl::Vector3 rot[2] = {
-		//	{ 0, tnl::ToRadian(1.0), 0 },//各速度
-		//	{ 0, -tnl::ToRadian(1.0), 0 },
-		//};
-		//tnl::Input::RunIndexPadDown([&](uint32_t idx) {
-		//	frag_camera_rotate_ = false;
-		//	//camera_->free_look_angle_xy_ += rot[idx];//三人称
-		//	}, ePad::KEY_6, ePad::KEY_7);
-		//tnl::Input::RunIndexKeyDown([&](uint32_t idx) {
-		//	frag_camera_rotate_ = false;
-		//	//camera_->free_look_angle_xy_ += rot[idx];//三人称
-		//}, eKeys::KB_D, eKeys::KB_A);
-	
-	
 	camera_->target_ = player_->sprite_->pos_;
 	player_->Update(delta_time);
 	enemy_->Update(delta_time);
 	item_mgr->Update(delta_time);
-	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_RETURN)) {
-		mgr->chengeScene(new SceneResult());
-	}	
 	Collision();
 	RenderSort();	
-	PlayerGoaled(delta_time);
-	cnt_play_se_ghost_ += delta_time;
-	cnt_play_se_laugh_ += delta_time;
-	if (cnt_play_se_ghost_ >= 3) {
-		SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_GHOST);
-		cnt_play_se_ghost_ = 0;
-	}
-	if (cnt_play_se_laugh_ >= 5) {
-		SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_LAUGH);
-		cnt_play_se_laugh_ = 0;
-	}
-	if (player_->pos_.y == 450) {
-		mgr->chengeScene(new SceneResult());
-	}
+	PlayerState(delta_time);
+	ScenePlaySound(delta_time);
 	
-	if (frag_strong_time) {
-		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
-			//mgr->chengeScene(new GameOver());
-			SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
-		}
-	}else if (!frag_strong_time) {
-		cnt_strong_time -= delta_time;
-	}
-	if (cnt_strong_time < 0) {
-		frag_strong_time = true;
-		cnt_strong_time = 3;
-	}
+	
+	
 }
 
 void ScenePlay::render()
@@ -141,16 +90,6 @@ void ScenePlay::render()
 		hoge->Render(0.01666);
 		item_mgr->Render();
 	}
-	//SetFontSize(20);
-	/*DrawStringEx(60, 150, 0, "move_speed:%f",player_->move_speed);
-	if (frag_can_goal) {
-		DrawStringEx(60, 170, 0, "can_gosl_frag:true");
-	}else{ DrawStringEx(60, 170, 0, "can_gosl_frag:false"); }*/
-	//DrawRotaGraph(500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 500 + 500 * sin(tnl::ToRadian(cnt_smoke)), 1.7 + 1.7 * sin(tnl::ToRadian(cnt_smoke)), 0, img_smoke,true);
-	/*DrawStringEx(10, 20, 0, "MAXE_X :%d", static_cast<int>(player_->pos_.x));
-	DrawStringEx(10, 40, 0, "MAXE_Z :%d", static_cast<int>(player_->pos_.z));
-	DrawStringEx(10, 60, 0, "MASU STATUS :%d", map_->maze[player_->maze_pos_x_][player_->maze_pos_z_]);*///Playerのマップチップの座標
-	//DrawStringEx(10, 60, -1, "MASU STATUS :%d", map_->maze[static_cast<int>(player_->pos_.x)][static_cast<int>(player_->pos_.z)]);
 }
 
 void ScenePlay::playsound()
@@ -166,9 +105,9 @@ void ScenePlay::Collision()
 		for (int k = 0; k < Map::MEIRO_WIDTH; k++) {
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
-				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
+				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { boxSize, boxSize, boxSize }, player_->pos_);
-				}*/
+				}
 				if (tnl::IsIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize })) {
 					tnl::GetCorrectPositionIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { boxSize, boxSize, boxSize }, enemy_->pos_);
 				}
@@ -186,20 +125,33 @@ void ScenePlay::Collision()
 			}
 		}
 	}
-	//プレイヤーとエネミーと当たり判定
-
+	if (frag_strong_time) {
+		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
+			//mgr->chengeScene(new GameOver());
+			SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
+		}
+	}
 	
-	// アイテムマネージャーのリストを総チェック
+	// Item と Player との当たり判定
 	for (auto items : item_mgr->spawn_Item_list) {
-		// Item と Player との当たり判定
 		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, items->pos_, { 30,32,32 })) {
 			items->is_alive_ = false;	// アイテムを消す
 		}
 	}
 }
 
-void ScenePlay::PlayerGoaled(float delta_time)
+void ScenePlay::PlayerState(float delta_time)
 {
+	if (!frag_strong_time) {
+		cnt_strong_time -= delta_time;
+	}
+	if (cnt_strong_time < 0) {
+		frag_strong_time = true;
+		cnt_strong_time = 3;
+	}
+	if (player_->pos_.y == 450) {
+		mgr->chengeScene(new SceneResult());
+	}
 	if (frag_cnt_timer_ == false) {
 		if (player_->pos_.y < 80) {
 			player_->pos_.y += 1;
@@ -217,6 +169,20 @@ void ScenePlay::PlayerGoaled(float delta_time)
 		}
 	}
 	
+}
+
+void ScenePlay::ScenePlaySound(float delta_time)
+{
+	cnt_play_se_ghost_ += delta_time;
+	cnt_play_se_laugh_ += delta_time;
+	if (cnt_play_se_ghost_ >= 3) {
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_GHOST);
+		cnt_play_se_ghost_ = 0;
+	}
+	if (cnt_play_se_laugh_ >= 5) {
+		SoundManager::GetInstance()->SoundSe(SoundManager::SE::ENEMY_LAUGH);
+		cnt_play_se_laugh_ = 0;
+	}
 }
 
 inline void ScenePlay::RenderSort()

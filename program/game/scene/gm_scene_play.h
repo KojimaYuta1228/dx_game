@@ -26,6 +26,7 @@ public:
 
 	GmCamera* camera_ = nullptr;
 	GmCamera* GetCamera();
+	GameManager* mgr = nullptr;
 	
 	std::shared_ptr<Player> player_ = nullptr;
 	//Player* player_ptr;
@@ -40,13 +41,15 @@ public:
 	dxe::Mesh* goal_ = nullptr;
 	dxe::Mesh* sphare = nullptr;
 	
+	Animation* newAnim = nullptr;
 
 	void initialzie() override;
 	void update(float delta_time) override;
 	void render() override;
 	void playsound()override;
 	void Collision();
-	void PlayerGoaled(float delta_time);
+	void PlayerState(float delta_time);
+	void ScenePlaySound(float delta_time);
 	
 	
 
