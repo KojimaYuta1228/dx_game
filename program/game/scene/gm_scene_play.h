@@ -30,6 +30,7 @@ public:
 	void Collision();//当たり判定全般
 	void PlayerState(float delta_time);//Playerの状況に応じた処理
 	void ScenePlaySound(float delta_time);//ステージ内で適度にならしたいSEなど
+	inline void RenderSort();//draw_character_をソートし、カメラから遠い順に描画するための関数
 
 	GmCamera* camera_ = nullptr;
 	GameManager* mgr = nullptr;	
@@ -70,11 +71,6 @@ public:
 	float cnt_strong_time_ = 3;//無敵時間
 
 	
-	
-	
-		
-	inline void RenderSort();
-
 
 };
 

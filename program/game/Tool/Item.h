@@ -14,28 +14,23 @@ public:
 	Item(){}
 	Item(int id,int type, SceneBase* scene_base );
 	~Item();
-
-	int id_;
-	int type_;
-	bool is_alive_ = true;
-
 	void initialzie() override;
 	void Update(float delta_time)override;
 	void Render(float delta_time)override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
-	void SwithItemMove(int item_num);
-	void ItemProcess(float delta_time);
-	std::list<dxe::Mesh*> item_boxs_;
-	dxe::Mesh* item_mesh;
-	ScenePlay* scene_play_ = nullptr;
+	void SwithItemMove(int item_num);//ƒAƒCƒeƒ€‚²‚Æ‚Ì“®‚«
+	void ItemProcess(float delta_time); 
+	int id_;
+	int type_;
 	float angle_ = 0;
-	SceneBase* ref_scene_ = nullptr ;
+	bool is_alive_ = true;
+	std::list<dxe::Mesh*> item_boxs_;
 	std::list<Animation*> liveAnim;
+	dxe::Mesh* item_mesh;
+	ScenePlay* scene_play_ = nullptr;	
+	SceneBase* ref_scene_ = nullptr ;	
 	Animation* i_anim_ = nullptr;
 	
-	
-	int gh_speed_up[10] = {};
-	int gh_speed_down[10] = {};
 private:
 
 	int random = 0;

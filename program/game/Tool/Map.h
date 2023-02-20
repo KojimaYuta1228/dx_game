@@ -16,64 +16,30 @@ public :
 	int y_;
 };
 
-//int Map::maze[MEIRO_HEIGHT][MEIRO_WIDTH];
 class Map {
 public:
 	Map();
 	~Map();
-	//迷路の横のサイズ
-	static const int MEIRO_WIDTH = 25;
-    //迷路の縦のサイズ
-    static const int MEIRO_HEIGHT = 25;
-	
-	//scene_play内にあるcameraを使う
-	GmCamera* camera_ = nullptr;
-	GameManager* mgr = nullptr;
-
-	//迷路の各マスの情報を格納する配列
-	static int maze[MEIRO_HEIGHT][MEIRO_WIDTH];
-
-	dxe::Mesh* map_chips_[MEIRO_WIDTH][MEIRO_HEIGHT];
-	std::vector<MyVec2i> Root_holder_;
 
 	void initialzie();
-
-	void Update();
-
 	void Rander();
-
-	int SelectStartPoint(int MAXSIZE);
-
-	int SelectGoalPoint();
-
-	void createMaze();
-
-	void printMaze(int w, int h);
-
-	void createWall(int w, int h);
-
-	Cell Dig(int startX, int startY);
-
-	void SetPath(int setX, int setY);
-
-	void GetMapChipList(std::list<dxe::Mesh*> mc_list);
-
-	void SetGoal(int goalX, int goalY);
-
-	tnl::Vector3 GetRandomRoot();
+	int SelectStartPoint(int MAXSIZE);//スタート地点を取得
+	void createMaze();//Updateの用のもの
+	void printMaze(int w, int h);//描画
+	void createWall(int w, int h);//マップの状態を全てWALLにする
+	Cell Dig(int startX, int startY);//穴を掘る部分DIRECTIONで方向をランダムで決め２マスずつ掘れるか判定し掘る
+	void SetPath(int setX, int setY);//Rootの作成と保存
+	void GetMapChipList(std::list<dxe::Mesh*> mc_list);//クローンした箱などを追加
+	void SetGoal(int goalX, int goalY);//ローカル座標でのゴールを設定
+	tnl::Vector3 GetRandomRoot();//ランダム抽選でローカル座標を取得する
 	std::shared_ptr<Cell>GetStartCell();
-	dxe::Mesh* ctrl_box_ = nullptr;
-	std::list<dxe::Mesh*> field_boxs_;//クローンしたBoxを入れるlist
-
-	//unit32_t→データ型とbitの指定
-	//MAXを書くことで後々for文で回しやすくする
 	enum class DIRECTION :uint32_t {
 		UP,
 		RIGHT,
 		DOWN,
 		LEFT,
 		MAX
-	};	
+	};
 
 	//マップのステータス
 	enum class MAZESTATE :uint32_t {
@@ -89,17 +55,29 @@ public:
 		MAX
 	};
 	
+	static const int MEIRO_WIDTH = 25;//迷路の横のサイズ
+    static const int MEIRO_HEIGHT = 25;//迷路の縦のサイズ
+	static int maze[MEIRO_HEIGHT][MEIRO_WIDTH];//迷路の各マスの情報を格納する配列
+	
+	GmCamera* camera_ = nullptr;//scene_play内にあるcameraを使う
+	GameManager* mgr = nullptr;
+	dxe::Mesh* map_chips_[MEIRO_WIDTH][MEIRO_HEIGHT];
+	std::vector<MyVec2i> Root_holder_;//スタート地点やTP用のローカル座標を保存しとくためのvector
 	std::vector<DIRECTION>directions;
 	std::vector<std::shared_ptr<Cell>>StartCells;
-
+	dxe::Mesh* ctrl_box_ = nullptr;
+	std::list<dxe::Mesh*> field_boxs_;//クローンしたBoxを入れるlist
+	std::shared_ptr<dxe::Texture> tex = nullptr;
+	
+	
+	
 	int dis_x = 0;//startX座標を保存
 	int dis_y = 0;//startY座標を保存
-	int goal_x = 0;//startX座標を保存
-	int goal_y = 0;//startY座標を保存
+	int goal_x = 0;//goal_x座標を保存
+	int goal_y = 0;//goal_y座標を保存
 
 	int dis_en_x = 0;//startEnX座標を保存
 	int dis_en_y = 0;//startEnY座標を保存
-	const float boxSize = 50;//boxの1辺の大きさ
 
 	int start_maze_pos_x = 0;
 	int start_maze_pos_y = 0;
@@ -107,16 +85,6 @@ public:
 	int goal_maze_pos_y = 0;
 
 	tnl::Vector3 start_en_pos;
-
-	//迷路の分岐回数
-	const int MAXREPEAT = 100;
-	//迷路の分岐のカウント
-	int cnt_repeat_ = 0;
-
-	
-
-	//enemyの座標保存用の箱
-	
 
 };
 

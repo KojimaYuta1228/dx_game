@@ -97,11 +97,8 @@ void Item::Update(float delta_time)
 	item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
 	angle_++;
 	ItemProcess(delta_time);
-	//アニメーションの更新
 	for (auto anim : liveAnim) {
-		//アニメーションが終わっていれば
 		anim->UpdateAnimation(delta_time);
-		
 	}
 	//再生し終わったアニメーションがあったらリストから消してdeleteする
 	auto itr = liveAnim.begin();
@@ -118,7 +115,6 @@ void Item::Update(float delta_time)
 void Item::Render(float delta_time)
 {
 	item_mesh->render(camera_);
-	//アニメーションの描画
 	for (auto anim : liveAnim) {
 		anim->DrawAnimation(delta_time);
 	}

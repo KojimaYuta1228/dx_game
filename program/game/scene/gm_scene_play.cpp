@@ -75,9 +75,6 @@ void ScenePlay::update(float delta_time)
 	RenderSort();	
 	PlayerState(delta_time);
 	ScenePlaySound(delta_time);
-	
-	
-	
 }
 
 void ScenePlay::render()

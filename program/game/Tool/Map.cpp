@@ -10,9 +10,7 @@
 #define GOAL static_cast<int>(MAZESTATE::GOAL)
 #define ASTART static_cast<int>(MAZESTATE::ASTART)
 
-
 int Map::maze[MEIRO_HEIGHT][MEIRO_WIDTH];
-
 
 Map::Map()
 {
@@ -45,15 +43,12 @@ Map::~Map()
 
 void Map::initialzie()
 {
-
 	// 使用するテクスチャを事前ロード
 	Shared<dxe::Texture> texs[3];
 	texs[0] = dxe::Texture::CreateFromFile("graphics/red1.bmp");//RootTexture
 	texs[1] = dxe::Texture::CreateFromFile("graphics/Resouce/image/item/green_blook.jpg");//WallTexture
 	texs[2] = dxe::Texture::CreateFromFile("graphics/Resouce/image/img_goal.jpg");//GoalTexture
-
 	createMaze();
-
 	/*-----------Boxのクローンの作成とステージの初期化-----------*/
 	//Boxをあらかじめ作成
 	// ボックス３種類をあらかじめ作成
@@ -71,7 +66,6 @@ void Map::initialzie()
 	}
 	// ボックスをクローンして生成することで生成速度アップ
 	//マップチップにクローンをいれる
-	std::shared_ptr<dxe::Texture> tex = nullptr;
 	for (int i = 0; i < MEIRO_HEIGHT; ++i) {
 		for (int k = 0; k < MEIRO_WIDTH; ++k) {
 			if (maze[i][k] == ROOT)map_chips_[i][k] = origin_boxs[0]->createClone();
@@ -85,10 +79,6 @@ void Map::initialzie()
 			}
 		}
 	}
-}
-
-void Map::Update()
-{
 }
 
 void Map::Rander()
@@ -117,7 +107,7 @@ int Map::SelectStartPoint(int MAXSIZE)
 
 void Map::createMaze()
 {
-	createWall(MEIRO_WIDTH, MEIRO_HEIGHT);	//壁の生成
+	createWall(MEIRO_WIDTH, MEIRO_HEIGHT);	
 	//----------------------始点の生成------------------------//
 	int startX, startY, startEnX, startEnY;
 	//スタート地点を乱数で取得する
@@ -125,7 +115,6 @@ void Map::createMaze()
 	startY = SelectStartPoint(MEIRO_HEIGHT);
 	dis_x = startX;
 	dis_y = startY;
-	//Enemy用のスタート地点を取得する
 	startEnX = SelectStartPoint(MEIRO_WIDTH);
 	startEnY = SelectStartPoint(MEIRO_WIDTH);
 	while (startX == startEnX || startY == startEnY)
@@ -137,11 +126,6 @@ void Map::createMaze()
 	start_en_pos = { static_cast<float>(startEnX) ,0,static_cast<float>(startEnY) };
 	dis_en_x = startEnX;
 	dis_en_y = startEnY;	
-	//Debug必須
-	/*std::string hoge = "(startX=" + std::to_string(startX) + ",startY=" + std::to_string(startY) + ")";
-	tnl::DebugTrace(hoge.c_str());
-	tnl::DebugTrace("\n");*/
-
 	//移動先の座標を保存する
 	SetPath(startX, startY);
 	Cell c = Dig(startX, startY);
@@ -167,32 +151,24 @@ void Map::createWall(int w, int h)
 {
 	//j->x i->yになる
 	int i, k;
-	//すべてを壁で埋める
-	{
-		for (i = 0; i < h; i++) {
-			for (k = 0; k < w; k++) {
-				maze[k][i] = WALL;
-			}
+	for (i = 0; i < h; i++) {
+		for (k = 0; k < w; k++) {
+			maze[k][i] = WALL;
 		}
 	}
 }
 
 std::shared_ptr<Cell> Map::GetStartCell()
 {
-	//StartCells内のチェック
-	if (StartCells.size() == 0) return nullptr;
-	//配列番号の決定→戻った時にランダムに開始座標を取得する
-	auto index = GetRand(StartCells.size() - 1);
-	//cellの取り出し
-	auto cell = StartCells[index];
-	//shared_ptrとイテレータを使いStartCells内の指定した配列内の添え字を消す
-	std::vector<std::shared_ptr<Cell>>::iterator itr = StartCells.begin();
+	if (StartCells.size() == 0) return nullptr;//StartCells内のチェック	
+	auto index = GetRand(StartCells.size() - 1);//配列番号の決定→戻った時にランダムに開始座標を取得する
+	auto cell = StartCells[index];//cellの取り出し
+	std::vector<std::shared_ptr<Cell>>::iterator itr = StartCells.begin();//shared_ptrとイテレータを使いStartCells内の指定した配列内の添え字を消す
 	for (int i = 0; i < index - 1; ++i) {
 		itr++;
 	}
 	StartCells.erase(itr);
-	//cellを返す
-	return cell;
+	return cell;//cellを返す
 }
 
 Cell Map::Dig(int startX, int startY)
@@ -200,8 +176,6 @@ Cell Map::Dig(int startX, int startY)
 	//座標の保存
 	int bufX = startX;
 	int bufY = startY;
-
-	//while
 	while (1) {
 		//if文による壁の判定→配列の末尾に登録
 		//up
@@ -284,13 +258,11 @@ Cell Map::Dig(int startX, int startY)
 
 void Map::SetPath(int setX, int setY)
 {
-	maze[setY][setX] = ROOT;//二次元配列上のx,yをRootに
-	//Rootになった二次元座標での配列を保存
-	Root_holder_.emplace_back( MyVec2i(setX,setY) );
+	maze[setY][setX] = ROOT;//二次元配列上のx,yをRootに	
+	Root_holder_.emplace_back( MyVec2i(setX,setY) );//Rootになった二次元座標での配列を保存
 	//奇数番の場合はスタート地点の候補の配列に入れる
 	if (setX % 2 == 1 && setY % 2 == 1)
-	{
-		// 穴掘り候補座標
+	{	//穴掘り候補座標
 		auto thisCell = std::make_shared<Cell>(setX, setY);
 		StartCells.emplace_back(thisCell);
 	}
@@ -304,7 +276,6 @@ void Map::GetMapChipList(std::list<dxe::Mesh*> mc_list)
 void Map::SetGoal(int goalX, int goalY)
 {
 	maze[goalX][goalY] = GOAL;
-	tnl::DebugTrace("\n x:%d  y:%d", goalX, goalY);
 }
 
 tnl::Vector3 Map::GetRandomRoot()
@@ -314,13 +285,8 @@ tnl::Vector3 Map::GetRandomRoot()
 	while (true) {
 		X = SelectStartPoint(MEIRO_WIDTH);
 		Y = SelectStartPoint(MEIRO_HEIGHT);
-		/*X1 = SelectStartPoint(MEIRO_HEIGHT);
-		Y1 = SelectStartPoint(MEIRO_HEIGHT);*/
 		if (X > 11 || Y > 11 )continue;
-		if (maze[X][Y] == ROOT ) { break; }
-		
-		
-
+		if (maze[X][Y] == ROOT )break; 
 	}
 	return tnl::Vector3(X,0,Y);
 }
