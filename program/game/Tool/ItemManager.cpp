@@ -26,23 +26,23 @@ ItemManager::ItemManager(SceneBase* scene_base)
 	
 	for (int i = 0; i < 9; i++) {
 		if (i < 2) {
-			item_box_[i] = dxe::Mesh::CreateSphereMV(25);//半径、高さ、膨らみ
+			item_box_[i] = dxe::Mesh::CreateSphereMV(FIFTY/2);//半径、高さ、膨らみ
 			item_box_[i]->setTexture(texs[0]);
 		}
 		else if (i >= 2 && i < 4) {
-			item_box_[i] = dxe::Mesh::CreateSphereMV(25);
+			item_box_[i] = dxe::Mesh::CreateSphereMV(FIFTY/2);
 			item_box_[i]->setTexture(texs[1]);
 		}
 		else if (i == 4) {
-			item_box_[i] = dxe::Mesh::CreateDiskMV(25);
+			item_box_[i] = dxe::Mesh::CreateDiskMV(FIFTY/2);
 			item_box_[i]->setTexture(texs[2]);
 		}
 		else if (i == 5) {
-			item_box_[i] = dxe::Mesh::CreateDiskMV(25);
+			item_box_[i] = dxe::Mesh::CreateDiskMV(FIFTY/2);
 			item_box_[i]->setTexture(texs[3]);
 		}
 		else {
-			item_box_[i] = dxe::Mesh::CreateDiskMV(25);
+			item_box_[i] = dxe::Mesh::CreateDiskMV(FIFTY/2);
 			item_box_[i]->setTexture(texs[4]);
 		}
 	}
@@ -57,7 +57,6 @@ ItemManager::ItemManager(SceneBase* scene_base)
 
 	select_item_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/select_item.png");
 	wood_freme_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/wood_frame.png");
-	old_paper_frame_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/old_paper_frame.png");
 }
 
 ItemManager::~ItemManager()
@@ -72,16 +71,15 @@ void ItemManager::CreateItem(int id, int type)
 	ScenePlay* sptr_play = static_cast<ScenePlay*>(ref_scene_);
 	//二次元配列座標をランダム抽選
 	auto random = rand() % sptr_play->map_->Root_holder_.size();
-	MyVec2i v = sptr_play->map_->Root_holder_[random];
-	
+	MyVec2i v = sptr_play->map_->Root_holder_[random];	
 	if (v.x_ == save_v.x_ || v.y_ == save_v.y_) {
 		random = rand() % sptr_play->map_->Root_holder_.size();
 		v = sptr_play->map_->Root_holder_[random];
 	}
 	save_v = v;
 	//ワールド座標に変換
-	item->item_mesh->pos_.x = (save_v.x_ * 50) - (12.5f * 50) + 25;
-	item->item_mesh->pos_.z = (-save_v.y_ * 50) + (12.5f * 50) - 25;
+	item->item_mesh->pos_.x = (save_v.x_ * FIFTY) - (12.5f * FIFTY) + FIFTY/2;
+	item->item_mesh->pos_.z = (-save_v.y_ * FIFTY) + (12.5f * FIFTY) - FIFTY/2;
 	//当たり判定用の座標の取得
 	item->pos_.x = item->item_mesh->pos_.x;
 	item->pos_.z = item->item_mesh->pos_.z;
@@ -106,7 +104,6 @@ void ItemManager::CheckItemIsAlive()
 			get_item_frag[item->type_] = true;	//get_item_fragのitemのtype番目をtrueに
 			get_Item_vec[item->type_] = item;	//get_item_vecのitemのtype番目にitemを代入
 			it = spawn_Item_list.erase(it);
-			//get_Item_vec.insert(get_Item_vec.end(), item);
 			continue;
 		}
 		it++;
@@ -152,24 +149,23 @@ void ItemManager::Render()
 	for (auto item : spawn_Item_list) {
 		item->Render(1.0);
 	}
-	//DrawExtendGraph(10 , 0, 370, 100,old_paper_frame_img, true);
-	for (int i = 0; i < 5; i++) {
-		DrawRotaGraph(50 + i * 70, 50, 0.17, 0, wood_freme_img, true);
+	for (int i = 0; i < IMG_NUM; i++) {
+		DrawRotaGraph(FIFTY + i * 70, FIFTY, 0.17, 0, wood_freme_img, true);
 	}
 	// 獲得したアイテムの描画
 	for (int i = 0; i < IMG_NUM; i++) {
 		if (get_item_frag[i]) {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
-			DrawRotaGraph(50 + i * 70, 50, 0.2, 0, img_hd[i], true);
+			DrawRotaGraph(FIFTY + i * 70, FIFTY, 0.2, 0, img_hd[i], true);
 		}
 		else {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 125);//alpha値の設定
-			DrawRotaGraph(50 + i * 70, 50, 0.2, 0, img_hd[i], true);
+			DrawRotaGraph(FIFTY + i * 70, FIFTY, 0.2, 0, img_hd[i], true);
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
 		}
 	}
 	if (get_item_frag[cnt_pos_]) {
-		DrawRotaGraph(50 + cnt_pos_ * 70, 50, 0.25, 0, img_hd[cnt_pos_], true);
+		DrawRotaGraph(FIFTY + cnt_pos_ * 70, FIFTY, 0.25, 0, img_hd[cnt_pos_], true);
 	}
-	DrawRotaGraph(50 + arrow_pos , 50, 0.21, 0, select_item_img, true);
+	DrawRotaGraph(FIFTY + arrow_pos , FIFTY, 0.21, 0, select_item_img, true);
 }

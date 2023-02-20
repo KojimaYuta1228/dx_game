@@ -14,33 +14,32 @@ public:
 	~ItemManager();
 	void CreateItem(int id, int type);
 	void Update(float delta_time);
-	void CheckItemIsAlive();
-	void UseHaveItem();
+	void CheckItemIsAlive();//アイテムの生存確認falseならばデリートする
+	void UseHaveItem();//アイテムの使用使ったアイテムのフラグを折り、Itemクラスにtypeを渡す
 	void Render();
+
 	std::list<std::shared_ptr<Item>> spawn_Item_list;//newしたItemを格納するList
 	std::vector<std::shared_ptr<Item>> get_Item_vec;//獲得したItemを格納するList
 	SceneBase* ref_scene_ = nullptr;
-	// 使用するテクスチャを事前ロード
+	//使用するテクスチャを事前ロードする際に
 	Shared<dxe::Texture> texs[5];
 	dxe::Mesh* item_box_[9];//アイテム用のオリジナルの箱
 	std::shared_ptr<Item> item;
 	
-	//画像ハンドル
-	const int IMG_NUM = 5;
-	int img_hd[5];
+	
 	bool get_item_frag[5] = { false,false,false,false,false };//獲得したItemの描画を切り替えるfrag
-	int cnt_pos_ = 0;
-	int arrow_pos = 0;
-	float angle_ = 0;
-	tnl::Vector3 move_p;
-	int select_item_img = 0;
-	int wood_freme_img = 0;
-	int old_paper_frame_img = 0;
-
-	MyVec2i save_v;
+	MyVec2i save_v;//マップ上にアイテムをスポーンさせるためのローカル座標を保存する変数
 private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;
 	int type_;
 	bool is_alive_ = true;
+	int select_item_img = 0;//画像ハンドル
+	int wood_freme_img = 0;//画像ハンドル
+	const int IMG_NUM = 5;//for文の最大数
+	const int FIFTY = 50;
+	int img_hd[5];//load下画像を保存するための配列
+	int cnt_pos_ = 0;//選択中のカーソルのPosの上限下限処理のためのカウント
+	int arrow_pos = 0;//選択中のカーソルのPos
+
 };
