@@ -7,8 +7,7 @@
 #include "../Tool/gm_soundmanager.h"
 #include"../Tool/Animation.h"
 
-//extern ScenePlay* scene_play_;
-//tnl::Vector3 item_spawn;
+
 Item::Item(int id, int type, SceneBase* scene_base)
 {
 	ref_scene_ = scene_base;
@@ -22,10 +21,6 @@ Item::Item(int id, int type, SceneBase* scene_base)
 	}
 	id_ = id; type_ = type;
 	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
-	LoadDivGraph("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, gfx_hdl[1]);
-	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gfx_hdl[2]);
-	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gfx_hdl[2]);
-	LoadDivGraph("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, gfx_hdl[2]);
 }
 
 Item::~Item()
@@ -36,27 +31,31 @@ void Item::SwithItemMove(int cnt_pos_)
 	switch (cnt_pos_)
 	{
 	case 0:
-		anim_type = 1;
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120,1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		frag_player_speed_up = false;
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_UP);
 		break;
 	case 1:
-		anim_type = 2;
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::SPEED_DOWN);
 		frag_enemy_speed_down = false;
 		break;
 	case 2:
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::STRONG_TIME);
 		scene_play_->frag_strong_time = false;
 		break;
 	case 3:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/horn1.png", 10, 10, 1, 320, 240, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_KEY);
 		scene_play_->frag_can_goal = false;
 		break;
 	case 4:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/craw1.png", 10, 10, 1, 108, 108, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_up.png", 10, 10, 1, 120, 120, 1, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_COIN);
 		break;
@@ -67,13 +66,6 @@ void Item::SwithItemMove(int cnt_pos_)
 
 void Item::ItemProcess(float delta_time)
 {
-	
-	anim_time_count += delta_time;
-	if (0.25f < anim_time_count) {
-		anim_time_count = 0;
-		anim_frame++;
-		anim_frame %= 10;
-	}
 	if (!frag_player_speed_up) {
 		scene_play_->player_->base_move_speed = 3.0;
 		cnt_player_speed_up -= delta_time;
@@ -82,7 +74,6 @@ void Item::ItemProcess(float delta_time)
 			scene_play_->player_->base_move_speed = 1.0;
 			cnt_player_speed_up = 3.0;
 			frag_player_speed_up = true;
-			anim_type = 0;
 		}
 	}
 	else if (!frag_enemy_speed_down) {
@@ -93,20 +84,23 @@ void Item::ItemProcess(float delta_time)
 			scene_play_->enemy_->base_move_speed = 1.0;
 			cnt_enemy_speed_down = 3.0;
 			frag_enemy_speed_down = true;
-			anim_type = 0;
 		}
 	}	
 }
-
 void Item::initialzie()
 {	
 }
-
 void Item::Update(float delta_time)
 {
 	item_mesh->rot_q_ = tnl::Quaternion::RotationAxis({ 0,1,0 }, tnl::ToRadian(angle_));
 	angle_++;
 	ItemProcess(delta_time);
+	//アニメーションの更新
+	for (auto anim : liveAnim) {
+		//アニメーションが終わっていれば
+		if (anim->UpdateAnimation(delta_time)) {
+		}
+	}
 	//再生し終わったアニメーションがあったらリストから消してdeleteする
 	auto itr = liveAnim.begin();
 	while (itr != liveAnim.end()) {
@@ -121,8 +115,6 @@ void Item::Update(float delta_time)
 
 void Item::Render(float delta_time)
 {
-
-	DrawRotaGraph(DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2, 2.0f, 0, gfx_hdl[anim_type][anim_frame], true);
 	item_mesh->render(camera_);
 	//アニメーションの描画
 	for (auto anim : liveAnim) {

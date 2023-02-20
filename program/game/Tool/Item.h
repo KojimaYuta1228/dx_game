@@ -32,10 +32,7 @@ public:
 	SceneBase* ref_scene_ = nullptr ;
 	std::list<Animation*> liveAnim;
 	Animation* i_anim_ = nullptr;
-	float anim_time_count = 0;
-	int anim_frame = 0;
-	int anim_type = 0;
-	int gfx_hdl[3][10] = { 0 };
+	
 	
 	int gh_speed_up[10] = {};
 	int gh_speed_down[10] = {};
