@@ -37,6 +37,7 @@ void GachaGacha::Update()
 		frag_can_gacha = false;
 	}
 	UseGacha();
+	CheckGachaItemAlive();
 }
 
 void GachaGacha::UseGacha()
