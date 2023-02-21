@@ -20,6 +20,8 @@ public:
 	std::shared_ptr<GachaGacha> gachagacha_ = nullptr;
 	int img_guild = 0;
 	int img_tresure_box = 0;
+	int img_frash = 0;
+	float angle = 0;
 	int cnt_img_tresure_box_x1 = 414;
 	int cnt_img_tresure_box_x2 = 614;
 	int cnt_img_tresure_box_y1 = 284;
@@ -34,4 +36,5 @@ public:
 	bool frag_right_left = true;
 	bool frag_start_gacha_anim = true;
 	bool frag_can_render_tresureBox = true;
+	bool frag_render_frash = true;
 };
