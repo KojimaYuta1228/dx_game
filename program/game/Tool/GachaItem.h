@@ -12,6 +12,7 @@ public:
 	void Render(float delta_time);
 	void GachaAnimation(float delta_time);
 	void SwitchGachaItem(int type_);
+	void WaitGacha(float delta_time);
 
 	int id_;
 	int type_;

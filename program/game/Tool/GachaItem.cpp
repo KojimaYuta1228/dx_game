@@ -49,6 +49,12 @@ void GachaItem::SwitchGachaItem(int type_)
 
 }
 
+void GachaItem::WaitGacha(float delta_time)
+{
+	i_anim_ = new Animation("graphics/Resouce/image/use_efect/tresurebox2.png", 10, 10, 1, 188, 180, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+	liveGachaAnim.emplace_back(i_anim_);
+}
+
 void GachaItem::Render(float delta_time)
 {
 	for (auto anim : liveGachaAnim) {

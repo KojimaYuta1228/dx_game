@@ -15,6 +15,7 @@ public:
 	void update(float delta_time) override;
 	void render() override;
 	void playsound() override;
+	void DrawAnim(float delta_time);
 	
 	std::shared_ptr<GachaGacha> gachagacha_ = nullptr;
 	int img_guild = 0;
@@ -31,4 +32,6 @@ public:
 	bool frag_tre_move = true;
 	bool frag_up_down = true;
 	bool frag_right_left = true;
+	bool frag_start_gacha_anim = true;
+	bool frag_can_render_tresureBox = true;
 };

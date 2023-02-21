@@ -11,6 +11,7 @@ GachaGacha::GachaGacha()
 	img_hd[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
 	img_hd[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
 	img_hd[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
+	img_hd[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/tresurebox2.png");
 
 	load_gacha_item_csv = tnl::LoadCsv("csv/gacha_item.csv");
 
@@ -80,3 +81,5 @@ void GachaGacha::CheckGachaItemAlive()
 		it++;
 	}
 }
+
+
