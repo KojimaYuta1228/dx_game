@@ -3,6 +3,7 @@
 #include "gm_scene_title.h"
 #include "gm_scene_play.h"
 #include"gm_scene_explain.h"
+#include"gm_scene_gacha.h"
 
 
 
@@ -89,6 +90,9 @@ void SceneTitle::update(float delta_time)
 			frag_draw_enter_ = true;
 			frag_draw_space_ = true;
 		}
+	}
+	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_0)) {
+		mgr->chengeScene(new SceneGacha());
 	}
 	if (cnt_timer_move_scene_ <= 0 && frag_move_title_ == false) {
 		frag_move_title_ = true;

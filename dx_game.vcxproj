@@ -44,6 +44,7 @@
     <ClCompile Include="program\game\model\gm_model.cpp" />
     <ClCompile Include="program\game\model\gm_parts.cpp" />
     <ClCompile Include="program\game\scene\gm_scene_explain.cpp" />
+    <ClCompile Include="program\game\scene\gm_scene_gacha.cpp" />
     <ClCompile Include="program\game\scene\gm_scene_gameover.cpp" />
     <ClCompile Include="program\game\scene\gm_scene_play.cpp" />
     <ClCompile Include="program\game\scene\gm_scene_result.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="program\game\model\gm_parts.h" />
     <ClInclude Include="program\game\scene\gm_scene_base.h" />
     <ClInclude Include="program\game\scene\gm_scene_explain.h" />
+    <ClInclude Include="program\game\scene\gm_scene_gacha.h" />
     <ClInclude Include="program\game\scene\gm_scene_gameover.h" />
     <ClInclude Include="program\game\scene\gm_scene_play.h" />
     <ClInclude Include="program\game\scene\gm_scene_result.h" />
