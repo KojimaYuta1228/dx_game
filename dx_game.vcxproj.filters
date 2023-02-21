@@ -211,6 +211,9 @@
     <ClCompile Include="program\game\scene\gm_scene_gacha.cpp">
       <Filter>program\game\scene</Filter>
     </ClCompile>
+    <ClCompile Include="program\game\Tool\GachaItem.cpp">
+      <Filter>program\game\Tool</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="program\library\picojson.h">
@@ -368,6 +371,9 @@
     </ClInclude>
     <ClInclude Include="program\game\scene\gm_scene_gacha.h">
       <Filter>program\game\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="program\game\Tool\GachaItem.h">
+      <Filter>program\game\Tool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
