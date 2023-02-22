@@ -50,6 +50,7 @@ void SceneGacha::render()
 	if(!frag_render_frash){
 		DrawRotaGraph(DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2, 0.7, angle, img_frash, true); 
 	}
+	gachagacha_->Render();
 	gachagacha_->GachaAnima(0.01666);
 }
 

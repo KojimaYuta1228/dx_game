@@ -2,9 +2,11 @@
 #include"DxLib.h"
 #include "../Tool/gm_soundmanager.h"
 #include"../Tool/Animation.h"
+#include "../gm_manager.h"
 
 GachaItem::GachaItem()
 {
+
 }
 
 GachaItem::GachaItem(int id, int type)

@@ -7,11 +7,13 @@
 GachaGacha::GachaGacha()
 {
 
-	img_hd[0] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
-	img_hd[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
-	img_hd[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
-	img_hd[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/speed_up.png");
-	img_hd[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/tresurebox2.png");
+	img_gacha_item[0] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_n.png");
+	img_gacha_item[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_r.png");
+	img_gacha_item[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_sr.png");
+	img_gacha_item[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_ur.png");
+	img_gacha_item[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/tresurebox2.png");
+
+	img_black = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/black_frame.png");
 
 	load_gacha_item_csv = tnl::LoadCsv("csv/gacha_item.csv");
 
@@ -33,7 +35,7 @@ void GachaGacha::Update()
 	if (have_coin < 3) {
 		return;
 	}
-	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_1) && have_coin >= 3) {
+	if(tnl::Input::IsKeyDownTrigger(eKeys::KB_SPACE) && have_coin >= 3){
 		have_coin -= cnt_can_gacha;
 		frag_can_gacha = false;
 	}
@@ -44,14 +46,16 @@ void GachaGacha::Update()
 void GachaGacha::UseGacha()
 {
 
-	if (!frag_can_gacha) {
+	if(!frag_can_gacha){
 		auto random = rand() % spawn_gacha_Item_list.size();
-		if (random < 4) { type_ = 0; }
-		else if (random >= 4 && random < 7) { type_ = 1; }
-		else if (random >= 7 && random < 9) { type_ = 2; }
-		else if (random == 10) { type_ = 3; }
+		if(random < 4){ type_ = 0; }
+		else if(random >= 4 && random < 7){ type_ = 1; }
+		else if(random >= 7 && random < 9){ type_ = 2; }
+		else if(random == 10){ type_ = 3; }
 		i_gacha_item_->SwitchGachaItem(type_);
+		get_gacha_item_frag[type_] = true;
 		frag_can_gacha = true;
+		frag_next_render = false;
 	}
 }
 
@@ -70,15 +74,34 @@ void GachaGacha::CreateGachaItem(int id_, int type_)
 void GachaGacha::CheckGachaItemAlive()
 {
 	auto it = spawn_gacha_Item_list.begin();
-	while (it != spawn_gacha_Item_list.end()) {
+	while(it != spawn_gacha_Item_list.end()){
 		if (!(*it)->is_alive_) {
 			auto gacha_item = *it;	//itemにitのアドレスを代入
-			//get_item_frag[item->type_] = true;	//get_item_fragのitemのtype番目をtrueに
+			get_gacha_item_frag[gacha_item->type_] = true;	//get_item_fragのitemのtype番目をtrueに
+
 			get_gacha_Item_vec[i_gacha_item_->type_] = gacha_item;	//get_item_vecのitemのtype番目にitemを代入
 			it = spawn_gacha_Item_list.erase(it);
 			continue;
 		}
 		it++;
+	}
+}
+
+void GachaGacha::Render()
+{
+	for (int i = 0; i < 4; i++) {
+
+		DrawRotaGraph(50 + i * 100, 50, 3, 0, img_black, true);
+		if (get_gacha_item_frag[i]) {
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);//alpha値の再設定
+			DrawRotaGraph(50 + i * 100, 50, 3, 0, img_gacha_item[i], true);
+		}
+		else {
+			DrawRotaGraph(50 + i * 100, 50, 3, 0, img_black, true);
+		}
+		if(get_gacha_item_frag[i] && !frag_next_render){
+			DrawRotaGraph(DXE_WINDOW_WIDTH/2 , DXE_WINDOW_HEIGHT/2, 7, 0, img_gacha_item[i], true);
+		}
 	}
 }
 

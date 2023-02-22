@@ -14,10 +14,12 @@ public:
 	void GachaAnima(float delta_time);
 	void CreateGachaItem(int id_, int type_);
 	void CheckGachaItemAlive();
+	void Render();
 
 
 	std::vector<std::vector<std::string>>load_gacha_item_csv;
-	int img_hd[5];//load‰º‰æ‘œ‚ğ•Û‘¶‚·‚é‚½‚ß‚Ì”z—ñ
+	int img_gacha_item[5];//load‰º‰æ‘œ‚ğ•Û‘¶‚·‚é‚½‚ß‚Ì”z—ñ
+	int img_black = 0;
 	int id_;
 	int type_;
 	std::vector<GachaItem> my_gacha_item_vec;
@@ -27,4 +29,6 @@ public:
 	int cnt_can_gacha = 3;
 	int have_coin = 10;
 	bool frag_can_gacha = true;
+	bool get_gacha_item_frag[5] = { false,false,false,false,false };//Šl“¾‚µ‚½Item‚Ì•`‰æ‚ğØ‚è‘Ö‚¦‚éfrag
+	bool frag_next_render = true;
 };

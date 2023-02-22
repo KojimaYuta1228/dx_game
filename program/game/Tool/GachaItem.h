@@ -21,4 +21,6 @@ public:
 	bool is_alive_ = true;
 	Animation* i_anim_ = nullptr;
 	std::list<Animation*> liveGachaAnim;
+	int img_gacha_item[4] = {};
+	
 };
