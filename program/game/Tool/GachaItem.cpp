@@ -28,20 +28,12 @@ void GachaItem::SwitchGachaItem(int type_)
 	switch (type_)
 	{
 	case 1:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveGachaAnim.emplace_back(i_anim_);
 		break;
 	case 2:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveGachaAnim.emplace_back(i_anim_);
 		break;
 	case 3:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveGachaAnim.emplace_back(i_anim_);
 		break;
 	case 4:
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveGachaAnim.emplace_back(i_anim_);
 		break;
 	default:
 		break;
@@ -52,6 +44,12 @@ void GachaItem::SwitchGachaItem(int type_)
 void GachaItem::WaitGacha(float delta_time)
 {
 	i_anim_ = new Animation("graphics/Resouce/image/use_efect/tresurebox2.png", 10, 10, 1, 188, 180, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+	liveGachaAnim.emplace_back(i_anim_);
+}
+
+void GachaItem::DownArrow(float delta_time)
+{
+	i_anim_ = new Animation("graphics/Resouce/image/use_efect/speed_down.png", 10, 10, 1, 120, 120, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 	liveGachaAnim.emplace_back(i_anim_);
 }
 

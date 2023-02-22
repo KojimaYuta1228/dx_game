@@ -29,6 +29,8 @@ public:
 	int vx_ = 2;
 	int vy_ = 2;
 	int cnt_bounce_ = 0;
+	int cnt_arow = 0;
+	float cnt_ar = 0;
 	float cnt_ = 0;
 	bool tim = true;
 	bool frag_tre_move = true;
@@ -37,4 +39,5 @@ public:
 	bool frag_start_gacha_anim = true;
 	bool frag_can_render_tresureBox = true;
 	bool frag_render_frash = true;
+	bool frag_down_arrow = true;
 };

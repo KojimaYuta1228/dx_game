@@ -31,7 +31,8 @@ void SceneGacha::update(float delta_time)
 	if(tnl::Input::IsKeyDownTrigger(eKeys::KB_SPACE)) {
 		frag_tre_move = false;
 		tim = false;
-	}
+		frag_down_arrow = false;
+	}	
 	DrawAnim(delta_time);
 	if(!frag_start_gacha_anim){
 		gachagacha_->i_gacha_item_->WaitGacha(delta_time);
@@ -58,6 +59,18 @@ void SceneGacha::playsound()
 
 void SceneGacha::DrawAnim(float delta_time)
 {
+	if (frag_down_arrow && cnt_arow < 5) {
+		cnt_ar += delta_time;
+		if (cnt_ar > 1.5) {
+			gachagacha_->i_gacha_item_->DownArrow(delta_time);
+			cnt_arow++;
+			cnt_ar = 0;
+		}
+		if (cnt_arow > 3) {
+			cnt_arow = 0;
+		}
+	}
+
 	if (!tim) {
 		cnt_++;
 	}
