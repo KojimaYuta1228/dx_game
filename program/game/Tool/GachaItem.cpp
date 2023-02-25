@@ -20,8 +20,7 @@ GachaItem::~GachaItem()
 
 void GachaItem::Update(float delta_time)
 {
-	int a = 0;
-	a++;
+	
 }
 
 void GachaItem::SwitchGachaItem(int type_)

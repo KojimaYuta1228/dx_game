@@ -32,6 +32,8 @@ public:
 	int cnt_arow = 0;
 	float cnt_ar = 0;
 	float cnt_ = 0;
+	float cnt_next_tre = 0;
+	float cnt_draw_gacha_item = 0;
 	bool tim = true;
 	bool frag_tre_move = true;
 	bool frag_up_down = true;

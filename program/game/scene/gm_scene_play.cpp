@@ -54,6 +54,7 @@ void ScenePlay::initialzie() {
 	floor_->pos_ = { 0,-25,0 };
 	SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_START);
 	mgr = GameManager::GetInstance();
+	img_old_paper_ = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/old_paper_frame.png");
 }
 
 GmCamera* ScenePlay::GetCamera()
@@ -87,6 +88,8 @@ void ScenePlay::render()
 		hoge->Render(0.01666);
 		item_mgr->Render();
 	}
+	//DrawRotaGraph(DXE_WINDOW_WIDTH / 2 + 400, DXE_WINDOW_HEIGHT / 2 - 350, 0.15, 0, img_old_paper_, true);
+	//DrawStringEx(DXE_WINDOW_WIDTH / 2 + 320, DXE_WINDOW_HEIGHT / 2 - 350, 0, "Œo‰ßŽžŠÔ:%d", cnt_timer_);
 }
 
 void ScenePlay::playsound()
@@ -100,9 +103,9 @@ void ScenePlay::Collision()
 		for (int k = 0; k < Map::MEIRO_WIDTH; k++) {
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
-				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
+				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE }, player_->pos_);
-				}
+				}*/
 				if (tnl::IsIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
 					tnl::GetCorrectPositionIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE }, enemy_->pos_);
 				}
@@ -122,7 +125,7 @@ void ScenePlay::Collision()
 	}
 	if (frag_strong_time) {
 		if (tnl::IsIntersectAABB(player_->pos_, { 32,48,32 }, enemy_->pos_, { 30,32,32 })) {
-			//mgr->chengeScene(new GameOver());
+			mgr->chengeScene(new GameOver());
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::SE_SCREAM);
 		}
 	}

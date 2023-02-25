@@ -6,6 +6,8 @@ class CharacterBase;
 class ScenePlay;
 class Player;
 class Map;
+class GachaGacha;
+
 class Animation;
 
 class Item : public CharacterBase
@@ -42,6 +44,7 @@ private:
 	std::shared_ptr<Map> i_map_;
 	std::shared_ptr<Player> i_player_;
 	std::shared_ptr<ScenePlay> i_scene_play_;
+	std::shared_ptr<GachaGacha> i_gacha_ = nullptr;
 };
 
 

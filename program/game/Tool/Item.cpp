@@ -5,6 +5,7 @@
 #include"../scene/gm_scene_play.h"
 #include"DxLib.h"
 #include "../Tool/gm_soundmanager.h"
+#include"../Tool/GachaGacha.h"
 #include"../Tool/Animation.h"
 
 
@@ -21,6 +22,7 @@ Item::Item(int id, int type, SceneBase* scene_base)
 	}
 	id_ = id; type_ = type;
 	scene_play_ = static_cast<ScenePlay*>(ref_scene_);
+	i_gacha_ = std::make_shared<GachaGacha>();
 }
 
 Item::~Item()
@@ -59,6 +61,7 @@ void Item::SwithItemMove(int cnt_pos_)
 	case 4:
 		i_anim_ = new Animation("graphics/Resouce/image/use_efect/use_coin.png", 8, 8, 1, 120, 120,  DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
+		i_gacha_->GetgachaCoin(10);
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_COIN);
 		break;
 	default:

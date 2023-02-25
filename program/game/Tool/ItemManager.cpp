@@ -57,6 +57,7 @@ ItemManager::ItemManager(SceneBase* scene_base)
 
 	select_item_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/select_item.png");
 	wood_freme_img = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/wood_frame.png");
+	
 }
 
 ItemManager::~ItemManager()

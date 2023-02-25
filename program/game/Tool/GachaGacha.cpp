@@ -30,7 +30,7 @@ GachaGacha::~GachaGacha()
 {
 }
 
-void GachaGacha::Update()
+void GachaGacha::Update(float delta_time)
 {
 	if (have_coin < 3) {
 		return;
@@ -39,23 +39,30 @@ void GachaGacha::Update()
 		have_coin -= cnt_can_gacha;
 		frag_can_gacha = false;
 	}
-	UseGacha();
+	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_SPACE))have_coin;
+	
+	UseGacha(delta_time);
 	CheckGachaItemAlive();
 }
 
-void GachaGacha::UseGacha()
+void GachaGacha::UseGacha(float delta_time)
 {
 
-	if(!frag_can_gacha){
+	if (!frag_can_gacha) {
 		auto random = rand() % spawn_gacha_Item_list.size();
-		if(random < 4){ type_ = 0; }
-		else if(random >= 4 && random < 7){ type_ = 1; }
-		else if(random >= 7 && random < 9){ type_ = 2; }
-		else if(random == 10){ type_ = 3; }
+		if (random < 4) { type_ = 0; }
+		else if (random >= 4 && random < 7) { type_ = 1; }
+		else if (random >= 7 && random < 9) { type_ = 2; }
+		else if (random == 10) { type_ = 3; }
 		i_gacha_item_->SwitchGachaItem(type_);
-		get_gacha_item_frag[type_] = true;
-		frag_can_gacha = true;
-		frag_next_render = false;
+		if (!frag_open_draw)
+		{
+			get_gacha_item_frag[type_] = true;
+			frag_can_gacha = true;
+			frag_next_render = false;
+			frag_cnt_center_render = false;			
+		}
+		
 	}
 }
 
@@ -103,6 +110,12 @@ void GachaGacha::Render()
 			DrawRotaGraph(DXE_WINDOW_WIDTH/2 , DXE_WINDOW_HEIGHT/2, 7, 0, img_gacha_item[i], true);
 		}
 	}
+}
+
+void GachaGacha::GetgachaCoin(int get_coin)
+{
+	have_coin = get_coin;
+
 }
 
 

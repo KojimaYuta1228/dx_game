@@ -64,11 +64,12 @@ public:
 	float calc_A_ = 0;
 	float calc_B_ = 0;
 	float calc_C_ = 0;
-	
+	int img_old_paper_ = 0;//画像ハンドル
 	int cnt_timer_player_ = 100;//playerがゴール時にpos_.yを動かすときに使うカウント
 	float cnt_play_se_ghost_ = 0;//se_ghostを鳴らす際に使うカウント
 	float cnt_play_se_laugh_ = 0;//se_laughを鳴らす際に使うカウント
 	float cnt_strong_time_ = 3;//無敵時間
+	float cnt_timer_ = 0;
 
 	
 
