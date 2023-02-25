@@ -136,7 +136,9 @@ void ItemManager::UseHaveItem()
 		if (tnl::Input::IsPadDown(ePad::KEY_0)) {
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::DECISION_ITEM);
 			// Item‚Ì“®‚«‚ð‚±‚±‚ÅŒÄ‚Ño‚·
-			item->SwithItemMove(cnt_pos_);
+			auto gacha_check = gacha.lock();
+			if (gacha_check == nullptr)return;
+			item->SwithItemMove(cnt_pos_, gacha_check);
 			get_item_frag[cnt_pos_] = false;
 			auto erace_item = get_Item_vec.at(cnt_pos_);
 			get_Item_vec[cnt_pos_] = nullptr;

@@ -33,11 +33,13 @@ void SoundManager::LoadSound()
 	bgm_play = LoadSoundMem("sound/bgm/play.mp3");
 	bgm_result = LoadSoundMem("sound/bgm/result.mp3");
 	bgm_gameover = LoadSoundMem("sound/bgm/gameover.mp3");
+	bgm_guid = LoadSoundMem("sound/bgm/guild.mp3");
 
 	bgm.emplace_back(bgm_title);
 	bgm.emplace_back(bgm_play);
 	bgm.emplace_back(bgm_result);
 	bgm.emplace_back(bgm_gameover);
+	bgm.emplace_back(bgm_guid);
 
 	se_press_space = LoadSoundMem("sound/se/press_space.mp3");
 	se_get_start = LoadSoundMem("sound/se/get_start.mp3");
@@ -88,7 +90,6 @@ void SoundManager::SoundBgm(BGM num)
 
 void SoundManager::SoundSe(SE num)
 {
-	//SoundPlay()
 	PlaySoundMem(se[static_cast<uint32_t>(num)], DX_PLAYTYPE_BACK);
 }
 

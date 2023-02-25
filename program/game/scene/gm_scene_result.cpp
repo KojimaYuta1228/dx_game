@@ -76,5 +76,4 @@ void SceneResult::render()
 void SceneResult::playsound()
 {
 	SoundManager::GetInstance()->SoundBgm(SoundManager::BGM::RESULT);
-	//sound->SoundBgm(static_cast<uint32_t>(SoundManager::BGM::RESULT));
 }

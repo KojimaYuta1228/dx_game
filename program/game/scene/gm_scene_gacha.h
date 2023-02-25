@@ -42,4 +42,5 @@ public:
 	bool frag_can_render_tresureBox = true;
 	bool frag_render_frash = true;
 	bool frag_down_arrow = true;
+	GameManager* mgr = nullptr;
 };

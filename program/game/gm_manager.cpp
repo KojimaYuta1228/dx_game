@@ -12,6 +12,8 @@ GameManager::GameManager() {
 	scene_now_ = new SceneTitle();
 	img_black_ = LoadGraph("graphics/black.bmp");
 	SetBackgroundColor(32, 32, 32);
+	
+	
 }
 
 //-----------------------------------------------------------------------------------------
@@ -59,6 +61,11 @@ int GameManager::ImgHandle(std::string img_pass)
 	else { save_img = it->second; }
 
 	return save_img;
+}
+
+void GameManager::GachaInit()
+{
+	i_gacha = std::make_shared<GachaGacha>(GachaGacha());
 }
 
 //std::string back_ground = "graphics/sample";

@@ -6,12 +6,13 @@
 
 GachaGacha::GachaGacha()
 {
-
-	img_gacha_item[0] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_n.png");
-	img_gacha_item[1] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_r.png");
-	img_gacha_item[2] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_sr.png");
-	img_gacha_item[3] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/gacha_item_ur.png");
-	img_gacha_item[4] = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/tresurebox2.png");
+	GameManager* mgr = GameManager::GetInstance();
+	
+	img_gacha_item[0] = mgr->ImgHandle("graphics/Resouce/image/color/gacha_item_n.png");
+	img_gacha_item[1] = mgr->ImgHandle("graphics/Resouce/image/color/gacha_item_r.png");
+	img_gacha_item[2] = mgr->ImgHandle("graphics/Resouce/image/color/gacha_item_sr.png");
+	img_gacha_item[3] = mgr->ImgHandle("graphics/Resouce/image/color/gacha_item_ur.png");
+	img_gacha_item[4] = mgr->ImgHandle("graphics/Resouce/image/color/tresurebox2.png");
 
 	img_black = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/black_frame.png");
 
@@ -42,7 +43,7 @@ void GachaGacha::Update(float delta_time)
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_SPACE))have_coin;
 	
 	UseGacha(delta_time);
-	CheckGachaItemAlive();
+	//CheckGachaItemAlive();
 }
 
 void GachaGacha::UseGacha(float delta_time)

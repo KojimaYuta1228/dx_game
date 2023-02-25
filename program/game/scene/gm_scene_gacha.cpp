@@ -12,6 +12,8 @@ SceneGacha::SceneGacha()
 	img_guild = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/guild.jpg");
 	img_tresure_box = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/tresure_box.png");
 	img_frash = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/frash.png");
+	//SoundManager::GetInstance()->SoundBgm(SoundManager::BGM::RESULT);
+	
 }
 
 SceneGacha::~SceneGacha()
@@ -25,8 +27,12 @@ void SceneGacha::initialzie()
 void SceneGacha::update(float delta_time)
 {
 	gachagacha_->Update(delta_time);
-
+	
 	angle+=delta_time;
+	if (mgr == nullptr) {
+		mgr = GameManager::GetInstance();
+	}
+	mgr->i_gacha->have_coin;
 
 	if(tnl::Input::IsKeyDownTrigger(eKeys::KB_SPACE) && gachagacha_->frag_can_gacha == false) {
 		frag_tre_move = false;

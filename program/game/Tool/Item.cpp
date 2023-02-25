@@ -28,7 +28,7 @@ Item::Item(int id, int type, SceneBase* scene_base)
 Item::~Item()
 {
 }
-void Item::SwithItemMove(int cnt_pos_)
+void Item::SwithItemMove(int cnt_pos_,std::shared_ptr<GachaGacha>get_coin)
 {
 	switch (cnt_pos_)
 	{
@@ -61,7 +61,7 @@ void Item::SwithItemMove(int cnt_pos_)
 	case 4:
 		i_anim_ = new Animation("graphics/Resouce/image/use_efect/use_coin.png", 8, 8, 1, 120, 120,  DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
 		liveAnim.emplace_back(i_anim_);
-		i_gacha_->GetgachaCoin(10);
+		get_coin->have_coin += 10;
 		SoundManager::GetInstance()->SoundSe(SoundManager::SE::USE_COIN);
 		break;
 	default:

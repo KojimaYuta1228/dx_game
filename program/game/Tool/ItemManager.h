@@ -4,8 +4,10 @@
 #include<string>
 #include"../../dxlib_ext/dxlib_ext.h"
 
+
 class Item;
 class GmCamera;
+class GachaGacha;
 
 class ItemManager {
 public:
@@ -24,6 +26,7 @@ public:
 	Shared<dxe::Texture> texs[5];//使用するテクスチャを事前ロードする際に保存するための配列
 	dxe::Mesh* item_box_[9];//アイテム用のオリジナルの箱
 	std::shared_ptr<Item> item;
+	std::weak_ptr<GachaGacha> gacha;
 	bool get_item_frag[5] = { false,false,false,false,false };//獲得したItemの描画を切り替えるfrag
 	MyVec2i save_v;//マップ上にアイテムをスポーンさせるためのローカル座標を保存する変数
 private:

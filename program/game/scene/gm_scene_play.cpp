@@ -55,6 +55,10 @@ void ScenePlay::initialzie() {
 	SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_START);
 	mgr = GameManager::GetInstance();
 	img_old_paper_ = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/old_paper_frame.png");
+	if (mgr->i_gacha == nullptr) {
+		mgr->i_gacha = std::make_shared<GachaGacha>();
+	}
+	item_mgr->gacha = mgr->i_gacha;
 }
 
 GmCamera* ScenePlay::GetCamera()

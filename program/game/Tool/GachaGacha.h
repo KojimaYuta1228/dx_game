@@ -23,16 +23,15 @@ public:
 	int img_black = 0;
 	int id_;
 	int type_;
-	std::vector<GachaItem> my_gacha_item_vec;
+	//std::vector<GachaItem> my_gacha_item_vec;
 	std::list<std::shared_ptr<GachaItem>> spawn_gacha_Item_list;//new‚µ‚½Item‚ğŠi”[‚·‚éList
 	std::vector<std::shared_ptr<GachaItem>> get_gacha_Item_vec;//Šl“¾‚µ‚½Item‚ğŠi”[‚·‚éList
 	std::shared_ptr<GachaItem> i_gacha_item_ = nullptr;
 	int cnt_can_gacha = 3;
 	int have_coin = 10;
-	int* ptr ;
 	float cnt_center_render = 0;
 	bool frag_can_gacha = true;
-	bool get_gacha_item_frag[5] = { false,false,false,false,false };//Šl“¾‚µ‚½Item‚Ì•`‰æ‚ğØ‚è‘Ö‚¦‚éfrag
+	bool get_gacha_item_frag[5] = { true,true,true,true,true };//Šl“¾‚µ‚½Item‚Ì•`‰æ‚ğØ‚è‘Ö‚¦‚éfrag
 	bool frag_next_render = true;
 	bool frag_open_draw = true;
 	bool frag_cnt_center_render = true;

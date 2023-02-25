@@ -8,6 +8,7 @@ public:
 		PLAY,
 		RESULT,
 		GAMEOVER,
+		GUILD,
 		MAX
 	};
 	enum class SE :uint32_t {
@@ -32,7 +33,6 @@ public:
 		MAX
 	};
 	static SoundManager* instance_;
-	//SoundManager(BGM scene_id);
 	SoundManager();
 	~SoundManager();
 	//インスタンスを取得
@@ -47,7 +47,7 @@ public:
 	int bgm_play = 0;
 	int bgm_result = 0;
 	int bgm_gameover = 0;
-
+	int bgm_guid = 0;
 	//SE
 	int se_press_space = 0;
 	int se_get_start = 0;
@@ -73,7 +73,6 @@ public:
 
 	bool soundHd1 = false;
 	void LoadSound();
-	//void SoundPlay(BGM scene_id, SE SE_Id,int type=0);
 	void SoundBgm(BGM num);
 	void SoundSe(SE num);
 	void StopBgm();

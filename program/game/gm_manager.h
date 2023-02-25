@@ -1,5 +1,6 @@
 #pragma once
 #include "../dxlib_ext/dxlib_ext.h"
+#include"../game/Tool/GachaGacha.h"
 
 class SceneBase;
 class CharacterBase;
@@ -68,9 +69,11 @@ public:
 		CharacterBase* chara_base;
 	};*/
 	std::unordered_map<std::string, int> imghandle;
-	//std::shared_ptr<Player> player_ = nullptr;
 	int ImgHandle(std::string img_pass);
 	int save_img = 0;//‰æ‘œ‚ğ•Û‘¶‚·‚é•Ï”
+
+	std::shared_ptr<GachaGacha> i_gacha = nullptr;
+	void GachaInit();
 
 };
 
