@@ -173,9 +173,9 @@ void ItemManager::Render()
 	DrawRotaGraph(FIFTY + arrow_pos , FIFTY, 0.21, 0, select_item_img, true);
 	DrawBox(0, 100, 360, 120, -1, true);
 	if (cnt_pos_ == cnt_min) {
-		DrawStringEx(0,100,0,"↑少しの間自身の速度上しょう↑");
+		DrawStringEx(0,100,0,"↑少しの間自身の速度を上げる↑");
 	}else if (cnt_pos_ == 1) {
-		DrawStringEx(0, 100, 0, "↑少しの間敵の速度減しょう↑");
+		DrawStringEx(0, 100, 0, "↑少しの間敵の速度を下げる↑");
 	}
 	else if (cnt_pos_ == 2) {
 		DrawStringEx(0, 100, 0, "↑少しの間むてき↑");

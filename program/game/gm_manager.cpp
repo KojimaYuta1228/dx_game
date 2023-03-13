@@ -9,6 +9,14 @@ GameManager* GameManager::instance_ = nullptr;
 // コンストラクタ
 GameManager::GameManager() {
 	save_img = 0;
+	font_path = "graphics/Resouce/font/doc/g_comichorrorR_freeR.ttf";
+	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0) {
+	}
+	else {
+		MessageBox(NULL, "フォント読込失敗", "", MB_OK);
+	}
+
+	ChangeFont("g_コミックホラー恐怖-教漢", DX_CHARSET_DEFAULT);
 	scene_now_ = new SceneTitle();
 	img_black_ = LoadGraph("graphics/black.bmp");
 	SetBackgroundColor(32, 32, 32);

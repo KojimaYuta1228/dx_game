@@ -56,12 +56,7 @@ void SceneExplain::render()
 	DrawStringEx(screenMidleX - 250, screenMidleY - 270, 0, "mission: Dive into the dungeon  ");
 	DrawStringEx(screenMidleX - 40, screenMidleY - 240, 0, "and");
 	DrawStringEx(screenMidleX - 150, screenMidleY - 210, 0, "get the treasure");
-	DrawStringEx(screenMidleX - 220, screenMidleY - 170, 0, "reward: everything you want");
-	DrawStringEx(screenMidleX - 180, screenMidleY - 130, 0, "camera rotate: A and D");
-	DrawStringEx(screenMidleX + 43, screenMidleY - 130, GetColor(255 + 255 * sin(tnl::ToRadian(chang_col_red_)),0,0), " A     D");
-	DrawStringEx(screenMidleX - 180, screenMidleY -100, 0, "player move: ArrowKey");
-	DrawStringEx(screenMidleX + 8, screenMidleY - 100, GetColor(255 + 255 * sin(tnl::ToRadian(chang_col_red_)), 0, 0), " ArrowKey");
-	SetFontSize(40);
+	DrawStringEx(screenMidleX - 220, screenMidleY - 170, 0, "reward: everything you want");SetFontSize(40);
 	DrawStringEx(screenMidleX - 200, screenMidleY -50  , 0, "======Warning======");
 	DrawStringEx(screenMidleX - 180, screenMidleY , 0, "Frequent accidents ");
 	DrawStringEx(screenMidleX - 30 , screenMidleY + 45, 0, "in");
@@ -70,7 +65,7 @@ void SceneExplain::render()
 	SetFontSize(30);
 	if (frag_draw_enter_ == true) {
 		
-		DrawStringEx(screenMidleX - 250, screenMidleY + 210, 0, "ÅETITLE:Press to Enter");
+		DrawStringEx(screenMidleX - 250, screenMidleY + 210, 0, "ÅETITLE:Press to B button");
 	}
 }
 

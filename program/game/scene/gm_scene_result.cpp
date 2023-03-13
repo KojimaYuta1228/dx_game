@@ -69,7 +69,7 @@ void SceneResult::render()
 	SetFontSize(40);
 	DrawStringEx(screenMidleX-400, screenMidleY, -1, "Ç†Ç»ÇΩÇÕñ¿ã{Çå„Ç…ÇµÇΩÅc");
 	if (frag_draw_enter_ == true) {
-		DrawStringEx(screenMidleX - 350, screenMidleY + 50, -1, "ÅETITLE:Press to Enter");
+		DrawStringEx(screenMidleX - 350, screenMidleY + 50, -1, "ÅETITLE:Press to B button");
 	}
 }
 

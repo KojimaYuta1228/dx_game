@@ -19,7 +19,7 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::initialzie()
 {
-	font_path = "graphics/Resouce/font/doc/g_comichorrorR_freeR.ttf";
+//	font_path = "graphics/Resouce/font/doc/g_comichorrorR_freeR.ttf";
 	playsound();
 	img_title_ = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/maintitle.png");
 }
@@ -108,13 +108,7 @@ void SceneTitle::update(float delta_time)
 }
 void SceneTitle::render()
 {
-	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0) {
-	}
-	else {
-		MessageBox(NULL, "フォント読込失敗", "", MB_OK);
-	}
 	
-	ChangeFont("g_コミックホラー恐怖-教漢", DX_CHARSET_DEFAULT);
 	SetFontSize(100);
 	DrawRotaGraph(screenMidleX, screenMidleY-100, 1.7, 0, img_title_, true);
 	DrawStringEx(screenMidleX-300, screenMidleY-200, -1.0, "Maze In Abys");
@@ -129,7 +123,7 @@ void SceneTitle::render()
 	}
 	DrawStringEx(screenMidleX - 90, pos_arrow_, GetColor(127 + 127 * sin(tnl::ToRadian(col_arrow_)), 127 + 127 * sin(tnl::ToRadian(col_arrow_)), 127 + 127 * sin(tnl::ToRadian(col_arrow_))), "→");
 	SetFontSize(50);
-	DrawStringEx(screenMidleX -180, screenMidleY + 200, -1.0, "Press to Enter");
+	DrawStringEx(screenMidleX -180, screenMidleY + 200, -1.0, "Press to B button");
 	
 }
 

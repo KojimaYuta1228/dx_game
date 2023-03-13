@@ -67,7 +67,7 @@ void GameOver::render()
 	SetFontSize(40);
 	DrawStringEx(screenMidleX - 500, screenMidleY - 100, -1, "–À‹{‚ÉŽæ‚èŽc‚³‚ê‚Ä‚µ‚Ü‚Á‚½...");
 	if (frag_draw_enter_ == true) {
-		DrawStringEx(screenMidleX, screenMidleY + 150, -1, "TITLE:Press to Enter");
+		DrawStringEx(screenMidleX, screenMidleY + 150, -1, "TITLE:Press to B button");
 	}
 
 

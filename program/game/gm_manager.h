@@ -61,19 +61,14 @@ public:
 public:
 
 	// ゲーム全体で参照したい変数はここで用意
-
-	//キャラごとの参照をとるための構造体
-	//これをもとにカメラからの距離を計算
-	/*struct CharaStatus {
-		float camera_distance;
-		CharacterBase* chara_base;
-	};*/
 	std::unordered_map<std::string, int> imghandle;
 	int ImgHandle(std::string img_pass);
 	int save_img = 0;//画像を保存する変数
 
 	std::shared_ptr<GachaGacha> i_gacha = nullptr;
 	void GachaInit();
+	//フォントのハンドル
+	LPCSTR font_path;
 
 };
 
