@@ -181,7 +181,7 @@ void ItemManager::Render()
 		DrawStringEx(0, 100, 0, "ª­‚µ‚ÌŠÔ‚Ş‚Ä‚«ª");
 	}
 	else if (cnt_pos_ == 3) {
-		DrawStringEx(0, 100, 0, "ªƒS[ƒ‹‚Ì‚©‚¬ª");
+		DrawStringEx(0, 100, 0, "ª‚Ü‚Ù‚¤‚¶‚ñ‚Ì‚©‚¬ª");
 	}
 	else if (cnt_pos_ == cnt_max) {
 		DrawStringEx(0, 100, 0, "ªƒRƒCƒ“ª");

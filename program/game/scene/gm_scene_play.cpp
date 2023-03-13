@@ -77,25 +77,9 @@ void ScenePlay::render()
 		d_chara->Render(0.01666);
 		item_mgr->Render();
 	}
-	/*if (enemy_->pos_.x < player_->pos_.x && enemy_->pos_.z < player_->pos_.z) {
-		DrawTriangle(DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 100, DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 70, DXE_WINDOW_WIDTH / 2 + 10, DXE_WINDOW_HEIGHT / 2 - 100, 50, -1);
-	}
-	else if (enemy_->pos_.x < player_->pos_.x && enemy_->pos_.z > player_->pos_.z) {
-		DrawTriangle(DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 100, DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 70, DXE_WINDOW_WIDTH / 2 + 10, DXE_WINDOW_HEIGHT / 2 - 70, 50, -1);
-	}
-	else if (enemy_->pos_.x > player_->pos_.x && enemy_->pos_.z > player_->pos_.z) {
-		DrawTriangle(DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 70, DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 100, DXE_WINDOW_WIDTH / 2 + 10, DXE_WINDOW_HEIGHT / 2 - 70, 50, -1);
-	}
-	else if (enemy_->pos_.x > player_->pos_.x && enemy_->pos_.z < player_->pos_.z){
-		DrawTriangle(DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 100, DXE_WINDOW_WIDTH / 2 + 10, DXE_WINDOW_HEIGHT / 2 - 70, DXE_WINDOW_WIDTH / 2 + 10, DXE_WINDOW_HEIGHT / 2 - 100, 50, -1);
-
-}*/
-	//DrawTriangle(DXE_WINDOW_WIDTH / 2 -10, DXE_WINDOW_HEIGHT / 2-70, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2 -100, DXE_WINDOW_WIDTH / 2+10, DXE_WINDOW_HEIGHT / 2-70, 50,-1);
-	//DrawTriangle(DXE_WINDOW_WIDTH / 2 - 10, DXE_WINDOW_HEIGHT / 2 - 70, enemy_->pos_.x-player_->pos_.x, enemy_->pos_.y-player_->pos_.y, DXE_WINDOW_WIDTH / 2 + 10, DXE_WINDOW_HEIGHT / 2 - 70, 50, -1);
-
 	if (draw_controller_frag) {
 		DrawRotaGraph(DXE_WINDOW_WIDTH / 2 + 230, DXE_WINDOW_HEIGHT / 2 + 200, 0.23, 0, img_controller, true);
-		DrawStringEx(0, 200, -1, "Aボタン：そうさせつめいとじる");
+		DrawStringEx(0, 750, -1, "Aボタン：そうさせつめいとじる");
 		SetFontSize(15);
 		DrawStringEx(DXE_WINDOW_WIDTH / 2 - 50, DXE_WINDOW_HEIGHT / 2 + 60, -1, "L1:スキル1");
 		DrawStringEx(DXE_WINDOW_WIDTH / 2 + 300, DXE_WINDOW_HEIGHT / 2 + 70, -1, "R1:スキル2");
@@ -106,10 +90,11 @@ void ScenePlay::render()
 		DrawStringEx(DXE_WINDOW_WIDTH / 2 + 80, DXE_WINDOW_HEIGHT / 2 + 330, -1, "移動");
 	}
 	else {
-		DrawStringEx(0, 200, -1, "Aボタン：そうさせつめいひらく");
+		DrawStringEx(0, 750, -1, "Aボタン：そうさせつめいひらく");
 	}
-	DrawBox(DXE_WINDOW_WIDTH / 2 , 20, DXE_WINDOW_WIDTH / 2 + 500, 50, -1, true);
-	DrawStringEx(DXE_WINDOW_WIDTH / 2, 20, 0, "鍵を手に入れてゴールを目指せ");
+	DrawExtendGraph(DXE_WINDOW_WIDTH / 2 + 100, 20, DXE_WINDOW_WIDTH / 2 + 500, 50, img_old_paper_, true);
+	SetFontSize(20);
+	DrawStringEx(DXE_WINDOW_WIDTH / 2+100, 25, 0, " Q:かぎを手に入れてまほうじんを目指せ");
 }
 
 void ScenePlay::playsound()
