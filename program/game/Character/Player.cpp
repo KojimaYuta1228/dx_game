@@ -192,18 +192,18 @@ void Player::Render(float delta_time)
 	SetFontSize(20);
 	DrawStringEx(5, bar_y, 0, "スタミナ");
 	if (tnl::Input::IsPadDown(ePad::KEY_3) && cnt_chant_tp <= 3) {
-		DrawStringEx(0, 130, 0, "スキルチャージ中");
+		DrawStringEx(bar_x, bar_y + bar_height+10, 0, "スキルチャージ中");
 		skill_bar_width += incress_skill;
 	}
 	else if (frag_tp && cnt_chant_tp > 3) {
-		DrawStringEx(0, 130, 0, "スキルチャージ済");
+		DrawStringEx(bar_x, bar_y + bar_height+10, 0, "スキルチャージ済");
 	}
 	else if (!frag_tp) {
-		DrawStringEx(0, 130, 0, "スキルクールダウン中");
+		DrawStringEx(bar_x, bar_y + bar_height+10, 0, "スキルクールダウン中");
 		skill_bar_width = 0;
 	}
 	else if (frag_tp && !tnl::Input::IsPadDown(ePad::KEY_3)) {
-		DrawStringEx(0, 130, 0, "スキル");
+		DrawStringEx(bar_x, bar_y + bar_height+10, 0, "スキル");
 	}
 }
 

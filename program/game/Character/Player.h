@@ -52,7 +52,7 @@ private:
 	int bar_width = 360; // バーの初期幅
 	int bar_height = 20; // バーの高さ
 	int bar_x = 0; // バーのX座標
-	int bar_y = 100; // バーのY座標
+	int bar_y = 130; // バーのY座標
 	int decrease_amount = 2; // 減少量
 	int increase_amount = 1; // 増加量
 	bool frag_play_se_ = true;//seを鳴らすためのフラグ

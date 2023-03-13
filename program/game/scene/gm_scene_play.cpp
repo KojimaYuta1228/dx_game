@@ -95,7 +95,7 @@ void ScenePlay::render()
 
 	if (draw_controller_frag) {
 		DrawRotaGraph(DXE_WINDOW_WIDTH / 2 + 230, DXE_WINDOW_HEIGHT / 2 + 200, 0.23, 0, img_controller, true);
-		DrawStringEx(0, 150, -1, "Aボタン：そうさせつめいとじる");
+		DrawStringEx(0, 200, -1, "Aボタン：そうさせつめいとじる");
 		SetFontSize(15);
 		DrawStringEx(DXE_WINDOW_WIDTH / 2 - 50, DXE_WINDOW_HEIGHT / 2 + 60, -1, "L1:スキル1");
 		DrawStringEx(DXE_WINDOW_WIDTH / 2 + 300, DXE_WINDOW_HEIGHT / 2 + 70, -1, "R1:スキル2");
@@ -106,8 +106,10 @@ void ScenePlay::render()
 		DrawStringEx(DXE_WINDOW_WIDTH / 2 + 80, DXE_WINDOW_HEIGHT / 2 + 330, -1, "移動");
 	}
 	else {
-		DrawStringEx(0, 150, -1, "Aボタン：そうさせつめいひらく");
+		DrawStringEx(0, 200, -1, "Aボタン：そうさせつめいひらく");
 	}
+	DrawBox(DXE_WINDOW_WIDTH / 2 , 20, DXE_WINDOW_WIDTH / 2 + 500, 50, -1, true);
+	DrawStringEx(DXE_WINDOW_WIDTH / 2, 20, 0, "鍵を手に入れてゴールを目指せ");
 }
 
 void ScenePlay::playsound()
