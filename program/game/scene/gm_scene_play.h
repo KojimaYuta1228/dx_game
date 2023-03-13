@@ -70,6 +70,7 @@ private:
 	float cnt_strong_time_ = 3;//–³“GŠÔ
 	float cnt_timer_ = 0;
 	bool draw_controller_frag = true;
+	bool draw_goal_txt = true;
 	const int SCREEN_MIDLE_X = DXE_WINDOW_WIDTH / 2;//‰æ–Ê‚Ì’†SX
 	const int SCREEN_MIDLE_Y = DXE_WINDOW_HEIGHT / 2;//‰æ–Ê‚Ì’†SY
 	const float BOX_SIZE = 50;//box‚Ì1•Ó‚Ì‘å‚«‚³

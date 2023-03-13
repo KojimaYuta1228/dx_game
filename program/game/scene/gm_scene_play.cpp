@@ -95,6 +95,10 @@ void ScenePlay::render()
 	DrawExtendGraph(DXE_WINDOW_WIDTH / 2 + 100, 20, DXE_WINDOW_WIDTH / 2 + 500, 50, img_old_paper_, true);
 	SetFontSize(20);
 	DrawStringEx(DXE_WINDOW_WIDTH / 2+100, 25, 0, " Q:‚©‚¬‚ðŽè‚É“ü‚ê‚Ä‚Ü‚Ù‚¤‚¶‚ñ‚ð–ÚŽw‚¹");
+	if (!draw_goal_txt) {
+
+		DrawStringEx(DXE_WINDOW_WIDTH / 2 -50, DXE_WINDOW_HEIGHT / 2, -1, "‚©‚¬‚ð‚Ý‚Â‚¯‚æ‚¤");
+	}
 }
 
 void ScenePlay::playsound()
@@ -133,9 +137,9 @@ void ScenePlay::Collision()
 		for (int k = 0; k < Map::MEIRO_WIDTH; k++) {
 			if (Map::maze[i][k] == static_cast<int>(Map::MAZESTATE::WALL)) {
 				tnl::Vector3 box_pos = map_->map_chips_[i][k]->pos_;
-				if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
+				/*if (tnl::IsIntersectAABB(player_->pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
 					tnl::GetCorrectPositionIntersectAABB(player_->prev_pos_, { 32, 48, 32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE }, player_->pos_);
-				}
+				}*/
 				if (tnl::IsIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE })) {
 					tnl::GetCorrectPositionIntersectAABB(enemy_->pos_, { 30,32,32 }, box_pos, { BOX_SIZE, BOX_SIZE, BOX_SIZE }, enemy_->pos_);
 				}
@@ -149,6 +153,12 @@ void ScenePlay::Collision()
 						player_->frag_move_posY_ = false;
 						SoundManager::GetInstance()->SoundSe(SoundManager::SE::GET_GOAL);
 					}
+					else {
+						draw_goal_txt = false;
+					}
+				}
+				else {
+					draw_goal_txt = true;
 				}
 			}
 		}
