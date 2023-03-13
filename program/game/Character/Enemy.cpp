@@ -25,12 +25,7 @@ Enemy::Enemy(tnl::Vector3& startEnPos)
 		enSprite_[i]->regist(30, 32, "en_walk_right", "graphics/Resouce/image/enemy/obake_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 3, 32, 0);
 		enSprite_[i]->setCurrentAnim("en_walk_front");
 	}	
-	/*----Enemy‚Ì‰ŠúÀ•W----*/
-	 x = startEnPos.x * 50;
-	 z = startEnPos.z * 50;
-	pos_ = tnl::Vector3(x, 10, z);
-	
-	move_target_pos_ = pos_;//Aster‚æ‚¤‚Ìpos
+	SetPos(startEnPos);
 	base_move_speed = 1.0;
 }
 
@@ -46,7 +41,10 @@ void Enemy::initialzie()
 
 void Enemy::Update(float delta_time)
 {
-	SetAster(delta_time);
+	ready_enemy += delta_time;
+	if (ready_enemy > start_enemy) {
+		SetAster(delta_time);
+	}
 	EnemyMove();
 	distance_ = CameraDis(pos_, camera_->pos_);
 	enSprite_[0]->update(delta_time);
@@ -66,7 +64,7 @@ float Enemy::CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)
 void Enemy::SetAster(float delta_time)
 {
 	search_time_count_ += delta_time;
-	if (search_time_count_ > 0.25f) {
+	if (search_time_count_ > aster_interval) {
 		Node nodes[Map::MEIRO_HEIGHT][Map::MEIRO_WIDTH];
 		map_->start_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
 		map_->start_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
@@ -119,6 +117,16 @@ void Enemy::SetAster(float delta_time)
 	}
 }
 
+void Enemy::SetPos(tnl::Vector3& startEnPos)
+{
+	/*----Enemy‚Ì‰ŠúÀ•W----*/
+	x = startEnPos.x * 50;
+	z = startEnPos.z * 50;
+	pos_ = tnl::Vector3(x, 10, z);
+
+	move_target_pos_ = pos_;//Aster‚æ‚¤‚Ìpos
+}
+
 void Enemy::EnemyMove()
 {
 	std::string anim_names[4] = {
@@ -142,4 +150,8 @@ void Enemy::EnemyMove()
 	enSprite_[0]->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, move_target_pos_), 0.3f);
 	
 
+}
+
+void Enemy::SetSprite()
+{
 }

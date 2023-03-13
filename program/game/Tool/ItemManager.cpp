@@ -123,17 +123,17 @@ void ItemManager::UseHaveItem()
 		cnt_pos_++;
 	}
 	
-	if (cnt_pos_ > 4) {
-		arrow_pos = 0;
+	if (cnt_pos_ > cnt_max) {
+		arrow_pos = cnt_min;
 		cnt_pos_ = 0;
 	}
-	else if (cnt_pos_ < 0) {
+	else if (cnt_pos_ < cnt_min) {
 		arrow_pos = 280;
-		cnt_pos_ = 4;
+		cnt_pos_ = cnt_max;
 	}
 	if (!get_item_frag[cnt_pos_]) return;
 	else {
-		if (tnl::Input::IsPadDown(ePad::KEY_0)) {
+		if (tnl::Input::IsPadDown(ePad::KEY_2)) {
 			SoundManager::GetInstance()->SoundSe(SoundManager::SE::DECISION_ITEM);
 			// Item‚Ì“®‚«‚ğ‚±‚±‚ÅŒÄ‚Ño‚·
 			auto gacha_check = gacha.lock();

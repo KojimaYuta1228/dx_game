@@ -27,6 +27,7 @@ public:
 	void update(float delta_time) override;
 	void render() override;
 	void playsound()override;//BGM
+	void SetObj();
 	void Collision();//当たり判定全般
 	void PlayerState(float delta_time);//Playerの状況に応じた処理
 	void ScenePlaySound(float delta_time);//ステージ内で適度にならしたいSEなど
@@ -51,26 +52,29 @@ public:
 	std::list< std::shared_ptr<CharacterBase>> draw_character_;
 	std::list<dxe::Mesh*> map_chip_list_;//マップの情報をもとにMeshとしてRenderするためのList	
 
-	const int SCREEN_MIDLE_X = DXE_WINDOW_WIDTH / 2;//画面の中心X
-	const int SCREEN_MIDLE_Y = DXE_WINDOW_HEIGHT / 2;//画面の中心Y
-	const float BOX_SIZE = 50;//boxの1辺の大きさ
-	
 	bool frag_cnt_timer_player_ = true;//cnt_timer_player_を変更する際のフラグ
 	bool frag_cnt_timer_ = true;//cnt_timer_player_を変更する際のフラグ
 	bool frag_can_goal = true;//鍵を使用したかどうか判別するためのフラグ
 	bool frag_strong_time = true;//cnt_strong_time_を変更する際のフラグ
 
 	//draw_character_でソートし並び替えるときに使う計算用の変数
+private:
 	float calc_A_ = 0;
 	float calc_B_ = 0;
 	float calc_C_ = 0;
 	int img_old_paper_ = 0;//画像ハンドル
+	int img_controller = 0;
 	int cnt_timer_player_ = 100;//playerがゴール時にpos_.yを動かすときに使うカウント
 	float cnt_play_se_ghost_ = 0;//se_ghostを鳴らす際に使うカウント
 	float cnt_play_se_laugh_ = 0;//se_laughを鳴らす際に使うカウント
 	float cnt_strong_time_ = 3;//無敵時間
 	float cnt_timer_ = 0;
+	bool draw_controller_frag = true;
+	const int SCREEN_MIDLE_X = DXE_WINDOW_WIDTH / 2;//画面の中心X
+	const int SCREEN_MIDLE_Y = DXE_WINDOW_HEIGHT / 2;//画面の中心Y
+	const float BOX_SIZE = 50;//boxの1辺の大きさ
 
+	
 	
 
 };

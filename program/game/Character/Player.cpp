@@ -24,14 +24,9 @@ Player::Player(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
 	sprite_->regist(32, 48, "walk_right", "graphics/c1_anim_right.png", tnl::SeekUnit::ePlayMode::REPEAT, 1.0f, 4, 48, 0);
 	sprite_->setCurrentAnim("walk_front");
 	emp_stam_ber = GameManager::GetInstance()->ImgHandle("graphics/Resouce/image/color/emp_stam_ber.png");
-	/*----Playerの初期座標----*/
-	auto x = startPos.x * 50;
-	auto z = startPos.z * 50;
-	pos_ = tnl::Vector3(x,0,z);
-	start_pos_ = pos_;
-	auto x1 = teleportationPos.x * 50;
-	auto z1 = teleportationPos.z * 50;
-	telePos = tnl::Vector3(x1, 0, z1);
+	emp_skill_ber = emp_stam_ber;
+	
+	SetPos( startPos, teleportationPos);
 	base_move_speed = 1.0;
 }
 
@@ -46,13 +41,9 @@ void Player::initialzie()
 
 void Player::Update(float delta_time)
 {
-	if (pos_.y > 50) {
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/wing.png", 10, 10, 1, 188, 150, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveAnim.emplace_back(i_anim_);
-	}
+	
 	PlayerAnim(delta_time);
-	PlayerInput(delta_time);	
-	//-----------------------------------------------
+	PlayerInput(delta_time);
 	//マップの座標の補正
 	map_->goal_maze_pos_x = (pos_.x - (-12.5f * 50.0f)) / 50;
 	map_->goal_maze_pos_y = 25 - (pos_.z - (-12.5f * 50.0f)) / 50;
@@ -91,6 +82,14 @@ void Player::PlayerAnim(float delta_time)
 			itr++;
 		}
 	}
+	if (pos_.y > 50) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/wing.png", 10, 10, 1, 188, 150, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
+	}
+	if (cnt_chant_tp < 3 && cnt_chant_tp > 2.5) {
+		i_anim_ = new Animation("graphics/Resouce/image/use_efect/shineFix.png", 10, 10, 1, 192, 192, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
+		liveAnim.emplace_back(i_anim_);
+	}
 }
 
 void Player::PlayerInput(float delta_time)
@@ -128,10 +127,7 @@ void Player::PlayerInput(float delta_time)
 	if (tnl::Input::IsPadDown(ePad::KEY_3) && frag_chant_tp) {
 		cnt_chant_tp += delta_time;
 	}
-	if (cnt_chant_tp < 3 && cnt_chant_tp > 2.5) {
-		i_anim_ = new Animation("graphics/Resouce/image/use_efect/shineFix.png", 10, 10, 1, 192, 192, DXE_WINDOW_WIDTH / 2, DXE_WINDOW_HEIGHT / 2);
-		liveAnim.emplace_back(i_anim_);
-	}
+	
 	if (cnt_chant_tp > 3) {
 		frag_chant_tp = false;
 	}
@@ -162,19 +158,19 @@ void Player::PlayerInput(float delta_time)
 	}		
 
 	/*----------------------------key----------------------------------*/
-	if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
-		move_v.normalize();
-		sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
-		frag_play_se_ = false;
-		pos_ += move_v * 2.0f;
-	}
-	if (tnl::Input::IsKeyReleaseTrigger(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
-		frag_play_se_ = true;
-	}
-	//加速
-	if (tnl::Input::IsKeyDown(eKeys::KB_1) ) {
-		pos_ += move_v * 10;
-	}
+	//if (tnl::Input::IsKeyDown(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT) && frag_input_ == true) {
+	//	move_v.normalize();
+	//	sprite_->rot_.slerp(tnl::Quaternion::LookAtAxisY(pos_, pos_ + move_v), 0.3f);
+	//	frag_play_se_ = false;
+	//	pos_ += move_v * 2.0f;
+	//}
+	//if (tnl::Input::IsKeyReleaseTrigger(eKeys::KB_UP, eKeys::KB_RIGHT, eKeys::KB_DOWN, eKeys::KB_LEFT)) {
+	//	frag_play_se_ = true;
+	//}
+	////加速
+	//if (tnl::Input::IsKeyDown(eKeys::KB_1) ) {
+	//	pos_ += move_v * 10;
+	//}
 	
 }
 
@@ -187,23 +183,43 @@ void Player::Render(float delta_time)
 	sprite_->render(camera_);
 	
 	SetFontSize(25);
-	if (tnl::Input::IsPadDown(ePad::KEY_3) && cnt_chant_tp <= 3) {
-		DrawStringEx(0, 130, -1.0, "スキルチャージ中");
-	}
-	else if (frag_tp && cnt_chant_tp > 3) {
-		DrawStringEx(0, 130, -1.0, "スキルチャージ済");
-	}
-    else if (!frag_tp ) {
-		DrawStringEx(0, 130, -1.0, "スキルクールダウン中");
-	}
-	else if (frag_tp && !tnl::Input::IsPadDown(ePad::KEY_3)) {
-		DrawStringEx(0, 130, -1.0, "スキルチャージ可能");
-	}
 
-	DrawExtendGraph(bar_x, bar_y, bar_x + 350, bar_y + bar_height, emp_stam_ber, true);
-	DrawBox(bar_x, bar_y, bar_x + bar_width, bar_y + bar_height, GetColor(255, 165, 0), TRUE); // バーを描画する		
+
+	DrawExtendGraph(bar_x, bar_y, bar_x + 360, bar_y + bar_height, emp_stam_ber, true);
+	DrawBox(bar_x, bar_y, bar_x + bar_width, bar_y + bar_height, GetColor(255, 165, 0), TRUE); // バーを描画する	
+	DrawExtendGraph(bar_x, bar_y+30, bar_x + 360, bar_y+30 + bar_height, emp_stam_ber, true);
+	DrawBox(bar_x, bar_y +30, bar_x + skill_bar_width, bar_y+30 + bar_height, GetColor(0, 165, 255), TRUE); // バーを描画する	
 	SetFontSize(20);
 	DrawStringEx(5, bar_y, 0, "スタミナ");
+	if (tnl::Input::IsPadDown(ePad::KEY_3) && cnt_chant_tp <= 3) {
+		DrawStringEx(0, 130, 0, "スキルチャージ中");
+		skill_bar_width += incress_skill;
+	}
+	else if (frag_tp && cnt_chant_tp > 3) {
+		DrawStringEx(0, 130, 0, "スキルチャージ済");
+	}
+	else if (!frag_tp) {
+		DrawStringEx(0, 130, 0, "スキルクールダウン中");
+		skill_bar_width = 0;
+	}
+	else if (frag_tp && !tnl::Input::IsPadDown(ePad::KEY_3)) {
+		DrawStringEx(0, 130, 0, "スキル");
+	}
+}
+
+void Player::SetPos(tnl::Vector3& startPos, tnl::Vector3& teleportationPos)
+{
+	auto x = startPos.x * 50;
+	auto z = startPos.z * 50;
+	pos_ = tnl::Vector3(x, 0, z);
+	start_pos_ = pos_;
+	auto x1 = teleportationPos.x * 50;
+	auto z1 = teleportationPos.z * 50;
+	telePos = tnl::Vector3(x1, 0, z1);
+}
+
+void Player::SetSprite()
+{
 }
 
 

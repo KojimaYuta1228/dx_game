@@ -33,6 +33,8 @@ private:
 	std::vector<std::vector<std::string>>load_item_csv;
 	int id_;
 	int type_;
+	int cnt_max = 4;
+	int cnt_min = 0;
 	int select_item_img = 0;//画像ハンドル
 	int wood_freme_img = 0;//画像ハンドル
 	const int IMG_NUM = 5;//for文の最大数

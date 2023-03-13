@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Player_1.cpp" />
     <ClCompile Include="program\dxlib_ext\create_mesh\dxlib_ext_mesh_barrel.cpp" />
     <ClCompile Include="program\dxlib_ext\create_mesh\dxlib_ext_mesh_box.cpp" />
     <ClCompile Include="program\dxlib_ext\create_mesh\dxlib_ext_mesh_cone.cpp" />
@@ -73,6 +74,7 @@
     <ClCompile Include="program\system\sys_main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Player_1.h" />
     <ClInclude Include="program\dxlib_ext\dxlib_ext.h" />
     <ClInclude Include="program\dxlib_ext\dxlib_ext_camera.h" />
     <ClInclude Include="program\dxlib_ext\dxlib_ext_data.h" />

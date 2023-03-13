@@ -23,7 +23,6 @@ public:
 	int img_black = 0;
 	int id_;
 	int type_;
-	//std::vector<GachaItem> my_gacha_item_vec;
 	std::list<std::shared_ptr<GachaItem>> spawn_gacha_Item_list;//new‚µ‚½Item‚ğŠi”[‚·‚éList
 	std::vector<std::shared_ptr<GachaItem>> get_gacha_Item_vec;//Šl“¾‚µ‚½Item‚ğŠi”[‚·‚éList
 	std::shared_ptr<GachaItem> i_gacha_item_ = nullptr;

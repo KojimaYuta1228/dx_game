@@ -25,7 +25,6 @@ void GachaItem::Update(float delta_time)
 
 void GachaItem::SwitchGachaItem(int type_)
 {
-	
 	switch (type_)
 	{
 	case 1:

@@ -20,9 +20,13 @@ public:
 	void Render(float delta_time)override;
 	float CameraDis(tnl::Vector3& pos1, tnl::Vector3& camera_pos2)override;
 	void SetAster(float delta_time);//Asterに組み込む
+	void SetPos(tnl::Vector3& startEnPos);
 	void EnemyMove();
+	void SetSprite()override;
 	std::shared_ptr<Map> map_ = nullptr;
 
+	
+private:
 	float search_time_count_ = 0;//Asterの更新頻度
 	tnl::Vector3 move_target_pos_;//ターゲットのpos
 	std::vector<Node*> route_player_;//playerの通った道
@@ -30,7 +34,9 @@ public:
 	int sy;//ワールド座標でのスタートy
 	int gx;//ワールド座標でのゴールx
 	int gy;//ワールド座標でのゴールy
-
+	float aster_interval = 0.5;
+	float ready_enemy = 0;
+	float start_enemy = 3.0;
 	float x;//初期座標X
 	float z;//初期座標Z
 	bool is_success;//asterの成功かどうかの判定

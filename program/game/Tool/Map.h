@@ -9,8 +9,8 @@ class GmCamera;
 class GameManager;
 
 class MyVec2i {
-public :
-	MyVec2i(){}
+public:
+	MyVec2i() {}
 	MyVec2i(const int x, const int y) : x_(x), y_(y) {}
 	int x_;
 	int y_;
@@ -54,7 +54,6 @@ public:
 		AGOAL,
 		MAX
 	};
-	
 	static const int MEIRO_WIDTH = 25;//迷路の横のサイズ
     static const int MEIRO_HEIGHT = 25;//迷路の縦のサイズ
 	static int maze[MEIRO_HEIGHT][MEIRO_WIDTH];//迷路の各マスの情報を格納する配列
@@ -68,9 +67,8 @@ public:
 	dxe::Mesh* ctrl_box_ = nullptr;
 	std::list<dxe::Mesh*> field_boxs_;//クローンしたBoxを入れるlist
 	std::shared_ptr<dxe::Texture> tex = nullptr;
-	
-	
-	
+		
+
 	int dis_x = 0;//startX座標を保存
 	int dis_y = 0;//startY座標を保存
 	int goal_x = 0;//goal_x座標を保存
@@ -85,19 +83,15 @@ public:
 	int goal_maze_pos_y = 0;
 
 	tnl::Vector3 start_en_pos;
-
 };
 
 class Cell
 {
 public:
 	Cell(int setX, int setY);
-	~Cell();
 
 	int x;
 	int y;
-
-private:
-
 };
+
 

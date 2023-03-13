@@ -111,6 +111,9 @@ void Item::ItemAnim(float delta_time)
 		}
 	}
 }
+void Item::SetSprite()
+{
+}
 void Item::initialzie()
 {	
 }

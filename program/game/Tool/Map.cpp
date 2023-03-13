@@ -172,10 +172,8 @@ std::shared_ptr<Cell> Map::GetStartCell()
 }
 
 Cell Map::Dig(int startX, int startY)
-{
-	//À•W‚Ì•Û‘¶
-	int bufX = startX;
-	int bufY = startY;
+{	//À•W‚Ì•Û‘¶
+	int bufX = startX;int bufY = startY;
 	while (1) {
 		//if•¶‚É‚æ‚é•Ç‚Ì”»’è¨”z—ñ‚Ì––”ö‚É“o˜^
 		//up
@@ -195,7 +193,6 @@ Cell Map::Dig(int startX, int startY)
 				directions.emplace_back(DIRECTION::DOWN);
 			}
 		}
-
 		//left
 		if (bufX > 1) {
 			if (maze[bufY][bufX - 1] == WALL && maze[bufY][bufX - 2] == WALL) {
@@ -208,7 +205,6 @@ Cell Map::Dig(int startX, int startY)
 		}
 		//directions”z—ñ“à‚Ì“Y‚¦š‚ğƒ‰ƒ“ƒ_ƒ€‚Éæ“¾
 		auto index = GetRand(directions.size() - 1);
-		//æ“¾‚µ‚½“Y‚¦š‚ğ‘f‚Éswitch•¶‚ğ‰ñ‚·¨“¹‚ğì‚é
 		switch (directions[index])
 		{
 		case DIRECTION::UP:
@@ -280,8 +276,7 @@ void Map::SetGoal(int goalX, int goalY)
 
 tnl::Vector3 Map::GetRandomRoot()
 {
-	auto X = 0;
-	auto Y = 0;
+	auto X = 0;auto Y = 0;
 	while (true) {
 		X = SelectStartPoint(MEIRO_WIDTH);
 		Y = SelectStartPoint(MEIRO_HEIGHT);
@@ -293,12 +288,7 @@ tnl::Vector3 Map::GetRandomRoot()
 
 
 Cell::Cell(int setX, int setY)
-{
-	//cell‚É‘ã“ü
+{	//cell‚É‘ã“ü
 	x = setX;
 	y = setY;
-}
-
-Cell::~Cell()
-{
 }

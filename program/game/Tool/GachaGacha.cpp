@@ -6,8 +6,7 @@
 
 GachaGacha::GachaGacha()
 {
-	GameManager* mgr = GameManager::GetInstance();
-	
+	GameManager* mgr = GameManager::GetInstance();	
 	img_gacha_item[0] = mgr->ImgHandle("graphics/Resouce/image/color/gacha_item_n.png");
 	img_gacha_item[1] = mgr->ImgHandle("graphics/Resouce/image/color/gacha_item_r.png");
 	img_gacha_item[2] = mgr->ImgHandle("graphics/Resouce/image/color/gacha_item_sr.png");
@@ -43,7 +42,7 @@ void GachaGacha::Update(float delta_time)
 	if (tnl::Input::IsKeyDownTrigger(eKeys::KB_SPACE))have_coin;
 	
 	UseGacha(delta_time);
-	//CheckGachaItemAlive();
+	CheckGachaItemAlive();
 }
 
 void GachaGacha::UseGacha(float delta_time)
@@ -74,7 +73,6 @@ void GachaGacha::GachaAnima(float delta_time)
 
 void GachaGacha::CreateGachaItem(int id_, int type_)
 {
-
 	i_gacha_item_ = std::make_shared<GachaItem>(id_, type_);
 	spawn_gacha_Item_list.emplace_back(i_gacha_item_);
 }
@@ -86,7 +84,6 @@ void GachaGacha::CheckGachaItemAlive()
 		if (!(*it)->is_alive_) {
 			auto gacha_item = *it;	//item‚Éit‚ÌƒAƒhƒŒƒX‚ð‘ã“ü
 			get_gacha_item_frag[gacha_item->type_] = true;	//get_item_frag‚Ìitem‚Ìtype”Ô–Ú‚ðtrue‚É
-
 			get_gacha_Item_vec[i_gacha_item_->type_] = gacha_item;	//get_item_vec‚Ìitem‚Ìtype”Ô–Ú‚Éitem‚ð‘ã“ü
 			it = spawn_gacha_Item_list.erase(it);
 			continue;

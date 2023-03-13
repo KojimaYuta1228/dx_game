@@ -23,6 +23,7 @@ public:
 	void SwithItemMove(int item_num, std::shared_ptr<GachaGacha>get_coin);//アイテムごとの動き
 	void ItemProcess(float delta_time); //アイテムごとの細かい処理
 	void ItemAnim(float delta_time);//アイテムのアニメーション
+	void SetSprite()override;
 	int id_;
 	int type_;
 	float angle_ = 0;
